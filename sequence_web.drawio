@@ -386,19 +386,19 @@
         </mxCell>
         <mxCell id="nucLkDcXrnHL7K70imRz-4" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="200" y="1240" as="sourcePoint" />
+            <mxPoint x="200" y="1050" as="sourcePoint" />
             <mxPoint x="200" y="880" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="nucLkDcXrnHL7K70imRz-5" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="400" y="1220" as="sourcePoint" />
+            <mxPoint x="400" y="1050" as="sourcePoint" />
             <mxPoint x="400" y="880" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="nucLkDcXrnHL7K70imRz-6" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="600" y="1220" as="sourcePoint" />
+            <mxPoint x="600" y="1050" as="sourcePoint" />
             <mxPoint x="600" y="880" as="targetPoint" />
           </mxGeometry>
         </mxCell>
@@ -420,7 +420,7 @@
             <mxPoint x="401.5" y="947.5" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="nucLkDcXrnHL7K70imRz-12" value="POST données de film" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+        <mxCell id="nucLkDcXrnHL7K70imRz-12" value="POST données" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
           <mxGeometry x="221.5" y="930" width="170" height="15" as="geometry" />
         </mxCell>
         <mxCell id="nucLkDcXrnHL7K70imRz-13" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
@@ -429,7 +429,7 @@
             <mxPoint x="599" y="960" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="nucLkDcXrnHL7K70imRz-14" value="enregistrement des données" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+        <mxCell id="nucLkDcXrnHL7K70imRz-14" value="vérification des données" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
           <mxGeometry x="413" y="940" width="170" height="15" as="geometry" />
         </mxCell>
         <mxCell id="nucLkDcXrnHL7K70imRz-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1">
@@ -438,98 +438,53 @@
             <mxPoint x="50" y="935" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="nucLkDcXrnHL7K70imRz-20" value="ajoute un film" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+        <mxCell id="nucLkDcXrnHL7K70imRz-20" value="ajoute un film/séance" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
           <mxGeometry x="70" y="917.5" width="100" height="10" as="geometry" />
-        </mxCell>
-        <mxCell id="nucLkDcXrnHL7K70imRz-21" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="201.5" y="980" as="sourcePoint" />
-            <mxPoint x="401.5" y="980" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="nucLkDcXrnHL7K70imRz-22" value="POST des données du film" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
-          <mxGeometry x="216.5" y="965" width="170" height="15" as="geometry" />
         </mxCell>
         <mxCell id="nucLkDcXrnHL7K70imRz-23" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="399" y="990" as="sourcePoint" />
-            <mxPoint x="599" y="990" as="targetPoint" />
+            <mxPoint x="399" y="1010" as="sourcePoint" />
+            <mxPoint x="599" y="1010" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="nucLkDcXrnHL7K70imRz-24" value="mise à jour des données" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
-          <mxGeometry x="413" y="970" width="170" height="15" as="geometry" />
-        </mxCell>
-        <mxCell id="nucLkDcXrnHL7K70imRz-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="200" y="970" as="targetPoint" />
-            <mxPoint x="50" y="970" as="sourcePoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="nucLkDcXrnHL7K70imRz-30" value="modifie un film" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
-          <mxGeometry x="60" y="955" width="100" height="10" as="geometry" />
-        </mxCell>
-        <mxCell id="nucLkDcXrnHL7K70imRz-31" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="201.5" y="1007.5" as="sourcePoint" />
-            <mxPoint x="401.5" y="1007.5" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="nucLkDcXrnHL7K70imRz-32" value="POST d&#39;un film" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
-          <mxGeometry x="221.5" y="990" width="170" height="15" as="geometry" />
-        </mxCell>
-        <mxCell id="nucLkDcXrnHL7K70imRz-33" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="401.5" y="1110" as="sourcePoint" />
-            <mxPoint x="201.5" y="1110" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="nucLkDcXrnHL7K70imRz-34" value="affiche le résumé de la réservation" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
-          <mxGeometry x="220" y="1090" width="170" height="15" as="geometry" />
+        <mxCell id="nucLkDcXrnHL7K70imRz-24" value="si film/séance existant : mise à jour des données" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="413" y="990" width="170" height="15" as="geometry" />
         </mxCell>
         <mxCell id="nucLkDcXrnHL7K70imRz-35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="200" y="997.5" as="targetPoint" />
-            <mxPoint x="50" y="997.5" as="sourcePoint" />
+            <mxPoint x="200" y="1017.5" as="targetPoint" />
+            <mxPoint x="50" y="1017.5" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="nucLkDcXrnHL7K70imRz-36" value="supprime un film" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
-          <mxGeometry x="60" y="980" width="100" height="10" as="geometry" />
-        </mxCell>
-        <mxCell id="nucLkDcXrnHL7K70imRz-37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="200" y="1142.5" as="targetPoint" />
-            <mxPoint x="50" y="1142.5" as="sourcePoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="nucLkDcXrnHL7K70imRz-38" value="valide la réservation" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
-          <mxGeometry x="60" y="1130" width="100" height="10" as="geometry" />
-        </mxCell>
-        <mxCell id="nucLkDcXrnHL7K70imRz-39" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="201.5" y="1157.5" as="sourcePoint" />
-            <mxPoint x="401.5" y="1157.5" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="nucLkDcXrnHL7K70imRz-40" value="POST de la commande" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
-          <mxGeometry x="221.5" y="1140" width="170" height="15" as="geometry" />
+        <mxCell id="nucLkDcXrnHL7K70imRz-36" value="supprime un film/séance" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="50" y="1000" width="130" height="10" as="geometry" />
         </mxCell>
         <mxCell id="nucLkDcXrnHL7K70imRz-41" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="399" y="1020" as="sourcePoint" />
-            <mxPoint x="599" y="1020" as="targetPoint" />
+            <mxPoint x="399" y="1040" as="sourcePoint" />
+            <mxPoint x="599" y="1040" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="nucLkDcXrnHL7K70imRz-42" value="suppression des données" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
-          <mxGeometry x="413" y="1000" width="170" height="15" as="geometry" />
+          <mxGeometry x="413" y="1020" width="170" height="15" as="geometry" />
         </mxCell>
-        <mxCell id="nucLkDcXrnHL7K70imRz-43" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+        <mxCell id="nucLkDcXrnHL7K70imRz-51" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="401.5" y="1185" as="sourcePoint" />
-            <mxPoint x="201.5" y="1185" as="targetPoint" />
+            <mxPoint x="399" y="985" as="sourcePoint" />
+            <mxPoint x="599" y="985" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="nucLkDcXrnHL7K70imRz-44" value="envoi de mail de confirmation" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
-          <mxGeometry x="220" y="1165" width="170" height="15" as="geometry" />
+        <mxCell id="nucLkDcXrnHL7K70imRz-52" value="si film/séance non existant : enregistrement des données" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="413" y="965" width="170" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="nucLkDcXrnHL7K70imRz-53" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="201.5" y="1027.5" as="sourcePoint" />
+            <mxPoint x="401.5" y="1027.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="nucLkDcXrnHL7K70imRz-54" value="POST" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="221.5" y="1010" width="170" height="15" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
