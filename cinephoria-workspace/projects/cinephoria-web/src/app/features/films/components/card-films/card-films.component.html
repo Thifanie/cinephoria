@@ -1,0 +1,16 @@
+@for (film of items(); track film.titre) {
+<div class="card mb-3" style="width: 828px">
+  <div class="row g-0">
+    <div class="col-md-6">
+      <img src="avengers.jpg" class="img-fluid rounded-start" alt="avengers" />
+    </div>
+    <div class="card-body col-md-4">
+      <h4 class="card-title">{{ film.titre }}</h4>
+      <h5 class="card-subtitle">{{ film.acteurs }}</h5>
+      <p class="card-text">
+        {{ film.description }}
+      </p>
+    </div>
+  </div>
+</div>
+}

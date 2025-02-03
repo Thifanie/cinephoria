@@ -2,8 +2,8 @@
 
 export interface Film {
   titre: string;
-  genre: string;
-  acteurs: [];
+  genre: string[];
+  acteurs: string[];
   description: string;
   ageMinimum: number;
   coupDeCoeur: boolean;
