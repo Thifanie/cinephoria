@@ -14,7 +14,7 @@ a {
 
 #inscription {
   border-radius: 10%;
-  background-color: #a57e8f80;
+  background-color: #a57e8f50;
 }
 
 #connexion {
@@ -37,4 +37,10 @@ li:hover {
 
 #connexion:hover {
   background-color: #cbb5ac;
+}
+
+.actif {
+  color: d4cdc9;
+  border-radius: 10%;
+  background-color: #54516390;
 }

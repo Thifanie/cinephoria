@@ -1,0 +1,31 @@
+h1 {
+  color: #d4cdc9;
+  font-weight: bold;
+  text-align: center;
+  -webkit-text-stroke: 1px black;
+  margin: 50px 0 50px;
+}
+
+h3 {
+  color: #d4cdc9;
+  text-align: center;
+}
+
+p {
+  text-align: justify;
+  padding: 10px;
+  margin-bottom: 50px;
+  color: #545163;
+}
+
+#description-cinema {
+  background-color: #d4cdc9;
+  border-radius: 10px;
+  padding: 0;
+}
+
+#carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
