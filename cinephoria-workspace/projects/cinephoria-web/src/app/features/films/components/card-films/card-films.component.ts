@@ -8,4 +8,10 @@ import { Film } from '../../models/film';
 })
 export class CardFilmsComponent {
   items = input.required<Film[]>();
+
+  // Méthode pour calculer le pourcentage de la largeur des étoiles
+  calculateRating(note: number): number {
+    let rating: number = (note / 5) * 100;
+    return rating;
+  }
 }

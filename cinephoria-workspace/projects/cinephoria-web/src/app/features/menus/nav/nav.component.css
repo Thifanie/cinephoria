@@ -1,0 +1,40 @@
+nav {
+  background-color: #6d6576;
+}
+
+nav img {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+}
+
+a {
+  color: #d4cdc9;
+}
+
+#inscription {
+  border-radius: 10%;
+  background-color: #a57e8f80;
+}
+
+#connexion {
+  border-radius: 10%;
+  background-color: #cbb5ac61;
+}
+
+li {
+  margin: 0px 30px 0px;
+}
+
+li:hover {
+  background-color: #d4cdc9;
+  border-radius: 10%;
+}
+
+#inscription:hover {
+  background-color: #a57e8f;
+}
+
+#connexion:hover {
+  background-color: #cbb5ac;
+}
