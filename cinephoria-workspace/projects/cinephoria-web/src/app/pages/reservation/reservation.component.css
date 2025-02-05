@@ -1,0 +1,18 @@
+.btn {
+  background-color: #d4cdc9;
+  color: #545163;
+}
+
+label {
+  color: #d4cdc9;
+}
+
+#div-places {
+  gap: 1em;
+  padding: 0;
+}
+
+#places {
+  background-color: #d4cdc9;
+  color: #545163;
+}

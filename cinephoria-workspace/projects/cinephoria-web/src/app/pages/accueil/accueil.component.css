@@ -1,13 +1,8 @@
 h1 {
-  color: #d4cdc9;
-  font-weight: bold;
-  text-align: center;
   -webkit-text-stroke: 1px black;
-  margin: 50px 0 50px;
 }
 
 h3 {
-  color: #d4cdc9;
   text-align: center;
 }
 
@@ -28,4 +23,16 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.carousel-control-prev {
+  transform: TranslateX(-100%);
+}
+
+.carousel-control-next {
+  transform: TranslateX(+100%);
+}
+
+.carousel-indicators {
+  transform: translateY(+200%);
 }
