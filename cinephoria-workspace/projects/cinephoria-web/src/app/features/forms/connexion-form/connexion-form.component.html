@@ -1,0 +1,45 @@
+<form [formGroup]="connexionForm" (submit)="connexion()">
+  <div class="mb-3">
+    <label for="mail" class="form-label">Adresse mail</label>
+    <br />
+    <input
+      formControlName="mail"
+      type="email"
+      class="form-control-sm"
+      id="mail"
+      aria-describedby="mail"
+      required
+    />
+    <div
+      *ngIf="
+        connexionForm.get('mail')?.invalid && connexionForm.get('mail')?.touched
+      "
+      class="erreur"
+    >
+      L'adresse mail doit contenir le caractère &#64;.
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="mdp" class="form-label">Mot de passe</label>
+    <br />
+    <input
+      formControlName="mdp"
+      type="password"
+      class="form-control-sm"
+      id="mdp"
+      required
+    />
+    <div
+      *ngIf="
+        connexionForm.get('mdp')?.invalid && connexionForm.get('mdp')?.touched
+      "
+      class="erreur"
+    >
+      Le mot de passe doit avoir au moins 8 caractères.
+    </div>
+  </div>
+  <button type="submit" class="btn">Se connecter</button>
+
+  <a href="">Mot de passe oublié</a>
+</form>

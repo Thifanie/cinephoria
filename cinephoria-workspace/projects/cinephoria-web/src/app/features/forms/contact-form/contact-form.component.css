@@ -1,0 +1,44 @@
+form {
+  background-color: #cbb5ac;
+  border-radius: 10px;
+  max-width: 35%;
+  padding: 40px;
+  margin: 50px auto;
+  color: #545163;
+  display: grid;
+}
+
+a {
+  color: #545163;
+  margin-top: 16px;
+  text-align: center;
+}
+
+input,
+button {
+  width: 100%;
+}
+
+.connexionForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.erreur {
+  font-size: small;
+}
+
+button {
+  margin-top: 16px;
+  background-color: #6d6576;
+  color: #d4cdc9;
+}
+
+button:hover {
+  background-color: #545163;
+  color: #d4cdc9;
+}
+
+#description {
+  height: 180px;
+}

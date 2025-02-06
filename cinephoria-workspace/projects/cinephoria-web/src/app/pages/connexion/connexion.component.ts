@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
+import { ConnexionFormComponent } from '../../features/forms/connexion-form/connexion-form.component';
 
 @Component({
   selector: 'app-connexion',
-  imports: [],
+  imports: [ConnexionFormComponent],
   templateUrl: './connexion.component.html',
-  styleUrl: './connexion.component.css'
+  styleUrl: './connexion.component.css',
 })
-export class ConnexionComponent {
-
-}
+export class ConnexionComponent {}

@@ -1,0 +1,42 @@
+<form [formGroup]="contactForm" (submit)="contact()">
+  <div class="mb-3">
+    <label for="nomUser" class="form-label">Nom d'utilisateur</label>
+    <br />
+    <input
+      formControlName="nomUser"
+      type="text"
+      class="form-control-sm"
+      id="nomUser"
+      aria-describedby="nomUser"
+      required
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="objet" class="form-label">Objet de la demande</label>
+    <br />
+    <input
+      formControlName="objet"
+      type="text"
+      class="form-control-sm"
+      id="objet"
+      required
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="description" class="form-label"
+      >Description de la demande</label
+    >
+    <br />
+    <textarea
+      formControlName="description"
+      class="form-control-sm"
+      id="description"
+      required
+      rows="5"
+      cols="45"
+    ></textarea>
+  </div>
+  <button type="submit" class="btn">Envoyer</button>
+</form>

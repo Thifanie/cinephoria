@@ -1,0 +1,82 @@
+<form [formGroup]="inscriptionForm" (submit)="inscription()">
+  <div class="mb-3">
+    <label for="prenom" class="form-label">Prénom</label>
+    <br />
+    <input
+      formControlName="prenom"
+      type="text"
+      class="form-control-sm"
+      id="prenom"
+      aria-describedby="prenom"
+      required
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="nom" class="form-label">Nom</label>
+    <br />
+    <input
+      formControlName="nom"
+      type="text"
+      class="form-control-sm"
+      id="nom"
+      required
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="nomUser" class="form-label">Nom d'utilisateur</label>
+    <br />
+    <input
+      formControlName="nomUser"
+      type="text"
+      class="form-control-sm"
+      id="nomUser"
+      required
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="mail" class="form-label">Adresse mail</label>
+    <br />
+    <input
+      formControlName="mail"
+      type="email"
+      class="form-control-sm"
+      id="mail"
+      required
+    />
+    <div
+      *ngIf="
+        inscriptionForm.get('mail')?.invalid &&
+        inscriptionForm.get('mail')?.touched
+      "
+      class="erreur"
+    >
+      L'adresse mail doit contenir le caractère &#64;.
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="mdp" class="form-label">Mot de passe</label>
+    <br />
+    <input
+      formControlName="mdp"
+      type="password"
+      class="form-control-sm"
+      id="mdp"
+      required
+    />
+    <div
+      *ngIf="
+        inscriptionForm.get('mdp')?.invalid &&
+        inscriptionForm.get('mdp')?.touched
+      "
+      class="erreur"
+    >
+      Le mot de passe doit avoir au moins 8 caractères.
+    </div>
+  </div>
+
+  <button type="submit" class="btn">S'inscrire</button>
+</form>
