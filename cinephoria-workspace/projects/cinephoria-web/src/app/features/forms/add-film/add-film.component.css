@@ -1,0 +1,61 @@
+form {
+  background-color: #545163;
+
+  border-radius: 10px;
+  max-width: 100%;
+
+  color: #545163;
+}
+
+a {
+  color: #545163;
+  margin-top: 16px;
+  text-align: center;
+}
+
+textarea {
+  height: 100%;
+  padding: 0;
+}
+
+input,
+textarea {
+  background-color: #d4cdc9;
+  width: 100%;
+}
+
+img {
+  width: 40px;
+  height: 40px;
+}
+
+.erreur {
+  font-size: small;
+}
+
+button {
+  margin-top: 16px;
+  background-color: #a57e8f;
+  color: #d4cdc9;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #545163;
+  color: #d4cdc9;
+}
+
+#affiche-film {
+  cursor: pointer;
+  margin: auto;
+}
+
+#div-img-upload {
+  width: 40px;
+  height: 40px;
+  margin: auto;
+}
+
+#titre {
+  margin-bottom: 25px;
+}

@@ -1,0 +1,35 @@
+.accordion {
+  --bs-accordion-border-color: #545163;
+}
+
+.accordion-item,
+.accordion-button {
+  background-color: #545163;
+  color: #545163;
+}
+
+.accordion-button {
+  color: #d4cdc9;
+  font-weight: bold;
+  padding: 6px 12px;
+}
+
+/* Removes the arrows of the accordion */
+.accordion-button::after {
+  background-image: initial;
+}
+
+.accordion-button:not(.collapsed)::after {
+  background-image: initial;
+}
+
+/* Removes the blue shadow when button is focused */
+.accordion-button:focus {
+  box-shadow: none;
+}
+
+div.accordion-item img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
