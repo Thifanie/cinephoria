@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -7,6 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-connexion-form',
@@ -20,8 +21,17 @@ export class ConnexionFormComponent {
     mdp: new FormControl('', Validators.minLength(8)),
   });
 
+  router = inject(Router);
+
   connexion(): void {
     if (this.connexionForm.invalid) return;
-    console.log(this.connexionForm.value);
+    if (
+      this.connexionForm.value.mail == 'admin@gmail.com' &&
+      this.connexionForm.value.mdp == 'admin123'
+    ) {
+      this.router.navigateByUrl('admin');
+    } else {
+      alert("Vous n'avez pas les droits !");
+    }
   }
 }

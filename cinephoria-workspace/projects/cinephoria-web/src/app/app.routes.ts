@@ -6,6 +6,7 @@ import { ReservationComponent } from './pages/reservation/reservation.component'
 import { AccueilComponent } from './pages/accueil/accueil.component';
 import { InscriptionComponent } from './pages/inscription/inscription.component';
 import { ConnexionComponent } from './pages/connexion/connexion.component';
+import { AdministrationComponent } from './pages/administration/administration.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'accueil' },
@@ -16,4 +17,5 @@ export const routes: Routes = [
   { path: 'reservation', component: ReservationComponent },
   { path: 'inscription', component: InscriptionComponent },
   { path: 'connexion', component: ConnexionComponent },
+  { path: 'admin', component: AdministrationComponent },
 ];
