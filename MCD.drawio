@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36" version="26.0.10">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36" version="26.0.11">
   <diagram name="Page-1" id="671RRiFCWpEk_SXeamfu">
     <mxGraphModel dx="954" dy="1787" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -12,14 +12,14 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="kYReCTsqhSqgmGwsNXHj-36" value="Utilisateur" style="swimlane;whiteSpace=wrap;html=1;fillColor=#FFFFFF;gradientColor=none;swimlaneLine=1;rounded=0;shadow=0;glass=0;" parent="1" vertex="1">
+        <mxCell id="kYReCTsqhSqgmGwsNXHj-36" value="users" style="swimlane;whiteSpace=wrap;html=1;fillColor=#FFFFFF;gradientColor=none;swimlaneLine=1;rounded=0;shadow=0;glass=0;startSize=23;" parent="1" vertex="1">
           <mxGeometry x="10" y="585" width="250" height="130" as="geometry" />
         </mxCell>
         <mxCell id="kYReCTsqhSqgmGwsNXHj-38" value="AUTO_INCREMENT&lt;div&gt;VARCHAR&lt;/div&gt;&lt;div&gt;VARCHAR&lt;/div&gt;&lt;div&gt;VARCHAR&lt;/div&gt;&lt;div&gt;VARCHAR&lt;/div&gt;&lt;div&gt;VARCHAR&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="kYReCTsqhSqgmGwsNXHj-36" vertex="1">
           <mxGeometry x="110" y="30" width="130" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="kYReCTsqhSqgmGwsNXHj-40" value="idUtilisateur&lt;div&gt;prenom&lt;div&gt;nom&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;nomUtilisateur&lt;/div&gt;&lt;div&gt;adresseMail&lt;/div&gt;&lt;div&gt;motDePasse&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="kYReCTsqhSqgmGwsNXHj-36" vertex="1">
-          <mxGeometry x="10" y="30" width="100" height="100" as="geometry" />
+        <mxCell id="kYReCTsqhSqgmGwsNXHj-40" value="idUsers&lt;div&gt;firstname&lt;div&gt;name&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;username&lt;/div&gt;&lt;div&gt;email&lt;/div&gt;&lt;div&gt;password&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="kYReCTsqhSqgmGwsNXHj-36" vertex="1">
+          <mxGeometry x="10" y="30" width="80" height="100" as="geometry" />
         </mxCell>
         <mxCell id="kYReCTsqhSqgmGwsNXHj-63" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=default;endArrow=none;endFill=0;" parent="1" source="kYReCTsqhSqgmGwsNXHj-41" target="kYReCTsqhSqgmGwsNXHj-62" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -222,29 +222,29 @@
         <mxCell id="kYReCTsqhSqgmGwsNXHj-118" value="idEmploye&lt;div&gt;prenom&lt;div&gt;nom&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;nomUtilisateur&lt;/div&gt;&lt;div&gt;adresseMail&lt;/div&gt;&lt;div&gt;motDePasse&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="kYReCTsqhSqgmGwsNXHj-116" vertex="1">
           <mxGeometry x="10" y="30" width="100" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="oDb-okr_boJ0rcEJcuTh-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="oDb-okr_boJ0rcEJcuTh-1" target="kYReCTsqhSqgmGwsNXHj-41">
+        <mxCell id="oDb-okr_boJ0rcEJcuTh-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="oDb-okr_boJ0rcEJcuTh-1" target="kYReCTsqhSqgmGwsNXHj-41" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="oDb-okr_boJ0rcEJcuTh-7" value="0, n" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="oDb-okr_boJ0rcEJcuTh-4">
+        <mxCell id="oDb-okr_boJ0rcEJcuTh-7" value="0, n" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="oDb-okr_boJ0rcEJcuTh-4" vertex="1" connectable="0">
           <mxGeometry x="-0.6833" relative="1" as="geometry">
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="oDb-okr_boJ0rcEJcuTh-8" value="1, n" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="oDb-okr_boJ0rcEJcuTh-4">
+        <mxCell id="oDb-okr_boJ0rcEJcuTh-8" value="1, n" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="oDb-okr_boJ0rcEJcuTh-4" vertex="1" connectable="0">
           <mxGeometry x="0.5917" y="2" relative="1" as="geometry">
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="oDb-okr_boJ0rcEJcuTh-1" value="Acteurs" style="swimlane;whiteSpace=wrap;html=1;fillColor=#FFFFFF;gradientColor=none;swimlaneLine=1;rounded=0;shadow=0;glass=0;startSize=23;" vertex="1" parent="1">
+        <mxCell id="oDb-okr_boJ0rcEJcuTh-1" value="Acteurs" style="swimlane;whiteSpace=wrap;html=1;fillColor=#FFFFFF;gradientColor=none;swimlaneLine=1;rounded=0;shadow=0;glass=0;startSize=23;" parent="1" vertex="1">
           <mxGeometry x="35" y="-240" width="200" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="oDb-okr_boJ0rcEJcuTh-2" value="AUTO_INCREMENT&lt;div&gt;VARCHAR&lt;/div&gt;&lt;div&gt;VARCHAR&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="oDb-okr_boJ0rcEJcuTh-1">
+        <mxCell id="oDb-okr_boJ0rcEJcuTh-2" value="AUTO_INCREMENT&lt;div&gt;VARCHAR&lt;/div&gt;&lt;div&gt;VARCHAR&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="oDb-okr_boJ0rcEJcuTh-1" vertex="1">
           <mxGeometry x="70" y="30" width="130" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="oDb-okr_boJ0rcEJcuTh-3" value="id&lt;div&gt;prenom&lt;div&gt;nom&lt;/div&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="oDb-okr_boJ0rcEJcuTh-1">
+        <mxCell id="oDb-okr_boJ0rcEJcuTh-3" value="id&lt;div&gt;prenom&lt;div&gt;nom&lt;/div&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="oDb-okr_boJ0rcEJcuTh-1" vertex="1">
           <mxGeometry x="10" y="30" width="60" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="oDb-okr_boJ0rcEJcuTh-5" value="a joué dans" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="oDb-okr_boJ0rcEJcuTh-5" value="a joué dans" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="92.5" y="-100" width="85" height="50" as="geometry" />
         </mxCell>
       </root>
