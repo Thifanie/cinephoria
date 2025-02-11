@@ -15,10 +15,12 @@
   color: #545163;
   height: auto;
   align-content: center;
+  text-align: justify;
 }
 
 .card-text {
   font-size: x-small;
+  text-align: justify;
 }
 
 .rating {

@@ -22,6 +22,12 @@ input,
 textarea {
   background-color: #d4cdc9;
   width: 100%;
+  padding: 4px 8px;
+}
+
+label {
+  color: #d4cdc9;
+  margin-right: 5px;
 }
 
 img {
@@ -41,7 +47,7 @@ button {
 }
 
 button:hover {
-  background-color: #545163;
+  background-color: #a57e8fad;
   color: #d4cdc9;
 }
 
@@ -56,6 +62,22 @@ button:hover {
   margin: auto;
 }
 
-#titre {
-  margin-bottom: 25px;
+#titre,
+#actors {
+  margin-bottom: 15px;
+  padding: 4px 8px;
+}
+
+#minAge,
+#opinion {
+  width: 150px;
+}
+
+#favorite,
+#onView {
+  transform: translateY(10%);
+}
+
+#file-name-container {
+  color: #d4cdc9;
 }

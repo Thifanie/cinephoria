@@ -11,16 +11,16 @@ import { DataService } from '../../../../data.service';
   styleUrl: './list-films.component.css',
 })
 export class ListFilmsComponent implements OnInit, OnDestroy {
-  listFilms: any;
+  listFilms: Film[] = [];
   subscription: Subscription | undefined;
 
   constructor(private readonly dataService: DataService) {}
 
   ngOnInit() {
     this.subscription = this.dataService.getFilms().subscribe((data) => {
+      console.log(data);
       this.listFilms = data;
     });
-    // this.subscription.add(filmSub);
   }
 
   ngOnDestroy() {

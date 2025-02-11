@@ -5,9 +5,10 @@ export interface Film {
   title: string;
   actors: string;
   description: string;
-  minAge: number;
+  minage: number;
   favorite: boolean;
   opinion: number;
-  moviePoster: string;
-  onView: boolean;
+  movieposter: string;
+  onview: boolean;
+  type: string;
 }
