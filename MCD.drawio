@@ -30,13 +30,13 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="kYReCTsqhSqgmGwsNXHj-41" value="film" style="swimlane;whiteSpace=wrap;html=1;fillColor=#FFFFFF;gradientColor=none;swimlaneLine=1;rounded=0;shadow=0;glass=0;startSize=23;" parent="1" vertex="1">
-          <mxGeometry x="10" y="10" width="250" height="160" as="geometry" />
+          <mxGeometry x="10" y="10" width="250" height="165" as="geometry" />
         </mxCell>
-        <mxCell id="kYReCTsqhSqgmGwsNXHj-42" value="AUTO_INCREMENT&lt;div&gt;VARCHAR&lt;/div&gt;&lt;div&gt;INT&lt;/div&gt;&lt;div&gt;VARCHAR&lt;/div&gt;&lt;div&gt;VARCHAR&lt;/div&gt;&lt;div&gt;INT&lt;/div&gt;&lt;div&gt;BOOLEAN&lt;/div&gt;&lt;div&gt;INT&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="kYReCTsqhSqgmGwsNXHj-41" vertex="1">
-          <mxGeometry x="110" y="30" width="130" height="130" as="geometry" />
+        <mxCell id="kYReCTsqhSqgmGwsNXHj-42" value="AUTO_INCREMENT&lt;div&gt;VARCHAR&lt;/div&gt;&lt;div&gt;INT&lt;/div&gt;&lt;div&gt;VARCHAR&lt;/div&gt;&lt;div&gt;VARCHAR&lt;/div&gt;&lt;div&gt;INT&lt;/div&gt;&lt;div&gt;BOOLEAN&lt;/div&gt;&lt;div&gt;INT&lt;/div&gt;&lt;div&gt;BOOLEAN&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="kYReCTsqhSqgmGwsNXHj-41" vertex="1">
+          <mxGeometry x="110" y="25" width="130" height="140" as="geometry" />
         </mxCell>
-        <mxCell id="kYReCTsqhSqgmGwsNXHj-43" value="id&lt;div&gt;title&lt;div&gt;idType&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;actors&lt;/div&gt;&lt;div&gt;description&lt;/div&gt;&lt;div&gt;minAge&lt;/div&gt;&lt;div&gt;favorite&lt;/div&gt;&lt;div&gt;opinion&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="kYReCTsqhSqgmGwsNXHj-41" vertex="1">
-          <mxGeometry x="10" y="30" width="80" height="130" as="geometry" />
+        <mxCell id="kYReCTsqhSqgmGwsNXHj-43" value="id&lt;div&gt;title&lt;div&gt;idType&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;actors&lt;/div&gt;&lt;div&gt;description&lt;/div&gt;&lt;div&gt;minAge&lt;/div&gt;&lt;div&gt;favorite&lt;/div&gt;&lt;div&gt;opinion&lt;/div&gt;&lt;div&gt;onView&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="kYReCTsqhSqgmGwsNXHj-41" vertex="1">
+          <mxGeometry x="10" y="25" width="80" height="140" as="geometry" />
         </mxCell>
         <mxCell id="kYReCTsqhSqgmGwsNXHj-55" value="" style="endArrow=none;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
