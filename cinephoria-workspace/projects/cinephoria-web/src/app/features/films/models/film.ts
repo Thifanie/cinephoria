@@ -1,11 +1,13 @@
 /** Un film géré dans la filmothèque */
 
 export interface Film {
-  titre: string;
-  genre: string[];
-  acteurs: string[];
+  id: number;
+  title: string;
+  actors: string;
   description: string;
-  ageMinimum: number;
-  coupDeCoeur: boolean;
-  note: number;
+  minAge: number;
+  favorite: boolean;
+  opinion: number;
+  moviePoster: string;
+  onView: boolean;
 }

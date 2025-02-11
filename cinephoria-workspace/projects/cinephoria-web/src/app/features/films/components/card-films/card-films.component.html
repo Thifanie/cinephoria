@@ -1,33 +1,33 @@
-@for (film of items(); track film.titre) {
+@for (film of items(); track film.id) { @if (film.onView) {
 <div class="container">
   <div class="card mb-3" style="width: 828px">
     <div class="row g-0">
       <div class="col-md-6">
         <img
-          src="assets/avengers.jpg"
+          src="{{ film.moviePoster }}"
           class="img-fluid rounded-start"
-          alt="avengers"
+          alt="{{ film.title }}"
         />
       </div>
       <div class="card-body col-md-4">
-        <h4 class="card-title mb-4">{{ film.titre }}</h4>
-        <h5 class="card-subtitle mb-4">{{ film.acteurs }}</h5>
+        <h4 class="card-title mb-4" id="title">{{ film.title }}</h4>
+        <h5 class="card-subtitle mb-4" id="actors">{{ film.actors }}</h5>
         <p class="card-text">
           {{ film.description }}
         </p>
-        <h6 class="card-subtitle mb-4">{{ film.genre }}</h6>
-        <h6 class="card-subtitle mb-4">
-          Age minimum : {{ film.ageMinimum }} ans
-        </h6>
-        @if (film.coupDeCoeur) {
+        <!-- <h6 class="card-subtitle mb-4">{{ film.idTtype }}</h6> -->
+        @if (film.minAge) {
+        <h6 class="card-subtitle mb-4">Age minimum : {{ film.minAge }} ans</h6>
+        } @if (film.favorite) {
         <h5
-          class="card-subtitle mb-4"
+          class="card-subtitle mb-2"
           style="color: #a57e8f; font-weight: bold; text-align: center"
         >
           Coup de coeur
         </h5>
         }
         <!-- Etoiles représentant la note du film -->
+        @if (film.opinion) {
         <div class="rating">
           <div class="stars-outer">
             <img src="assets/emptyStar.png" alt="empty star" />
@@ -37,7 +37,7 @@
             <img src="assets/emptyStar.png" alt="empty star" />
             <div
               class="stars-inner"
-              [style.width.%]="calculateRating(film.note)"
+              [style.width.%]="calculateRating(film.opinion)"
             >
               <img src="assets/filledStar.png" alt="filled star" />
               <img src="assets/filledStar.png" alt="filled star" />
@@ -47,8 +47,11 @@
             </div>
           </div>
         </div>
+        } @if (!film.opinion) {
+        <div class="new"><p>Nouveau</p></div>
+        }
       </div>
     </div>
   </div>
 </div>
-}
+}}

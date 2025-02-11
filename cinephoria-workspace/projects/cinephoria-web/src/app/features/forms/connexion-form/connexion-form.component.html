@@ -1,18 +1,19 @@
 <form [formGroup]="connexionForm" (submit)="connexion()">
   <div class="mb-3">
-    <label for="mail" class="form-label">Adresse mail</label>
+    <label for="email" class="form-label">Adresse mail</label>
     <br />
     <input
-      formControlName="mail"
+      formControlName="email"
       type="email"
       class="form-control-sm"
       id="mail"
-      aria-describedby="mail"
+      aria-describedby="email"
       required
     />
     <div
       *ngIf="
-        connexionForm.get('mail')?.invalid && connexionForm.get('mail')?.touched
+        connexionForm.get('email')?.invalid &&
+        connexionForm.get('email')?.touched
       "
       class="erreur"
     >
@@ -21,18 +22,19 @@
   </div>
 
   <div class="mb-3">
-    <label for="mdp" class="form-label">Mot de passe</label>
+    <label for="password" class="form-label">Mot de passe</label>
     <br />
     <input
-      formControlName="mdp"
+      formControlName="password"
       type="password"
       class="form-control-sm"
-      id="mdp"
+      id="password"
       required
     />
     <div
       *ngIf="
-        connexionForm.get('mdp')?.invalid && connexionForm.get('mdp')?.touched
+        connexionForm.get('password')?.invalid &&
+        connexionForm.get('password')?.touched
       "
       class="erreur"
     >

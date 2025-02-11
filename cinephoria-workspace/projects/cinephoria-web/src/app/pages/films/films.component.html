@@ -1,5 +1,8 @@
 <h1>Films</h1>
 
-<!-- <div class="container"><app-list-films></app-list-films></div> -->
+<!-- <div *ngFor="let film of films">
+  <p>{{ film.title }}</p>
+  <p>{{ film.description }}</p>
+</div> -->
 
-<button type="button" (click)="afficherFilm()">afficher film</button>
+<div class="container"><app-list-films></app-list-films></div>

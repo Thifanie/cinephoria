@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AddFilmComponent } from '../../features/forms/add-film/add-film.component';
+import { AddFilmComponent } from '../../features/administration/add-film/add-film.component';
 
 @Component({
   selector: 'app-administration',

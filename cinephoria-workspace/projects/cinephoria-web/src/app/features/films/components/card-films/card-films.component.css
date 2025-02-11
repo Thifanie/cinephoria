@@ -49,3 +49,18 @@
   width: 40px;
   height: 40px;
 }
+
+.new {
+  color: #a57e8f;
+  font-weight: bold;
+  text-align: center;
+  font-size: larger;
+}
+
+#actors {
+  font-size: small;
+}
+
+#title {
+  text-align: center;
+}

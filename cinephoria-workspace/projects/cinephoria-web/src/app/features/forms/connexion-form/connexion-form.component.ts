@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -8,6 +8,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DataService } from '../../../data.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-connexion-form',
@@ -15,23 +17,42 @@ import { Router } from '@angular/router';
   templateUrl: './connexion-form.component.html',
   styleUrl: './connexion-form.component.css',
 })
-export class ConnexionFormComponent {
+export class ConnexionFormComponent implements OnDestroy {
   connexionForm = new FormGroup({
-    mail: new FormControl('', Validators.email),
-    mdp: new FormControl('', Validators.minLength(8)),
+    email: new FormControl('', Validators.email),
+    password: new FormControl('', Validators.minLength(8)),
   });
 
+  constructor(private readonly dataService: DataService) {}
+
+  subscription: Subscription | undefined;
+  email!: string;
+  password!: string;
   router = inject(Router);
 
   connexion(): void {
     if (this.connexionForm.invalid) return;
-    if (
-      this.connexionForm.value.mail == 'admin@gmail.com' &&
-      this.connexionForm.value.mdp == 'admin123'
-    ) {
-      this.router.navigateByUrl('admin');
-    } else {
-      alert("Vous n'avez pas les droits !");
+    this.subscription = this.dataService.getAdmin().subscribe((data) => {
+      if (data.length === 0) {
+        alert('Aucun administrateur trouvé !');
+        return;
+      }
+      this.email = data[0].email;
+      this.password = data[0].password;
+      if (
+        this.connexionForm.value.email == this.email &&
+        this.connexionForm.value.password == this.password
+      ) {
+        this.router.navigateByUrl('admin');
+      } else {
+        alert("Vous n'avez pas les droits !");
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
     }
   }
 }
