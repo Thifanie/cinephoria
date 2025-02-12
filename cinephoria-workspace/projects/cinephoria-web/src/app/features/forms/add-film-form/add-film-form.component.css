@@ -43,6 +43,16 @@ legend {
   font-size: small;
 }
 
+.form-check-input {
+  width: 20px;
+}
+
+.form-check-input:checked {
+  background-color: #a57e8f;
+  box-shadow: none;
+  border: #545163;
+}
+
 button {
   margin-top: 16px;
   background-color: #a57e8f;
@@ -72,9 +82,12 @@ button:hover {
   padding: 4px 8px;
 }
 
-#minAge,
 #opinion {
-  width: 150px;
+  width: 100%;
+}
+
+#minAge {
+  width: 75%;
 }
 
 #favorite,

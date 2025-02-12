@@ -36,36 +36,22 @@
         ></textarea>
       </div>
 
-      <div class="col-2 d-flex flex-column align-items-center">
+      <div class="col-2 d-flex flex-column align-items-start">
         <!-- Input âge minimum -->
-        <div class="mb-3">
-          <input
-            formControlName="minAge"
-            type="number"
-            id="minAge"
-            name="minAge"
-            min="12"
-            max="18"
-            placeholder="Age minimum"
-          />
-        </div>
-        <!-- Input coup de coeur -->
-        <div class="d-flex mb-3">
-          <div>
-            <label for="favorite">Coup de coeur</label>
-          </div>
-          <div>
-            <input
-              formControlName="favorite"
-              type="checkbox"
-              id="favorite"
-              name="favorite"
-            />
-          </div>
-        </div>
+        <label for="minAge" class="mb-2">Age minimum :</label>
+        <input
+          formControlName="minAge"
+          type="number"
+          id="minAge"
+          name="minAge"
+          min="12"
+          max="18"
+          class="mb-2"
+        />
 
         <!-- Input note -->
         <div class="mb-3">
+          <label for="opinion" class="mb-2">Note :</label>
           <input
             formControlName="opinion"
             type="number"
@@ -74,7 +60,6 @@
             min="0"
             max="5"
             step="0.1"
-            placeholder="Note"
           />
         </div>
 
@@ -89,33 +74,30 @@
               type="checkbox"
               id="onView"
               name="onView"
+              class="form-check-input"
+            />
+          </div>
+        </div>
+
+        <!-- Input coup de coeur -->
+        <div class="d-flex mb-2">
+          <div>
+            <label for="favorite">Coup de coeur</label>
+          </div>
+          <div>
+            <input
+              formControlName="favorite"
+              type="checkbox"
+              id="favorite"
+              name="favorite"
+              class="form-check-input"
             />
           </div>
         </div>
       </div>
 
-      <!-- Input genres -->
-      <div class="d-flex">
-        <div formArrayName="type">
-          <fieldset>
-            <legend>Genres</legend>
-            <div *ngFor="let type of types; let i = index">
-              <div>
-                <label [for]="'type-' + type.id">{{ type.type }}</label>
-                <input
-                  formControlName="i"
-                  [value]="type.type"
-                  type="checkbox"
-                  [id]="'type-' + type.id"
-                />
-              </div>
-            </div>
-          </fieldset>
-        </div>
-      </div>
-
+      <!-- Input affiche du film -->
       <div class="col">
-        <!-- Input affiche du film -->
         <div class="col" id="div-img-upload">
           <label for="affiche">
             <img
@@ -139,11 +121,34 @@
           <h5 class="me-2">Fichier sélectionné :</h5>
           <p id="file-name"></p>
         </div>
+      </div>
 
-        <!-- Bouton ajouter le film -->
-        <div>
-          <button type="submit" class="btn">Ajouter</button>
+      <div class="row">
+        <!-- Input genres -->
+        <div class="col-12">
+          <fieldset>
+            <legend>Genres :</legend>
+            <div formGroupName="type" class="d-flex flex-wrap gap-3">
+              <div *ngFor="let type of types; let i = index">
+                <div>
+                  <label [for]="'type-' + type.id">{{ type.type }}</label>
+                  <input
+                    formControlName="type"
+                    class="form-check-input"
+                    [value]="type.type"
+                    type="checkbox"
+                    [id]="'type-' + type.id"
+                  />
+                </div>
+              </div>
+            </div>
+          </fieldset>
         </div>
+      </div>
+
+      <!-- Bouton ajouter le film -->
+      <div>
+        <button type="submit" class="btn">Ajouter</button>
       </div>
     </div>
   </div>

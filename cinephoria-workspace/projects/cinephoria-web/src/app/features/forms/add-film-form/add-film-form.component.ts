@@ -60,12 +60,12 @@ export class AddFilmFormComponent implements OnInit, OnDestroy {
       title: '',
       actors: '',
       description: '',
-      minAge: 12,
+      minAge: null,
       favorite: false,
-      opinion: 0,
+      opinion: null,
       moviePoster: '',
       onView: true,
-      type: this.fb.array([]), // FormArray pour gérer les cases à cocher
+      type: this.fb.group({}),
     });
 
     // Récupérer les genres de films
@@ -76,12 +76,30 @@ export class AddFilmFormComponent implements OnInit, OnDestroy {
     });
   }
 
+  // form: FormGroup;
+  // items: string[] = ['Banana', 'Apple', 'Beer', 'Water'];
+
+  // this.items.forEach(item => {
+  //   this.form.controls['checkboxes'].addControl(item, new FormControl(true));
+  // });
+
   // Créer un FormControl pour chaque type
   setTypes(): void {
-    const typeArray = this.addFilmForm.get('type') as FormArray;
-    this.types.forEach(() => {
-      typeArray.push(new FormControl(false)); // Initialiser toutes les cases à cocher comme décochées
+    const typeGroup = this.addFilmForm.get('type') as FormGroup;
+    if (!typeGroup) return;
+
+    this.types.forEach((type) => {
+      if (!typeGroup.contains('type')) {
+        typeGroup.addControl('type', new FormControl(false));
+      }
     });
+
+    // this.types.forEach((type) => {
+    //   this.addFilmForm.controls['type'].addControl(
+    //     type,
+    //     new FormControl(false)
+    //   );
+    // });
   }
 
   addFilm(): void {
