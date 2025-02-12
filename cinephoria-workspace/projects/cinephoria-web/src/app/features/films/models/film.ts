@@ -10,5 +10,17 @@ export interface Film {
   opinion: number;
   movieposter: string;
   onview: boolean;
-  type: string;
+  type: number[];
+}
+
+export interface FilmData {
+  title: string;
+  actors: string;
+  description: string;
+  minAge: number;
+  favorite: boolean;
+  opinion: number;
+  moviePoster: string;
+  onView: boolean;
+  type: number[];
 }

@@ -1,7 +1,7 @@
 form {
   background-color: #cbb5ac;
   border-radius: 10px;
-  max-width: 35%;
+  max-width: 30%;
   padding: 40px;
   margin: 50px auto;
   color: #545163;
@@ -41,4 +41,5 @@ button:hover {
 
 #description {
   height: 180px;
+  width: 100%;
 }

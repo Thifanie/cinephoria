@@ -4,7 +4,7 @@
       <div class="col-6">
         <!-- Input titre -->
         <input
-          formControlName="titre"
+          formControlName="title"
           type="text"
           class="form-control-sm"
           id="titre"
@@ -40,6 +40,7 @@
         <!-- Input âge minimum -->
         <div class="mb-3">
           <input
+            formControlName="minAge"
             type="number"
             id="minAge"
             name="minAge"
@@ -54,13 +55,19 @@
             <label for="favorite">Coup de coeur</label>
           </div>
           <div>
-            <input type="checkbox" id="favorite" name="favorite" />
+            <input
+              formControlName="favorite"
+              type="checkbox"
+              id="favorite"
+              name="favorite"
+            />
           </div>
         </div>
 
         <!-- Input note -->
         <div class="mb-3">
           <input
+            formControlName="opinion"
             type="number"
             id="opinion"
             name="opinion"
@@ -77,8 +84,33 @@
             <label for="onView">A l'affiche</label>
           </div>
           <div>
-            <input type="checkbox" id="onView" name="onView" />
+            <input
+              formControlName="onView"
+              type="checkbox"
+              id="onView"
+              name="onView"
+            />
           </div>
+        </div>
+      </div>
+
+      <!-- Input genres -->
+      <div class="d-flex">
+        <div formArrayName="type">
+          <fieldset>
+            <legend>Genres</legend>
+            <div *ngFor="let type of types; let i = index">
+              <div>
+                <label [for]="'type-' + type.id">{{ type.type }}</label>
+                <input
+                  formControlName="i"
+                  [value]="type.type"
+                  type="checkbox"
+                  [id]="'type-' + type.id"
+                />
+              </div>
+            </div>
+          </fieldset>
         </div>
       </div>
 
@@ -93,6 +125,7 @@
               title="Cliquez pour télécharger une image"
             />
             <input
+              formControlName="moviePoster"
               type="file"
               id="affiche"
               name="affiche"

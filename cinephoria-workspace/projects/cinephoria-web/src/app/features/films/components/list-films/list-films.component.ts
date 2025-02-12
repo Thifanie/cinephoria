@@ -12,14 +12,17 @@ import { DataService } from '../../../../data.service';
 })
 export class ListFilmsComponent implements OnInit, OnDestroy {
   listFilms: Film[] = [];
-  subscription: Subscription | undefined;
+  subscription: Subscription = new Subscription();
 
   constructor(private readonly dataService: DataService) {}
 
   ngOnInit() {
-    this.subscription = this.dataService.getFilms().subscribe((data) => {
-      console.log(data);
-      this.listFilms = data;
+    // Appel pour récupérer la liste des films lors de l'initialisation du composant
+    this.dataService.getFilms();
+
+    // Souscription au BehaviorSubject pour récupérer la liste mise à jour
+    this.subscription = this.dataService.films$.subscribe((films) => {
+      this.listFilms = films;
     });
   }
 

@@ -1,18 +1,25 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { DataService } from '../../../data.service';
+import { FilmData } from '../../films/models/film';
+import { Type } from '../../films/models/type';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-add-film-form',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgFor],
   templateUrl: './add-film-form.component.html',
   styleUrl: './add-film-form.component.css',
 })
-export class AddFilmFormComponent {
-  addFilmForm = new FormGroup({
-    titre: new FormControl(''),
-    actors: new FormControl(''),
-    description: new FormControl(''),
-  });
+export class AddFilmFormComponent implements OnInit, OnDestroy {
+  addFilmForm!: FormGroup;
 
   showFileName(event: any): void {
     const file = event.target.files[0]; // Récupère le premier fichier sélectionné
@@ -27,8 +34,73 @@ export class AddFilmFormComponent {
     }
   }
 
+  subscription: Subscription | undefined;
+  filmData: FilmData = {
+    title: '',
+    actors: '',
+    description: '',
+    minAge: 12,
+    favorite: false,
+    opinion: 0,
+    moviePoster: '',
+    onView: true,
+    type: [],
+  };
+  types: Type[] = [];
+  selectedTypes: Set<number> = new Set(); // Utilisation d'un Set pour éviter les doublons
+
+  constructor(
+    private readonly fb: FormBuilder,
+    private readonly dataService: DataService
+  ) {}
+
+  ngOnInit(): void {
+    // Initialiser le formulaire réactif avec un FormArray pour les types
+    this.addFilmForm = this.fb.group({
+      title: '',
+      actors: '',
+      description: '',
+      minAge: 12,
+      favorite: false,
+      opinion: 0,
+      moviePoster: '',
+      onView: true,
+      type: this.fb.array([]), // FormArray pour gérer les cases à cocher
+    });
+
+    // Récupérer les genres de films
+    this.dataService.getType().subscribe((data) => {
+      console.log('Types récupérés : ', data);
+      this.types = data;
+      this.setTypes(); // Initialiser les cases à cocher
+    });
+  }
+
+  // Créer un FormControl pour chaque type
+  setTypes(): void {
+    const typeArray = this.addFilmForm.get('type') as FormArray;
+    this.types.forEach(() => {
+      typeArray.push(new FormControl(false)); // Initialiser toutes les cases à cocher comme décochées
+    });
+  }
+
   addFilm(): void {
     if (this.addFilmForm.invalid) return;
-    console.log(this.addFilmForm.value);
+    const filmData = this.addFilmForm.value;
+    console.log('Film soumis : ', filmData);
+    this.subscription = this.dataService
+      .postFilms(filmData)
+      .subscribe((data) => {
+        console.log('Film ajouté : ', data);
+        this.filmData = data;
+        // Récupérer à nouveau les films depuis le backend après l'ajout
+        this.dataService.getFilms(); // Cela déclenchera la mise à jour dans `FilmsListComponent`
+      });
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }

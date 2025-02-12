@@ -35,6 +35,10 @@ img {
   height: 40px;
 }
 
+legend {
+  color: #d4cdc9;
+}
+
 .erreur {
   font-size: small;
 }
