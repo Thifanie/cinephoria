@@ -26,23 +26,28 @@
         *ngFor="let film of listFilms; let i = index"
         type="button"
         data-bs-target="#carouselFilmsRecents"
-        data-bs-slide-to="i"
-        [class.active]="i === 0"
-        aria-current="true"
-        aria-label="'diapo' + (i + 1)"
+        [attr.data-bs-slide-to]="i"
+        [attr.aria-current]="i === 0 ? 'true' : 'false'"
+        [attr.aria-label]="'Diapo ' + (i + 1)"
+        [class]="i === 0 ? 'active' : 'inactive'"
       ></button>
     </div>
     <div class="carousel-inner">
       <div
         *ngFor="let film of listFilms; let i = index"
+        [class]="i === 0 ? 'active' : 'inactive'"
         class="carousel-item"
-        ngClass="{ 'active': i === 0 }"
       >
         <img
           class="d-block w-100px"
           [src]="film.movieposter"
           [alt]="film.title"
         />
+        <a href="/films">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>{{ film.title }}</h5>
+          </div>
+        </a>
       </div>
     </div>
     <button

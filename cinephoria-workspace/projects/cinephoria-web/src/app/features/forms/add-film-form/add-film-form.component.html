@@ -128,12 +128,12 @@
         <div class="col-12">
           <fieldset>
             <legend>Genres :</legend>
-            <div formGroupName="type" class="d-flex flex-wrap gap-3">
+            <div formGroupName="typeForm" class="d-flex flex-wrap gap-3">
               <div *ngFor="let type of types; let i = index">
                 <div>
                   <label [for]="'type-' + type.id">{{ type.type }}</label>
                   <input
-                    formControlName="type"
+                    [formControlName]="type.id.toString()"
                     class="form-check-input"
                     [value]="type.type"
                     type="checkbox"
@@ -147,7 +147,7 @@
       </div>
 
       <!-- Bouton ajouter le film -->
-      <div>
+      <div class="text-center">
         <button type="submit" class="btn">Ajouter</button>
       </div>
     </div>

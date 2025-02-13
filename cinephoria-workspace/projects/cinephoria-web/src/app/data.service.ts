@@ -47,6 +47,12 @@ export class DataService {
     });
   }
 
+  getUser(): Observable<User[]> {
+    return this.http.get<User[]>('http://localhost:3000/api/user', {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    });
+  }
+
   postFilms(filmData: any) {
     return this.http.post<FilmData>(
       'http://localhost:3000/api/films',
@@ -55,5 +61,11 @@ export class DataService {
         headers: { 'Content-Type': 'application/json' },
       }
     );
+  }
+
+  postUser(userData: any) {
+    return this.http.post<User>('http://localhost:3000/api/user', userData, {
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 }

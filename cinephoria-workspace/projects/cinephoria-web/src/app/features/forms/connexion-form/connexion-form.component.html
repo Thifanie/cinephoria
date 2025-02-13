@@ -1,47 +1,53 @@
-<form [formGroup]="connexionForm" (submit)="connexion()">
-  <div class="mb-3">
-    <label for="email" class="form-label">Adresse mail</label>
-    <br />
-    <input
-      formControlName="email"
-      type="email"
-      class="form-control-sm"
-      id="mail"
-      aria-describedby="email"
-      required
-    />
-    <div
-      *ngIf="
-        connexionForm.get('email')?.invalid &&
-        connexionForm.get('email')?.touched
-      "
-      class="erreur"
-    >
-      L'adresse mail doit contenir le caractère &#64;.
-    </div>
-  </div>
+<div class="container">
+  <div class="col d-flex flex-row justify-content-center align-items-center">
+    <form [formGroup]="connexionForm" (submit)="connexion()">
+      <div>
+        <label for="email" class="form-label">Adresse mail</label>
+        <br />
+        <input
+          formControlName="email"
+          type="email"
+          class="form-control-sm"
+          id="mail"
+          aria-describedby="email"
+          required
+        />
+        <div
+          *ngIf="
+            connexionForm.get('email')?.invalid &&
+            connexionForm.get('email')?.touched
+          "
+          class="erreur"
+        >
+          L'adresse mail doit contenir le caractère &#64;.
+        </div>
+      </div>
 
-  <div class="mb-3">
-    <label for="password" class="form-label">Mot de passe</label>
-    <br />
-    <input
-      formControlName="password"
-      type="password"
-      class="form-control-sm"
-      id="password"
-      required
-    />
-    <div
-      *ngIf="
-        connexionForm.get('password')?.invalid &&
-        connexionForm.get('password')?.touched
-      "
-      class="erreur"
-    >
-      Le mot de passe doit avoir au moins 8 caractères.
-    </div>
-  </div>
-  <button type="submit" class="btn">Se connecter</button>
+      <div>
+        <label for="password" class="form-label">Mot de passe</label>
+        <br />
+        <input
+          formControlName="password"
+          type="password"
+          class="form-control-sm"
+          id="password"
+          required
+        />
+        <div
+          *ngIf="
+            connexionForm.get('password')?.invalid &&
+            connexionForm.get('password')?.touched
+          "
+          class="erreur"
+        >
+          Le mot de passe doit avoir au moins 8 caractères.
+        </div>
+      </div>
 
-  <a href="">Mot de passe oublié</a>
-</form>
+      <div class="d-flex flex-column">
+        <button type="submit" class="btn">Se connecter</button>
+        <a href="">Mot de passe oublié</a>
+      </div>
+    </form>
+  </div>
+</div>

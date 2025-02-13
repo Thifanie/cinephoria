@@ -13,6 +13,10 @@ p {
   color: #545163;
 }
 
+img {
+  width: 100%;
+}
+
 #description-cinema {
   background-color: #d4cdc9;
   border-radius: 10px;
@@ -24,6 +28,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 50%;
 }
 
 .carousel-control-prev {
@@ -36,4 +41,18 @@ p {
 
 .carousel-indicators {
   transform: translateY(+200%);
+}
+
+.carousel-caption {
+  background-color: #00000062;
+  border-radius: 50px;
+  transition: background-color 0.3s;
+}
+
+.carousel-caption:hover {
+  background-color: #545163b0;
+}
+
+.carousel-caption h5 {
+  font-size: 24px;
 }

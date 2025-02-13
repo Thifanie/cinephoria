@@ -1,31 +1,32 @@
 form {
   background-color: #cbb5ac;
   border-radius: 10px;
-  max-width: 25%;
   padding: 40px;
-  margin: 50px auto;
+  margin: 0px auto 50px;
   color: #545163;
-  display: grid;
+  width: 30%;
+}
+
+div {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
 }
 
 a {
   color: #545163;
-  margin-top: 16px;
   text-align: center;
 }
 
 input,
 button {
-  width: 100%;
-}
-
-.connexionForm {
-  display: flex;
-  flex-direction: column;
+  width: 75%;
+  margin-bottom: 8px;
 }
 
 .erreur {
   font-size: small;
+  color: #b55d5f;
 }
 
 button {

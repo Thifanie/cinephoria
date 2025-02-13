@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
-  FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -27,10 +26,14 @@ export class AddFilmFormComponent implements OnInit, OnDestroy {
     const fileNameElement = document.getElementById('file-name') as HTMLElement;
 
     if (file) {
+      const fileName = file.name; // Récupère uniquement le nom du fichier
       // Affiche le nom du fichier dans l'élément p
-      fileNameElement.textContent = file.name;
+      fileNameElement.textContent = fileName;
       // Affiche la zone contenant le nom du fichier
       fileNameContainer.style.display = 'flex';
+
+      const newPath = 'assets/movie-posters/' + fileName;
+      this.moviePosterPath = newPath;
     }
   }
 
@@ -65,7 +68,7 @@ export class AddFilmFormComponent implements OnInit, OnDestroy {
       opinion: null,
       moviePoster: '',
       onView: true,
-      type: this.fb.group({}),
+      typeForm: this.fb.group({}),
     });
 
     // Récupérer les genres de films
@@ -76,35 +79,39 @@ export class AddFilmFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  // form: FormGroup;
-  // items: string[] = ['Banana', 'Apple', 'Beer', 'Water'];
-
-  // this.items.forEach(item => {
-  //   this.form.controls['checkboxes'].addControl(item, new FormControl(true));
-  // });
-
   // Créer un FormControl pour chaque type
   setTypes(): void {
-    const typeGroup = this.addFilmForm.get('type') as FormGroup;
+    const typeGroup = this.addFilmForm.get('typeForm') as FormGroup;
     if (!typeGroup) return;
 
     this.types.forEach((type) => {
-      if (!typeGroup.contains('type')) {
-        typeGroup.addControl('type', new FormControl(false));
+      if (!typeGroup.contains(type.id.toString())) {
+        typeGroup.addControl(type.id.toString(), new FormControl(false));
       }
     });
-
-    // this.types.forEach((type) => {
-    //   this.addFilmForm.controls['type'].addControl(
-    //     type,
-    //     new FormControl(false)
-    //   );
-    // });
   }
+
+  moviePosterPath: string = '';
 
   addFilm(): void {
     if (this.addFilmForm.invalid) return;
-    const filmData = this.addFilmForm.value;
+    console.log("Chemin de l'image:", this.moviePosterPath);
+
+    const typeGroup = this.addFilmForm.get('typeForm') as FormGroup;
+    // Récupérer les types sélectionnés
+    const selectedTypes = Object.keys(typeGroup.controls)
+      .filter((key) => typeGroup.get(key)?.value) // Filtrer les types sélectionnés
+      .map((key) => Number(key)); // Convertir les clés (IDs) en nombres
+
+    console.log('IDs des types sélectionnés : ', selectedTypes);
+
+    // Mise à jour du chemin de l'image téléchargée dans le formulaire
+    const filmData = {
+      ...this.addFilmForm.value,
+      moviePoster: this.moviePosterPath,
+      types: selectedTypes,
+    };
+
     console.log('Film soumis : ', filmData);
     this.subscription = this.dataService
       .postFilms(filmData)

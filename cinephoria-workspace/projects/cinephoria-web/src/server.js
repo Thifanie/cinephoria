@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const db = require("./db");
+const bcrypt = require("bcrypt");
 
 app.use(cors());
 app.use(express.json());
@@ -29,6 +30,17 @@ app.get("/api/admin", async (req, res) => {
   }
 });
 
+app.get("/api/user", async (req, res) => {
+  try {
+    const result = await db.pool.query(
+      "select email, password from cinephoria.user"
+    );
+    res.send(result);
+  } catch (err) {
+    throw err;
+  }
+});
+
 app.get("/api/type", async (req, res) => {
   try {
     const result = await db.pool.query("select * from type");
@@ -49,6 +61,7 @@ app.post("/api/films", async (req, res) => {
       opinion,
       moviePoster,
       onView,
+      types,
     } = req.body;
     console.log("Données reçues:", req.body); // ✅ Vérifier les données avant l'insertion
     const result = await db.pool.query(
@@ -71,9 +84,51 @@ app.post("/api/films", async (req, res) => {
       insertedFilmId,
     ]);
 
+    // Ajouter les genres du film ajouté à la table de jointure films_type
+    if (types && Array.isArray(types)) {
+      // Utilisation de Promise.all pour insérer chaque type de manière asynchrone
+      await Promise.all(
+        types.map((typeId) =>
+          db.pool.query(
+            "INSERT INTO films_type (idFilm, idType) VALUES (?, ?)",
+            [insertedFilmId, typeId]
+          )
+        )
+      );
+    }
+
     res.status(201).json(newFilm);
   } catch (err) {
     console.error("Error inserting film:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+app.post("/api/user", async (req, res) => {
+  try {
+    const { firstname, name, username, email, password } = req.body;
+
+    // Générer un sel et hacher le mot de passe
+    const saltRounds = 10; // Nombre d'itérations pour renforcer le hachage
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+    req.body = { firstname, name, username, email, hashedPassword };
+
+    console.log("Données reçues:", req.body); // ✅ Vérifier les données avant l'insertion
+    const result = await db.pool.query(
+      "INSERT INTO user (firstname, name, username, email, password) VALUES (?, ?, ?, ?, ?)",
+      [firstname, name, username, email, hashedPassword]
+    );
+    // ✅ Récupérer l'ID du dernier utilisateur ajouté
+    const insertedUserId = result.insertId;
+    // ✅ Récupérer l'utilisateur nouvellement inséré
+    const [newUser] = await db.pool.query("SELECT * FROM user WHERE id = ?", [
+      insertedUserId,
+    ]);
+
+    res.status(201).json(newUser);
+  } catch (err) {
+    console.error("Error inserting user:", err);
     res.status(500).json({ error: "Internal server error" });
   }
 });

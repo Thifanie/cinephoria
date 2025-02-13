@@ -11,6 +11,7 @@ import { NgFor } from '@angular/common';
   styleUrl: './accueil.component.css',
 })
 export class AccueilComponent implements OnInit {
+  [x: string]: any;
   constructor(private readonly dataService: DataService) {}
 
   listFilms: Film[] = [];
@@ -20,6 +21,7 @@ export class AccueilComponent implements OnInit {
     this.dataService.getFilms();
     this.subscription = this.dataService.films$.subscribe((films) => {
       this.listFilms = films;
+      console.log(this.listFilms);
     });
   }
 

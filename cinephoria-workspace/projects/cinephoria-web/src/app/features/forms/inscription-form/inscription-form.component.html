@@ -1,55 +1,55 @@
 <form [formGroup]="inscriptionForm" (submit)="inscription()">
   <div class="mb-3">
-    <label for="prenom" class="form-label">Prénom</label>
+    <label for="firstname" class="form-label">Prénom</label>
     <br />
     <input
-      formControlName="prenom"
+      formControlName="firstname"
       type="text"
       class="form-control-sm"
-      id="prenom"
-      aria-describedby="prenom"
+      id="firstname"
+      aria-describedby="firstname"
       required
     />
   </div>
 
   <div class="mb-3">
-    <label for="nom" class="form-label">Nom</label>
+    <label for="name" class="form-label">Nom</label>
     <br />
     <input
-      formControlName="nom"
+      formControlName="name"
       type="text"
       class="form-control-sm"
-      id="nom"
+      id="name"
       required
     />
   </div>
 
   <div class="mb-3">
-    <label for="nomUser" class="form-label">Nom d'utilisateur</label>
+    <label for="username" class="form-label">Nom d'utilisateur</label>
     <br />
     <input
-      formControlName="nomUser"
+      formControlName="username"
       type="text"
       class="form-control-sm"
-      id="nomUser"
+      id="username"
       required
     />
   </div>
 
   <div class="mb-3">
-    <label for="mail" class="form-label">Adresse mail</label>
+    <label for="email" class="form-label">Adresse mail</label>
     <br />
     <input
-      formControlName="mail"
+      formControlName="email"
       type="email"
       class="form-control-sm"
-      id="mail"
+      id="email"
       required
     />
     <div
       *ngIf="
-        inscriptionForm.get('mail')?.invalid &&
-        inscriptionForm.get('mail')?.touched
+        inscriptionForm.get('email')?.invalid &&
+        inscriptionForm.get('email')?.touched
       "
       class="erreur"
     >
@@ -58,19 +58,19 @@
   </div>
 
   <div class="mb-3">
-    <label for="mdp" class="form-label">Mot de passe</label>
+    <label for="password" class="form-label">Mot de passe</label>
     <br />
     <input
-      formControlName="mdp"
+      formControlName="password"
       type="password"
       class="form-control-sm"
-      id="mdp"
+      id="password"
       required
     />
     <div
       *ngIf="
-        inscriptionForm.get('mdp')?.invalid &&
-        inscriptionForm.get('mdp')?.touched
+        inscriptionForm.get('password')?.invalid &&
+        inscriptionForm.get('password')?.touched
       "
       class="erreur"
     >
