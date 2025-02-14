@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, Input, input } from '@angular/core';
 import { Session } from '../../models/session';
 import { NgFor } from '@angular/common';
 
