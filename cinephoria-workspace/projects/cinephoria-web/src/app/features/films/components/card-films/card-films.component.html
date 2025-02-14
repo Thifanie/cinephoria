@@ -1,4 +1,3 @@
-<!-- @for (film of items(); track film.title) { @if (film.onView) { -->
 <div *ngFor="let film of items()">
   <div class="container">
     <div class="card mb-3" style="width: 828px">
@@ -10,17 +9,17 @@
             alt="{{ film.title }}"
           />
         </div>
-        <div class="card-body col-md-4">
+        <div class="card-body col-md-4 p-2">
           <h4 class="card-title mb-4" id="title">{{ film.title }}</h4>
           <h5 class="card-subtitle mb-4" id="actors">{{ film.actors }}</h5>
           <p class="card-text">
             {{ film.description }}
           </p>
-          <h6 class="card-subtitle mb-4">
+          <h6 class="card-subtitle mb-2">
             {{ film.type }}
           </h6>
 
-          <h6 *ngIf="film.minage" class="card-subtitle mb-4">
+          <h6 *ngIf="film.minage" class="card-subtitle mb-2">
             Age minimum : {{ film.minage }} ans
           </h6>
 
@@ -55,10 +54,18 @@
           </div>
 
           <div *ngIf="!film.opinion" class="new"><p>Nouveau</p></div>
+
+          <div class="d-flex justify-content-center">
+            <button
+              type="button"
+              (click)="goToFilmSessions(film.id)"
+              class="btn"
+            >
+              Voir les séances disponibles
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<!-- }
-} -->

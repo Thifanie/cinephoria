@@ -10,7 +10,7 @@ app.use(express.json());
 app.get("/api/films", async (req, res) => {
   try {
     const result = await db.pool.query(
-      "SELECT title, actors, description, minage, favorite, opinion, movieposter, onview, GROUP_CONCAT(type SEPARATOR ', ') AS type FROM films JOIN films_type ON films.id = films_type.idFilm JOIN type ON films_type.idType = type.id GROUP BY films.id"
+      "SELECT films.id, title, actors, description, minage, favorite, opinion, movieposter, onview, GROUP_CONCAT(type SEPARATOR ', ') AS type FROM films JOIN films_type ON films.id = films_type.idFilm JOIN type ON films_type.idType = type.id GROUP BY films.id"
       // "SELECT * from films"
     );
     res.send(result);
@@ -47,6 +47,19 @@ app.get("/api/type", async (req, res) => {
     res.send(result);
   } catch (err) {
     throw err;
+  }
+});
+
+app.get("/api/session/:id", async (req, res) => {
+  try {
+    const filmId = req.params.id; // Récupère l'id du film depuis l'URL
+    const result = await db.pool.query(
+      "SELECT * FROM cinephoria.session where idFilm = ?",
+      [filmId] // Paramètre sécurisé pour éviter l'injection SQL
+    );
+    res.send(result);
+  } catch (err) {
+    res.status(500).send({ error: "Erreur serveur" });
   }
 });
 

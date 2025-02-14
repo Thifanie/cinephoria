@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from './features/forms/models/user';
 import { Film, FilmData } from './features/films/models/film';
 import { Type } from './features/films/models/type';
+import { Session } from './features/films/models/session';
 
 @Injectable({
   providedIn: 'root',
@@ -51,6 +52,15 @@ export class DataService {
     return this.http.get<User[]>('http://localhost:3000/api/user', {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     });
+  }
+
+  getSessions(idFilm: number): Observable<Session[]> {
+    return this.http.get<Session[]>(
+      `http://localhost:3000/api/session/${idFilm}`,
+      {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      }
+    );
   }
 
   postFilms(filmData: any) {

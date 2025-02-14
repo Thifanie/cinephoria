@@ -1,6 +1,7 @@
 import { Component, input } from '@angular/core';
 import { Film } from '../../models/film';
 import { CommonModule, NgFor } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-card-films',
@@ -15,5 +16,11 @@ export class CardFilmsComponent {
   calculateRating(note: number): number {
     let rating: number = (note / 5) * 100;
     return rating;
+  }
+
+  constructor(private readonly router: Router) {}
+
+  goToFilmSessions(id: number) {
+    this.router.navigate(['sessions', id]);
   }
 }

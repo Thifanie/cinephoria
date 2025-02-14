@@ -1,0 +1,27 @@
+<div *ngFor="let session of items()">
+  <div class="container">
+    <div class="card mb-3">
+      <div class="row g-0">
+        <div class="card-body col-md-4">
+          <p class="card-text">
+            {{ session.date }}
+          </p>
+          <p class="card-text">
+            {{ session.startHour }}
+          </p>
+          <p class="card-text">
+            {{ session.endHour }}
+          </p>
+          <p class="card-text">
+            {{ session.idCinema }}
+          </p>
+          <p class="card-text">
+            {{ session.idRoom }}
+          </p>
+          <p class="card-text">qualité :</p>
+          <p class="card-text">prix</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
