@@ -1,26 +1,29 @@
-<div *ngFor="let session of items()">
-  <div class="container">
-    <div class="card mb-3">
-      <div class="row g-0">
-        <div class="card-body col-md-4">
-          <p class="card-text">
-            {{ session.formatedDate }}
-          </p>
-          <p class="card-text">
-            {{ session.formatedStartHour }}
-          </p>
-          <p class="card-text">
-            {{ session.formatedEndHour }}
-          </p>
-          <p class="card-text">
-            {{ session.cinemaName }}
-          </p>
-          <p class="card-text">
-            {{ session.roomName }}
-          </p>
-          <p class="card-text">qualité :</p>
-          <p class="card-text">prix</p>
+<div class="container text-center">
+  <div class="row justify-content-center">
+    <div
+      *ngFor="let session of items()"
+      class="col-md-3 d-flex justify-content-center align-items-center"
+    >
+      <div class="mb-4">
+        <div class="card mb-3">
+          <div class="row g-0">
+            <div class="card-body">
+              <p class="card-text">
+                {{ session.formatedDate }}
+              </p>
+              <p class="card-text">
+                {{ session.formatedStartHour }} - {{ session.formatedEndHour }}
+              </p>
+              <p class="card-text">
+                {{ session.cinemaName }}
+              </p>
+              <p class="card-text">Salle {{ session.roomName }}</p>
+              <p class="card-text">Qualité {{ session.quality }}</p>
+              <p class="card-text">{{ session.price }} &euro;</p>
+            </div>
+          </div>
         </div>
+        <button type="button" class="btn w-100">Choisir cette séance</button>
       </div>
     </div>
   </div>

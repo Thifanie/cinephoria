@@ -62,6 +62,24 @@ app.get("/api/session/:id", async (req, res) => {
   }
 });
 
+app.get("/api/room", async (req, res) => {
+  try {
+    const result = await db.pool.query("SELECT * FROM cinephoria.room");
+    res.send(result);
+  } catch (err) {
+    res.status(500).send({ error: "Erreur serveur" });
+  }
+});
+
+app.get("/api/quality", async (req, res) => {
+  try {
+    const result = await db.pool.query("SELECT * FROM cinephoria.quality");
+    res.send(result);
+  } catch (err) {
+    res.status(500).send({ error: "Erreur serveur" });
+  }
+});
+
 app.post("/api/films", async (req, res) => {
   try {
     const {

@@ -5,6 +5,8 @@ import { User } from './features/forms/models/user';
 import { Film, FilmData } from './features/films/models/film';
 import { Type } from './features/films/models/type';
 import { Session } from './features/films/models/session';
+import { Room } from './features/films/models/room';
+import { Quality } from './features/films/models/quality';
 
 @Injectable({
   providedIn: 'root',
@@ -61,6 +63,18 @@ export class DataService {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
       }
     );
+  }
+
+  getRoom(): Observable<Room[]> {
+    return this.http.get<Room[]>('http://localhost:3000/api/room', {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    });
+  }
+
+  getQuality(): Observable<Quality[]> {
+    return this.http.get<Quality[]>('http://localhost:3000/api/quality', {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    });
   }
 
   postFilms(filmData: any) {

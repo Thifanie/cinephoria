@@ -11,4 +11,6 @@ export interface Session {
   idFilm: number;
   cinemaName: string;
   roomName: string;
+  quality: string | undefined;
+  price: number | undefined;
 }
