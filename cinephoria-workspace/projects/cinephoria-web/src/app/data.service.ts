@@ -7,6 +7,7 @@ import { Type } from './features/films/models/type';
 import { Session } from './features/films/models/session';
 import { Room } from './features/films/models/room';
 import { Quality } from './features/films/models/quality';
+import { Cinema } from './features/films/models/cinema';
 
 @Injectable({
   providedIn: 'root',
@@ -65,6 +66,15 @@ export class DataService {
     );
   }
 
+  getSessionsByCinema(cinemaId: number): Observable<Session[]> {
+    return this.http.get<Session[]>(
+      `http://localhost:3000/api/session?cinemaId=${cinemaId}}`,
+      {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      }
+    );
+  }
+
   getRoom(): Observable<Room[]> {
     return this.http.get<Room[]>('http://localhost:3000/api/room', {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -73,6 +83,12 @@ export class DataService {
 
   getQuality(): Observable<Quality[]> {
     return this.http.get<Quality[]>('http://localhost:3000/api/quality', {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    });
+  }
+
+  getCinema(): Observable<Cinema[]> {
+    return this.http.get<Cinema[]>('http://localhost:3000/api/cinema', {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     });
   }

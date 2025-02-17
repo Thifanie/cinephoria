@@ -10,6 +10,7 @@ import {
 import { Router } from '@angular/router';
 import { DataService } from '../../../data.service';
 import { Subscription } from 'rxjs';
+import { AuthServiceService } from '../services/auth-service.service';
 
 @Component({
   selector: 'app-connexion-form',
@@ -20,10 +21,14 @@ import { Subscription } from 'rxjs';
 export class ConnexionFormComponent implements OnInit, OnDestroy {
   connexionForm!: FormGroup;
 
-  constructor(private readonly dataService: DataService) {}
+  constructor(
+    private readonly dataService: DataService,
+    private readonly authService: AuthServiceService
+  ) {}
 
   subscription: Subscription | undefined;
   subscription2: Subscription | undefined;
+  subs: Subscription[] = [];
   emailAdmin!: string;
   passwordAdmin!: string;
   emailUserList!: string[];
@@ -31,6 +36,8 @@ export class ConnexionFormComponent implements OnInit, OnDestroy {
   passwordUser!: string[];
   findUser!: any;
   router = inject(Router);
+  invalidCredentials = false;
+  credentials = { email: '', password: '' };
 
   ngOnInit(): void {
     // Initialiser le formulaire réactif
@@ -40,61 +47,46 @@ export class ConnexionFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  connexion(): void {
+  login(): void {
     if (this.connexionForm.invalid) return;
 
     // Récupération des données administrateur
-    this.subscription = this.dataService.getAdmin().subscribe((data) => {
-      if (data.length === 0) {
-        alert('Aucun administrateur trouvé !');
-        return;
-      }
-      this.emailAdmin = data[0].email;
-      this.passwordAdmin = data[0].password;
-      if (
-        this.connexionForm.value.email == this.emailAdmin &&
-        this.connexionForm.value.password == this.passwordAdmin
-      ) {
-        this.router.navigateByUrl('admin');
-      }
-    });
+    this.subs.push(
+      this.dataService.getAdmin().subscribe((data) => {
+        if (data.length === 0) {
+          alert('Aucun administrateur trouvé !');
+          return;
+        }
+        this.emailAdmin = data[0].email;
+        this.passwordAdmin = data[0].password;
+        if (
+          this.connexionForm.value.email == this.emailAdmin &&
+          this.connexionForm.value.password == this.passwordAdmin
+        ) {
+          this.router.navigateByUrl('admin');
+        }
+      })
+    );
 
-    // Récupération des données utilisateur
-    this.subscription2 = this.dataService.getUser().subscribe((data) => {
-      if (data.length === 0) {
-        alert('Aucun utilisateur trouvé !');
-        return;
-      }
-      console.log(data);
+    // Authentification de l'utilisateur
+    this.credentials = {
+      email: this.connexionForm.value.email,
+      password: this.connexionForm.value.password,
+    };
 
-      // Création d'un tableau avec tous les emails enregistrés
-      this.emailUserList = data.map((user) => user.email);
-      console.log(this.emailUserList);
-      // Recherche d'une correspondance entre l'email du formulaire et la base de données
-      if (this.emailUserList.includes(this.connexionForm.value.email)) {
-        this.emailUser = this.connexionForm.value.email;
-      } else {
-        alert("Cet utilisateur n'existe pas");
-      }
-
-      // Stockage de l'utilisateur trouvé dans la base de donnée avec l'e-mail du formulaire
-      this.findUser = data.find((user) => user.email === this.emailUser);
-      console.log(this.findUser);
-
-      if (this.connexionForm.value.password == this.findUser.password) {
-        this.router.navigateByUrl('compte');
-      } else {
-        alert('Le mot de passe est incorrect.');
-      }
-    });
+    try {
+      this.subs.push(
+        this.authService.login(this.credentials).subscribe((response) => {
+          localStorage.setItem('token', response.token); // Stocke le token
+          this.router.navigate(['/compte']); // Redirection après connexion
+        })
+      );
+    } catch (err) {
+      alert('Le mot de passe est incorrect.');
+    }
   }
 
   ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
-    if (this.subscription2) {
-      this.subscription2.unsubscribe();
-    }
+    this.subs.forEach((s) => s.unsubscribe());
   }
 }

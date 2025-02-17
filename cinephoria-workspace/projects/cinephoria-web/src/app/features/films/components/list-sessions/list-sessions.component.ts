@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Film } from '../../models/film';
 import { Room } from '../../models/room';
 import { Quality } from '../../models/quality';
+import { DateTimeFormattingService } from '../../services/date-time-formatting.service';
 
 @Component({
   selector: 'app-list-sessions',
@@ -28,7 +29,8 @@ export class ListSessionsComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly dataService: DataService,
-    private readonly route: ActivatedRoute
+    private readonly route: ActivatedRoute,
+    private readonly dateTimeFormatting: DateTimeFormattingService
   ) {}
 
   ngOnInit() {
@@ -49,41 +51,39 @@ export class ListSessionsComponent implements OnInit, OnDestroy {
       this.dataService.getSessions(this.filmId).subscribe((data) => {
         console.log('Séances récupérées : ', data);
         this.listSessions = data;
+        // Formatage de la date
+        this.dateTimeFormatting.dateFormatting(this.listSessions);
+        // Formatage de l'heure de début
+        this.dateTimeFormatting.startHourFormatting(this.listSessions);
+        // Formatage de l'heure de fin
+        this.dateTimeFormatting.endHourFormatting(this.listSessions);
+
+        this.associateRoomQuality();
       }),
+
       // Appel pour récupérer la liste des salles de cinéma
       this.dataService.getRoom().subscribe((data) => {
         console.log('Salles récupérées : ', data);
         this.listRooms = data;
+        this.associateRoomQuality();
       }),
       // Appel pour récupérer la liste des qualités
       this.dataService.getQuality().subscribe((data) => {
         console.log('Qualités récupérées : ', data);
         this.listQualities = data;
+        this.associateRoomQuality();
       }),
     ];
+  }
 
-    // Formatage de la date
-    this.listSessions.forEach(
-      (session) => (session.date = new Date(session.date))
-    );
-    this.listSessions.forEach(
-      (session) =>
-        (session.formatedDate = session.date.toLocaleDateString('fr-FR', {
-          day: 'numeric',
-          month: 'long',
-          year: 'numeric',
-        }))
-    );
-
-    // Formatage de l'heure de début
-    this.listSessions.forEach(
-      (session) => (session.formatedStartHour = session.startHour.slice(0, 5))
-    );
-
-    // Formatage de l'heure de fin
-    this.listSessions.forEach(
-      (session) => (session.formatedEndHour = session.endHour.slice(0, 5))
-    );
+  associateRoomQuality() {
+    if (
+      !this.listSessions.length ||
+      !this.listRooms.length ||
+      !this.listQualities.length
+    ) {
+      return; // Attendre que toutes les données soient chargées
+    }
 
     // Pour chaque session, on récupère l'id de la qualité de la salle correspondante
     this.listSessions.forEach((session) => {

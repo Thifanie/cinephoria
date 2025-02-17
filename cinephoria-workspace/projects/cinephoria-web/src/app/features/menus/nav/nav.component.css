@@ -17,7 +17,8 @@ a {
   background-color: #a57e8f50;
 }
 
-#connexion {
+#connexion,
+#deconnexion {
   border-radius: 10%;
   background-color: #cbb5ac61;
 }
@@ -35,7 +36,8 @@ li:hover {
   background-color: #a57e8f;
 }
 
-#connexion:hover {
+#connexion:hover,
+#deconnexion:hover {
   background-color: #cbb5ac;
 }
 
