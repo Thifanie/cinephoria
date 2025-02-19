@@ -1,12 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, tap } from 'rxjs';
+import { DataService } from '../../../data.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthServiceService {
-  constructor(private readonly http: HttpClient) {}
+  private readonly userRole$ = new BehaviorSubject<string>('');
+  subs: Subscription[] = [];
+
+  constructor(
+    private readonly http: HttpClient,
+    private readonly dataService: DataService
+  ) {}
 
   // Crée un BehaviorSubject pour stocker l'état de l'authentification
   private readonly isAuthenticatedSubject = new BehaviorSubject<boolean>(
@@ -41,5 +49,38 @@ export class AuthServiceService {
   // Méthode pour récupérer l'état d'authentification sous forme d'Observable
   isAuthenticated$(): Observable<boolean> {
     return this.isAuthenticatedSubject.asObservable(); // Renvoie l'état sous forme d'Observable
+  }
+
+  loadUserRole(): void {
+    const userId = this.getUserIdFromToken(); // Récupère l'ID du token
+
+    this.subs.push(
+      this.dataService.getUser().subscribe((users) => {
+        const currentUser = users.find((user) => user.id === userId); // Trouve l'utilisateur connecté
+        if (currentUser) {
+          this.userRole$.next(currentUser.role);
+        }
+      })
+    );
+  }
+
+  // On récupère l'id de l'utilisateur connecté à partir de son token
+  private getUserIdFromToken(): number | null {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const token = localStorage.getItem('token');
+      if (!token) return null;
+
+      try {
+        const decodedToken: any = jwtDecode(token);
+        return decodedToken.userId; // Suppose que le token contient `userId`
+      } catch (e) {
+        return null;
+      }
+    }
+    return null; // Si ce n'est pas un environnement client, retourne false
+  }
+
+  getUserRole$(): Observable<string> {
+    return this.userRole$.asObservable();
   }
 }

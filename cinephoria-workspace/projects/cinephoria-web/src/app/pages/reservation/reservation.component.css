@@ -7,6 +7,11 @@ label {
   color: #d4cdc9;
 }
 
+h3 {
+  text-align: center;
+  margin-top: 30px;
+}
+
 #div-places {
   gap: 1em;
   padding: 0;

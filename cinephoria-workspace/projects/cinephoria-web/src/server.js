@@ -34,7 +34,7 @@ app.get("/api/admin", async (req, res) => {
 app.get("/api/user", async (req, res) => {
   try {
     const result = await db.pool.query(
-      "select email, password from cinephoria.user"
+      "select id, email, password, role from cinephoria.user"
     );
     res.send(result);
   } catch (err) {
@@ -196,8 +196,8 @@ app.post("/api/auth/login", async (req, res) => {
   );
   if (
     !user ||
-    user.password !== password
-    // || !(await bcrypt.compare(password, user.password))
+    // || user.password !== password
+    !(await bcrypt.compare(password, user.password))
   ) {
     return res.status(401).json({ message: "Identifiants incorrects" });
   }

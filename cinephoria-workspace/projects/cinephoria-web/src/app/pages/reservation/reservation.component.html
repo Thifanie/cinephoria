@@ -52,5 +52,6 @@
 </div>
 
 <div *ngIf="selectedCinema">
+  <h3>Séances disponibles {{ selectedCinema.name | cinemaName }}</h3>
   <app-card-sessions [items]="listSessions"></app-card-sessions>
 </div>

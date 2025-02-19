@@ -9,10 +9,11 @@ import { CardSessionsComponent } from '../../features/films/components/card-sess
 import { DateTimeFormattingService } from '../../features/films/services/date-time-formatting.service';
 import { Room } from '../../features/films/models/room';
 import { Quality } from '../../features/films/models/quality';
+import { CinemaNamePipe } from '../../pipes/cinema-name.pipe';
 
 @Component({
   selector: 'app-reservation',
-  imports: [NgFor, NgIf, CardSessionsComponent],
+  imports: [NgFor, NgIf, CardSessionsComponent, CinemaNamePipe],
   templateUrl: './reservation.component.html',
   styleUrl: './reservation.component.css',
 })

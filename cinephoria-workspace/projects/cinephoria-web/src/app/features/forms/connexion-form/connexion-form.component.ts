@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from '../../../data.service';
-import { Subscription } from 'rxjs';
+import { map, Subscription } from 'rxjs';
 import { AuthServiceService } from '../services/auth-service.service';
 
 @Component({
@@ -50,24 +50,6 @@ export class ConnexionFormComponent implements OnInit, OnDestroy {
   login(): void {
     if (this.connexionForm.invalid) return;
 
-    // Récupération des données administrateur
-    this.subs.push(
-      this.dataService.getAdmin().subscribe((data) => {
-        if (data.length === 0) {
-          alert('Aucun administrateur trouvé !');
-          return;
-        }
-        this.emailAdmin = data[0].email;
-        this.passwordAdmin = data[0].password;
-        if (
-          this.connexionForm.value.email == this.emailAdmin &&
-          this.connexionForm.value.password == this.passwordAdmin
-        ) {
-          this.router.navigateByUrl('admin');
-        }
-      })
-    );
-
     // Authentification de l'utilisateur
     this.credentials = {
       email: this.connexionForm.value.email,
@@ -78,7 +60,11 @@ export class ConnexionFormComponent implements OnInit, OnDestroy {
       this.subs.push(
         this.authService.login(this.credentials).subscribe((response) => {
           localStorage.setItem('token', response.token); // Stocke le token
-          this.router.navigate(['/compte']); // Redirection après connexion
+          this.authService.loadUserRole();
+          this.authService.getUserRole$().subscribe((role) => {
+            console.log(role);
+            this.router.navigate([role === 'admin' ? '/admin' : '/compte']);
+          });
         })
       );
     } catch (err) {
