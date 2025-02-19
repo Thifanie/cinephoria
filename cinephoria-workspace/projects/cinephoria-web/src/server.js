@@ -3,6 +3,8 @@ const cors = require("cors");
 const app = express();
 const db = require("./db");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 app.use(cors());
 app.use(express.json());
@@ -10,8 +12,7 @@ app.use(express.json());
 app.get("/api/films", async (req, res) => {
   try {
     const result = await db.pool.query(
-      "SELECT title, actors, description, minage, favorite, opinion, movieposter, onview, GROUP_CONCAT(type SEPARATOR ', ') AS type FROM films JOIN films_type ON films.id = films_type.idFilm JOIN type ON films_type.idType = type.id GROUP BY films.id"
-      // "SELECT * from films"
+      "SELECT films.id, title, actors, description, minage, favorite, opinion, movieposter, onview, GROUP_CONCAT(type SEPARATOR ', ') AS type FROM films JOIN films_type ON films.id = films_type.idFilm JOIN type ON films_type.idType = type.id GROUP BY films.id"
     );
     res.send(result);
   } catch (err) {
@@ -33,7 +34,7 @@ app.get("/api/admin", async (req, res) => {
 app.get("/api/user", async (req, res) => {
   try {
     const result = await db.pool.query(
-      "select email, password from cinephoria.user"
+      "select id, email, password, role from cinephoria.user"
     );
     res.send(result);
   } catch (err) {
@@ -47,6 +48,62 @@ app.get("/api/type", async (req, res) => {
     res.send(result);
   } catch (err) {
     throw err;
+  }
+});
+
+app.get("/api/session/:id", async (req, res) => {
+  try {
+    const filmId = req.params.id; // Récupère l'id du film depuis l'URL
+    const result = await db.pool.query(
+      "SELECT date, startHour, endHour, idFilm, cinema.name AS cinemaName, room.name AS roomName FROM cinephoria.session JOIN cinephoria.cinema on session.idCinema = cinema.id JOIN cinephoria.room ON session.idRoom = room.id WHERE idFilm = ?",
+      [filmId] // Paramètre sécurisé pour éviter l'injection SQL
+    );
+    res.send(result);
+  } catch (err) {
+    res.status(500).send({ error: "Erreur serveur" });
+  }
+});
+
+export const prerender = false;
+
+app.get("/api/session", async (req, res) => {
+  try {
+    const cinemaId = req.query.cinemaId; // Utilisation de req.query pour accéder au paramètre de la query string
+    console.log(cinemaId);
+    const result = await db.pool.query(
+      "SELECT date, startHour, endHour, room.name AS roomName, films.title as filmTitle FROM cinephoria.session JOIN cinephoria.room ON session.idRoom = room.id JOIN cinephoria.films ON session.idFilm = films.id WHERE session.idCinema = ?",
+      [cinemaId] // Paramètre sécurisé pour éviter l'injection SQL);
+    );
+    res.send(result);
+  } catch (err) {
+    throw err;
+  }
+});
+
+app.get("/api/room", async (req, res) => {
+  try {
+    const result = await db.pool.query("SELECT * FROM cinephoria.room");
+    res.send(result);
+  } catch (err) {
+    res.status(500).send({ error: "Erreur serveur" });
+  }
+});
+
+app.get("/api/quality", async (req, res) => {
+  try {
+    const result = await db.pool.query("SELECT * FROM cinephoria.quality");
+    res.send(result);
+  } catch (err) {
+    res.status(500).send({ error: "Erreur serveur" });
+  }
+});
+
+app.get("/api/cinema", async (req, res) => {
+  try {
+    const result = await db.pool.query("SELECT * FROM cinephoria.cinema");
+    res.send(result);
+  } catch (err) {
+    res.status(500).send({ error: "Erreur serveur" });
   }
 });
 
@@ -131,6 +188,26 @@ app.post("/api/user", async (req, res) => {
     console.error("Error inserting user:", err);
     res.status(500).json({ error: "Internal server error" });
   }
+});
+
+app.post("/api/auth/login", async (req, res) => {
+  const { email, password } = req.body;
+  const [user] = await db.pool.query(
+    "SELECT * FROM cinephoria.user WHERE email = ?",
+    [email]
+  );
+  if (
+    !user ||
+    // || user.password !== password
+    !(await bcrypt.compare(password, user.password))
+  ) {
+    return res.status(401).json({ message: "Identifiants incorrects" });
+  }
+
+  const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
+    expiresIn: "1h",
+  });
+  res.json({ token });
 });
 
 app.listen(3000, () => {

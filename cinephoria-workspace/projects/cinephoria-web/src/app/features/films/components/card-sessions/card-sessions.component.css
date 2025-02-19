@@ -1,0 +1,18 @@
+.card {
+  background-color: #d4cdc9;
+  width: fit-content;
+}
+
+button {
+  background-color: #a57e8f;
+  color: #d4cdc9;
+  border-width: 3px;
+  border-color: #545163;
+}
+
+button:hover {
+  background-color: #a57e8f;
+  border-color: #d4cdc9;
+  border-width: 3px;
+  color: #d4cdc9;
+}

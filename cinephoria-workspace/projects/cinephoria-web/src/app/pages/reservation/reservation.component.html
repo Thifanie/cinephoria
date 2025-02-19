@@ -15,9 +15,11 @@
           Choisissez un cinéma
         </button>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">Cinéma 1</a></li>
-          <li><a class="dropdown-item" href="#">Cinéma 2</a></li>
-          <li><a class="dropdown-item" href="#">Cinéma 3</a></li>
+          <li *ngFor="let cinema of listCinemas">
+            <a class="dropdown-item" (click)="selectCinema(cinema)">{{
+              cinema.name
+            }}</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -33,9 +35,9 @@
           Choisissez un film
         </button>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">Film 1</a></li>
-          <li><a class="dropdown-item" href="#">Film 2</a></li>
-          <li><a class="dropdown-item" href="#">Film 3</a></li>
+          <li *ngFor="let film of listFilms">
+            <a class="dropdown-item" href="#">{{ film.title }}</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -47,4 +49,9 @@
       </div>
     </div>
   </div>
+</div>
+
+<div *ngIf="selectedCinema">
+  <h3>Séances disponibles {{ selectedCinema.name | cinemaName }}</h3>
+  <app-card-sessions [items]="listSessions"></app-card-sessions>
 </div>

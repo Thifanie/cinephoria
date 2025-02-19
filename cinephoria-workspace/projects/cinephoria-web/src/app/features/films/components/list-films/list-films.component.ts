@@ -23,6 +23,7 @@ export class ListFilmsComponent implements OnInit, OnDestroy {
     // Souscription au BehaviorSubject pour récupérer la liste mise à jour
     this.subscription = this.dataService.films$.subscribe((films) => {
       this.listFilms = films;
+      console.log(this.listFilms);
     });
   }
 
