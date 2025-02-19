@@ -64,6 +64,8 @@ app.get("/api/session/:id", async (req, res) => {
   }
 });
 
+export const prerender = false;
+
 app.get("/api/session", async (req, res) => {
   try {
     const cinemaId = req.query.cinemaId; // Utilisation de req.query pour accéder au paramètre de la query string

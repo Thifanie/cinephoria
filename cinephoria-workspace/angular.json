@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/cinephoria-web",
+            "outputPath": "projects/cinephoria-web/dist/cinephoria-web",
             "index": "projects/cinephoria-web/src/index.html",
             "browser": "projects/cinephoria-web/src/main.ts",
             "polyfills": ["zone.js"],
@@ -31,12 +31,7 @@
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
-            ],
-            "server": "projects/cinephoria-web/src/main.server.ts",
-            "outputMode": "server",
-            "ssr": {
-              "entry": "projects/cinephoria-web/src/server.ts"
-            }
+            ]
           },
           "configurations": {
             "production": {

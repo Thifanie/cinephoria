@@ -11,13 +11,19 @@ import { ListSessionsComponent } from './features/films/components/list-sessions
 import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin.guard';
 
+export const prerender = false;
+
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'accueil' },
   { path: 'accueil', component: AccueilComponent },
   { path: 'compte', component: CompteComponent, canActivate: [AuthGuard] },
   { path: 'contact', component: ContactComponent },
   { path: 'films', component: FilmsComponent },
-  { path: 'sessions/:id', component: ListSessionsComponent },
+  // {
+  //   path: 'sessions/:id',
+  //   component: ListSessionsComponent,
+  //   data: { ssr: false },
+  // },
   { path: 'reservation', component: ReservationComponent },
   { path: 'inscription', component: InscriptionComponent },
   { path: 'connexion', component: ConnexionComponent },
