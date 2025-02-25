@@ -26,7 +26,7 @@ export class DataService {
   // }
   getFilms(): void {
     this.http
-      .get<Film[]>('http://localhost:3000/api/films', {
+      .get<Film[]>('/api/films', {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
       })
       .subscribe({
