@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "projects/cinephoria-web/dist/cinephoria-web",
+            "outputPath": "dist/cinephoria-web",
             "index": "projects/cinephoria-web/src/index.html",
             "browser": "projects/cinephoria-web/src/main.ts",
             "polyfills": ["zone.js"],
