@@ -1,57 +1,68 @@
-<h1>Réservation</h1>
+<div id="window">
+  <h1>Réservation</h1>
 
-<!-- Menus déroulant et input nombre-->
-<div class="container">
-  <div class="row align-items-center justify-content-center">
-    <div class="col pb-3">
-      <!-- Choix du cinéma -->
-      <div class="dropdown">
-        <button
-          class="btn dropdown-toggle"
-          type="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          Choisissez un cinéma
-        </button>
-        <ul class="dropdown-menu">
-          <li *ngFor="let cinema of listCinemas">
-            <a class="dropdown-item" (click)="selectCinema(cinema)">{{
-              cinema.name
-            }}</a>
-          </li>
-        </ul>
+  <!-- Menus déroulant et input nombre-->
+  <div class="container">
+    <div class="row align-items-center justify-content-center">
+      <div class="col pb-3">
+        <!-- Choix du cinéma -->
+        <div class="dropdown">
+          <button
+            class="btn dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Choisissez un cinéma
+          </button>
+          <ul class="dropdown-menu">
+            <li *ngFor="let cinema of listCinemas">
+              <a class="dropdown-item" (click)="selectCinema(cinema)">{{
+                cinema.name
+              }}</a>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-    <!-- Choix du film -->
-    <div class="col pb-3">
-      <div class="dropdown">
-        <button
-          class="btn dropdown-toggle"
-          type="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          Choisissez un film
-        </button>
-        <ul class="dropdown-menu">
-          <li *ngFor="let film of listFilms">
-            <a class="dropdown-item" href="#">{{ film.title }}</a>
-          </li>
-        </ul>
+      <!-- Choix du film -->
+      <div class="col pb-3">
+        <div class="dropdown">
+          <button
+            class="btn dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Choisissez un film
+          </button>
+          <ul class="dropdown-menu">
+            <li *ngFor="let film of listFilms">
+              <a class="dropdown-item" (click)="selectFilm(film)">{{
+                film.title
+              }}</a>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-    <!-- Choix du nombre de places -->
-    <div class="col-auto">
-      <div class="container d-flex align-items-center" id="div-places">
-        <label for="places">Choisissez le nombre de places :</label>
-        <input type="number" id="places" name="places" min="1" max="100" />
+      <!-- Choix du nombre de places -->
+      <div class="col-auto">
+        <div class="container d-flex align-items-center" id="div-places">
+          <label for="places">Choisissez le nombre de places :</label>
+          <input type="number" id="places" name="places" min="1" max="100" />
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div *ngIf="selectedCinema">
-  <h3>Séances disponibles {{ selectedCinema.name | cinemaName }}</h3>
-  <app-card-sessions [items]="listSessions"></app-card-sessions>
+  <!-- Affichage des séances du cinéma choisi -->
+  <div *ngIf="selectedCinema">
+    <h3>Séances disponibles {{ selectedCinema.name | cinemaName }}</h3>
+    <app-card-sessions [items]="listSessions"></app-card-sessions>
+  </div>
+
+  <!-- Affichage des séances du film choisi -->
+  <div *ngIf="selectedFilm">
+    <h3>Séances disponibles pour {{ selectedFilm.title }}</h3>
+    <app-card-sessions [items]="listSessions"></app-card-sessions>
+  </div>
 </div>

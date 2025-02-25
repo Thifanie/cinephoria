@@ -1,0 +1,13 @@
+img {
+  width: 400px;
+}
+
+#title {
+  font-weight: bold;
+  color: #a57e8f;
+}
+
+.card {
+  background-color: #d4cdc9;
+  width: auto;
+}

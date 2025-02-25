@@ -1,6 +1,6 @@
 .card {
   background-color: #d4cdc9;
-  width: fit-content;
+  width: auto;
 }
 
 button {
@@ -15,4 +15,13 @@ button:hover {
   border-color: #d4cdc9;
   border-width: 3px;
   color: #d4cdc9;
+}
+
+#title {
+  font-weight: bold;
+  color: #a57e8f;
+}
+
+.hidden {
+  display: none;
 }

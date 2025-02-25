@@ -21,3 +21,7 @@ h3 {
   background-color: #d4cdc9;
   color: #545163;
 }
+
+#window {
+  min-height: 100vh;
+}

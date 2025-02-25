@@ -83,6 +83,40 @@ export class ReservationComponent implements OnInit, OnDestroy {
     );
   }
 
+  selectedFilm: Film | null = null;
+
+  selectFilm(film: Film): void {
+    this.selectedFilm = film;
+
+    // Appel pour récupérer les séances du film sélectionné
+    this.subs.push(
+      this.dataService
+        .getSessions(this.selectedFilm.id)
+        .subscribe((sessions) => {
+          console.log('Séances récupérées pour le film : ', sessions);
+          this.listSessions = sessions;
+          // Formatage des dates et heures
+          this.dateTimeFormatting.dateFormatting(this.listSessions);
+          this.dateTimeFormatting.startHourFormatting(this.listSessions);
+          this.dateTimeFormatting.endHourFormatting(this.listSessions);
+
+          this.associateRoomQuality();
+        }),
+      // Appel pour récupérer la liste des salles de cinéma
+      this.dataService.getRoom().subscribe((data) => {
+        console.log('Salles récupérées : ', data);
+        this.listRooms = data;
+        this.associateRoomQuality();
+      }),
+      // Appel pour récupérer la liste des qualités
+      this.dataService.getQuality().subscribe((data) => {
+        console.log('Qualités récupérées : ', data);
+        this.listQualities = data;
+        this.associateRoomQuality();
+      })
+    );
+  }
+
   associateRoomQuality() {
     if (
       !this.listSessions.length ||
@@ -97,19 +131,16 @@ export class ReservationComponent implements OnInit, OnDestroy {
       this.idQuality = this.listRooms.find(
         (room) => room.name === session.roomName
       )?.idQuality;
-      console.log(this.idQuality);
 
       // On stocke la qualité de la séance dans listSessions
       session.quality = this.listQualities.find(
         (quality) => quality.id == this.idQuality
       )?.quality;
-      console.log(session.quality);
 
       // On stocke le prix de la séance dans listSessions
       session.price = this.listQualities.find(
         (quality) => quality.id == this.idQuality
       )?.price;
-      console.log(session.price);
     });
   }
 

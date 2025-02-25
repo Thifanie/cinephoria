@@ -26,7 +26,7 @@ export class DataService {
   // }
   getFilms(): void {
     this.http
-      .get<Film[]>('/api/films', {
+      .get<Film[]>('http://localhost:3000/api/films', {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
       })
       .subscribe({
@@ -60,6 +60,15 @@ export class DataService {
   getSessions(idFilm: number): Observable<Session[]> {
     return this.http.get<Session[]>(
       `http://localhost:3000/api/session/${idFilm}`,
+      {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      }
+    );
+  }
+
+  getSessionById(idSession: number): Observable<Session[]> {
+    return this.http.get<Session[]>(
+      `http://localhost:3000/api/session/booking/${idSession}`,
       {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
       }

@@ -55,7 +55,7 @@ app.get("/api/session/:id", async (req, res) => {
   try {
     const filmId = req.params.id; // Récupère l'id du film depuis l'URL
     const result = await db.pool.query(
-      "SELECT date, startHour, endHour, idFilm, cinema.name AS cinemaName, room.name AS roomName FROM cinephoria.session JOIN cinephoria.cinema on session.idCinema = cinema.id JOIN cinephoria.room ON session.idRoom = room.id WHERE idFilm = ?",
+      "SELECT session.id, date, startHour, endHour, idFilm, cinema.name AS cinemaName, room.name AS roomName FROM cinephoria.session JOIN cinephoria.cinema on session.idCinema = cinema.id JOIN cinephoria.room ON session.idRoom = room.id WHERE idFilm = ?",
       [filmId] // Paramètre sécurisé pour éviter l'injection SQL
     );
     res.send(result);
@@ -64,14 +64,25 @@ app.get("/api/session/:id", async (req, res) => {
   }
 });
 
-export const prerender = false;
+app.get("/api/session/booking/:id", async (req, res) => {
+  try {
+    const sessionId = req.params.id; // Récupère l'id du film depuis l'URL
+    const result = await db.pool.query(
+      "SELECT date, startHour, endHour, idFilm, cinema.name AS cinemaName, room.name AS roomName, cinephoria.quality.quality AS quality, cinephoria.quality.price as price, cinephoria.films.moviePoster as moviePoster FROM cinephoria.session JOIN cinephoria.cinema on session.idCinema = cinema.id JOIN cinephoria.room ON session.idRoom = room.id JOIN cinephoria.quality ON room.idQuality = quality.id JOIN cinephoria.films ON session.idFilm = films.id WHERE session.id = ?",
+      [sessionId] // Paramètre sécurisé pour éviter l'injection SQL
+    );
+    res.send(result);
+  } catch (err) {
+    res.status(500).send({ error: "Erreur serveur" });
+  }
+});
 
 app.get("/api/session", async (req, res) => {
   try {
     const cinemaId = req.query.cinemaId; // Utilisation de req.query pour accéder au paramètre de la query string
     console.log(cinemaId);
     const result = await db.pool.query(
-      "SELECT date, startHour, endHour, room.name AS roomName, films.title as filmTitle FROM cinephoria.session JOIN cinephoria.room ON session.idRoom = room.id JOIN cinephoria.films ON session.idFilm = films.id WHERE session.idCinema = ?",
+      "SELECT session.id, date, startHour, endHour, room.name AS roomName, films.title as filmTitle FROM cinephoria.session JOIN cinephoria.room ON session.idRoom = room.id JOIN cinephoria.films ON session.idFilm = films.id WHERE session.idCinema = ?",
       [cinemaId] // Paramètre sécurisé pour éviter l'injection SQL);
     );
     res.send(result);

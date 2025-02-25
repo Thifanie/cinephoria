@@ -10,6 +10,7 @@ import { AdministrationComponent } from './pages/administration/administration.c
 import { ListSessionsComponent } from './features/films/components/list-sessions/list-sessions.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin.guard';
+import { FilmBookingComponent } from './features/films/components/film-booking/film-booking.component';
 
 export const prerender = false;
 
@@ -19,12 +20,16 @@ export const routes: Routes = [
   { path: 'compte', component: CompteComponent, canActivate: [AuthGuard] },
   { path: 'contact', component: ContactComponent },
   { path: 'films', component: FilmsComponent },
-  // {
-  //   path: 'sessions/:id',
-  //   component: ListSessionsComponent,
-  //   data: { ssr: false },
-  // },
+  {
+    path: 'sessions/:id',
+    component: ListSessionsComponent,
+    data: { ssr: false },
+  },
   { path: 'reservation', component: ReservationComponent },
+  {
+    path: 'reservation/:id',
+    component: FilmBookingComponent,
+  },
   { path: 'inscription', component: InscriptionComponent },
   { path: 'connexion', component: ConnexionComponent },
   {
