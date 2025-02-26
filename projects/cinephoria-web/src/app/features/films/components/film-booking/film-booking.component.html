@@ -1,6 +1,8 @@
 <h1>Réservation pour {{ this.session[0].title }}</h1>
 
-<div class="container text-center">
+<div
+  class="container d-flex flex-column flex-md-row text-center justify-content-between"
+>
   <div class="col-md-3 d-flex justify-content-center align-items-center">
     <div class="mb-4">
       <div class="card mb-3">
@@ -29,6 +31,6 @@
       </div>
     </div>
   </div>
-</div>
 
-<app-seat-selection></app-seat-selection>
+  <app-seat-selection></app-seat-selection>
+</div>

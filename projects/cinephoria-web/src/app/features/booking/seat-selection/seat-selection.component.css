@@ -1,0 +1,25 @@
+.cinema {
+  border: solid 1px #d4cdc9;
+  margin-left: 30px;
+  padding: 20px;
+}
+
+p {
+  margin: 20px 0 0 0;
+  color: #d4cdc9;
+}
+
+button {
+  margin-top: 20px;
+  background-color: #a57e8f;
+  color: #d4cdc9;
+  border-width: 3px;
+  border-color: #545163;
+}
+
+button:hover {
+  background-color: #a57e8f;
+  border-color: #d4cdc9;
+  border-width: 3px;
+  color: #d4cdc9;
+}

@@ -55,6 +55,7 @@ export class ReservationComponent implements OnInit, OnDestroy {
 
   selectCinema(cinema: Cinema): void {
     this.selectedCinema = cinema;
+    this.selectedFilm = null; // Réinitialise le film sélectionné
 
     // Appel pour récupérer les séances du cinéma sélectionné
     this.subs.push(
@@ -87,6 +88,7 @@ export class ReservationComponent implements OnInit, OnDestroy {
 
   selectFilm(film: Film): void {
     this.selectedFilm = film;
+    this.selectedCinema = null; // Réinitialise le cinéma sélectionné
 
     // Appel pour récupérer les séances du film sélectionné
     this.subs.push(
