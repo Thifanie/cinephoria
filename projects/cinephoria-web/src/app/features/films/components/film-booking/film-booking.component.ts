@@ -4,10 +4,11 @@ import { Subscription } from 'rxjs';
 import { DataService } from '../../../../data.service';
 import { Session } from '../../models/session';
 import { DateTimeFormattingService } from '../../services/date-time-formatting.service';
+import { SeatSelectionComponent } from '../../../booking/seat-selection/seat-selection.component';
 
 @Component({
   selector: 'app-film-booking',
-  imports: [],
+  imports: [SeatSelectionComponent],
   templateUrl: './film-booking.component.html',
   styleUrl: './film-booking.component.css',
 })

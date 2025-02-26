@@ -1,0 +1,14 @@
+<div class="cinema">
+  <h2>Sélectionnez votre siège</h2>
+  <div *ngFor="let row of rows; let rowIndex = index" class="row">
+    <span>{{ rowIndex + 1 }}:</span>
+    <button
+      *ngFor="let seat of row; let seatIndex = index"
+      [class.reserved]="seat.reserved"
+      (click)="toggleSeatSelection(rowIndex, seatIndex)"
+    >
+      {{ seat.seat_number }}
+    </button>
+  </div>
+  <button (click)="confirmReservation()">Confirmer la réservation</button>
+</div>

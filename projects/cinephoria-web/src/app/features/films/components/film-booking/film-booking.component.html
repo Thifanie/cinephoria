@@ -1,35 +1,34 @@
-<div class="container">
-  <div class="container text-center">
-    <div class="col-md-3 d-flex justify-content-center align-items-center">
-      <div class="mb-4">
-        <div class="card mb-3">
-          <div class="row g-0">
-            <img
-              class="img-fluid rounded"
-              src="{{ this.moviePoster }}"
-              alt="moviePoster"
-            />
-            <div class="card-body">
-              <p class="card-text" id="title">
-                {{ this.session[0].filmTitle }}
-              </p>
-              <p class="card-text">
-                {{ this.session[0].formatedDate }}
-              </p>
-              <p class="card-text">
-                {{ this.session[0].formatedStartHour }} -
-                {{ this.session[0].formatedEndHour }}
-              </p>
-              <p class="card-text">
-                {{ this.session[0].cinemaName }}
-              </p>
-              <p class="card-text">Salle {{ this.session[0].roomName }}</p>
-              <p class="card-text">Qualité {{ this.session[0].quality }}</p>
-              <p class="card-text">{{ this.session[0].price }} &euro;</p>
-            </div>
+<h1>Réservation pour {{ this.session[0].title }}</h1>
+
+<div class="container text-center">
+  <div class="col-md-3 d-flex justify-content-center align-items-center">
+    <div class="mb-4">
+      <div class="card mb-3">
+        <div class="row g-0">
+          <img
+            class="img-fluid rounded"
+            src="{{ this.moviePoster }}"
+            alt="moviePoster"
+          />
+          <div class="card-body">
+            <p class="card-text">
+              {{ this.session[0].formatedDate }}
+            </p>
+            <p class="card-text">
+              {{ this.session[0].formatedStartHour }} -
+              {{ this.session[0].formatedEndHour }}
+            </p>
+            <p class="card-text">
+              {{ this.session[0].cinemaName }}
+            </p>
+            <p class="card-text">Salle {{ this.session[0].roomName }}</p>
+            <p class="card-text">Qualité {{ this.session[0].quality }}</p>
+            <p class="card-text">{{ this.session[0].price }} &euro;</p>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<app-seat-selection></app-seat-selection>

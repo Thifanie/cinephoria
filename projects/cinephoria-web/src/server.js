@@ -68,7 +68,7 @@ app.get("/api/session/booking/:id", async (req, res) => {
   try {
     const sessionId = req.params.id; // Récupère l'id du film depuis l'URL
     const result = await db.pool.query(
-      "SELECT date, startHour, endHour, idFilm, cinema.name AS cinemaName, room.name AS roomName, cinephoria.quality.quality AS quality, cinephoria.quality.price as price, cinephoria.films.moviePoster as moviePoster FROM cinephoria.session JOIN cinephoria.cinema on session.idCinema = cinema.id JOIN cinephoria.room ON session.idRoom = room.id JOIN cinephoria.quality ON room.idQuality = quality.id JOIN cinephoria.films ON session.idFilm = films.id WHERE session.id = ?",
+      "SELECT date, startHour, endHour, idFilm, cinema.name AS cinemaName, room.name AS roomName, cinephoria.quality.quality AS quality, cinephoria.quality.price as price, cinephoria.films.moviePoster as moviePoster, cinephoria.films.title FROM cinephoria.session JOIN cinephoria.cinema on session.idCinema = cinema.id JOIN cinephoria.room ON session.idRoom = room.id JOIN cinephoria.quality ON room.idQuality = quality.id JOIN cinephoria.films ON session.idFilm = films.id WHERE session.id = ?",
       [sessionId] // Paramètre sécurisé pour éviter l'injection SQL
     );
     res.send(result);
@@ -84,6 +84,20 @@ app.get("/api/session", async (req, res) => {
     const result = await db.pool.query(
       "SELECT session.id, date, startHour, endHour, room.name AS roomName, films.title as filmTitle FROM cinephoria.session JOIN cinephoria.room ON session.idRoom = room.id JOIN cinephoria.films ON session.idFilm = films.id WHERE session.idCinema = ?",
       [cinemaId] // Paramètre sécurisé pour éviter l'injection SQL);
+    );
+    res.send(result);
+  } catch (err) {
+    throw err;
+  }
+});
+
+app.get("/api/session/seats/:id", async (req, res) => {
+  try {
+    const sessionId = req.params.id; // Utilisation de req.query pour accéder au paramètre de la query string
+    console.log(sessionId);
+    const result = await db.pool.query(
+      "SELECT room.places FROM cinephoria.session JOIN cinephoria.room ON session.idRoom = room.id WHERE session.id = ?",
+      [sessionId] // Paramètre sécurisé pour éviter l'injection SQL);
     );
     res.send(result);
   } catch (err) {

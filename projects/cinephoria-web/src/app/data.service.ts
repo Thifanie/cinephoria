@@ -77,7 +77,16 @@ export class DataService {
 
   getSessionsByCinema(cinemaId: number): Observable<Session[]> {
     return this.http.get<Session[]>(
-      `http://localhost:3000/api/session?cinemaId=${cinemaId}}`,
+      `http://localhost:3000/api/session?cinemaId=${cinemaId}`,
+      {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      }
+    );
+  }
+
+  getSeatsBySession(idSession: number): Observable<Session[]> {
+    return this.http.get<Session[]>(
+      `http://localhost:3000/api/session/seats/${idSession}`,
       {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
       }

@@ -2,6 +2,7 @@
 
 export interface Session {
   id: number;
+  title: string;
   date: Date;
   filmTitle: string;
   formatedDate: string;
@@ -15,4 +16,5 @@ export interface Session {
   quality: string | undefined;
   price: number | undefined;
   moviePoster: string;
+  places: number;
 }
