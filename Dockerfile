@@ -1,21 +1,26 @@
-# Stage 1 : Compile and build Angular codebase
+# Stage 1 : Compiler et construire le code source Angular
 
-# Use official node image as the base image
-FROM node:latest AS build
-# Set the working directory
+# Téléchargement de l'image node pour installer les dépendances du projet
+FROM node:18-alpine3.19 AS build
+
 WORKDIR /app
-# Add the source code to app
+# Copie du code dans le /app
 COPY . .
-# Install all the dependencies
+# Installation des dépendances
 RUN npm install
-# Generate the build of the application
+# Construction de l'application
 RUN npm run build
 
-# Stage 2 : Run app with nginx server
+# Stage 2 : Mettre à disposition un serveur web
 
-# Use official nginx image as the base image
-FROM nginx:latest
-# Copy the build output to replace the default nginx contents
+# Téléchargement d'une image nginx
+FROM nginx:alpine3.19
+
+# Importation de notre configuration nginx à la place de celle par defaut
+COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
+
+# Copier le resultat du "build" dans mon serveur
 COPY --from=build /app/dist/cinephoria-web /usr/share/nginx/html
-# Expose port 80
+
+# Ecouter sur le port 80
 EXPOSE 80
