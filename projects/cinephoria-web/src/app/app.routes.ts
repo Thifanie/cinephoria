@@ -29,6 +29,7 @@ export const routes: Routes = [
   {
     path: 'reservation/:id',
     component: FilmBookingComponent,
+    canActivate: [AuthGuard],
   },
   { path: 'inscription', component: InscriptionComponent },
   { path: 'connexion', component: ConnexionComponent },
