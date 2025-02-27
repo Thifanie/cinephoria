@@ -1,40 +1,57 @@
-# CinephoriaWorkspace
+# cinephoria-web
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.6.
+Ce projet a été généré en utilisant [Angular CLI](https://github.com/angular/angular-cli) version 19.0.6.
+Le back-end a été géré par nodeJS version 22.12.0.
 
-## Development server
+# Pré-requis
 
-To start a local development server, run:
+Les outils utilisés sont :
 
-```bash
-ng serve
-```
+- Visual Studio Code pour l'IDE
+- Angular CLI pour la partie front
+- nodeJS pour la partie back
+- Mariadb pour la base de données SQL : 
+    - DataGrip a été utilisé pour la gestion de la base de données
+    - il faut créer une base de données et remplacer les valeurs par défaut dans le fichier .env par les informations de connexion à la base de données
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Lancement en local
 
-## Code scaffolding
+Pour lancer le projet en local :
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- Partie front : commande "npm start"
+- Partie back : commande "node projects\cinephoria-web\src\server.js"
+
+Quand le serveur est en route, ouvrir le navigateur à l'URL `http://localhost:4200/`. L'application se recharge automatiquement lors de changement dans les fichiers sources.
+
+## Gestion du projet Angular
+
+Pour générer un nouveau composant :
 
 ```bash
 ng generate component component-name
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Pour générer un nouveau service :
 
 ```bash
-ng generate --help
+ng generate service service-name
+```
+
+Pour générer un nouveau pipe :
+
+```bash
+ng generate pipe pipe-name
 ```
 
 ## Building
 
-To build the project run:
+Pour build le projet :
 
 ```bash
-ng build
+npm build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Cette commande va compiler le projet et stocker les fichiers de build générés dans le dossier `dist/`.
 
 ## Running unit tests
 
@@ -54,6 +71,6 @@ ng e2e
 
 Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
-## Additional Resources
+## Ressources additionnelles
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Pour plus d'informations sur le CLI Angular, visiter la page https://angular.dev/tools/cli.
