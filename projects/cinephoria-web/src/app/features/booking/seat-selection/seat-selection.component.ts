@@ -1,4 +1,11 @@
-import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  OnInit,
+  Output,
+  Renderer2,
+} from '@angular/core';
 import { DataService } from '../../../data.service';
 import { Subscription } from 'rxjs';
 import { NgFor, NgIf } from '@angular/common';
@@ -16,6 +23,8 @@ export class SeatSelectionComponent implements OnInit {
   row!: HTMLElement;
   isBooked = false; // Variable pour savoir si le siège est réservé
   seats: { element: HTMLImageElement; isBooked: boolean }[] = []; // Tableau pour suivre l'état de chaque siège
+
+  @Output() confirmReservationEvent = new EventEmitter<string>();
 
   constructor(
     private readonly dataService: DataService,
@@ -124,14 +133,9 @@ export class SeatSelectionComponent implements OnInit {
     }
   }
 
-  toggleSeatSelection() {}
-
-  confirmReservation() {
-    // const selectedSeatIds = this.selectedSeats.map(seat => seat.id);
-    // this.dataService.reserveSeats(selectedSeatIds).subscribe(response => {
-    //   alert('Réservation confirmée');
-    //   this.getSeats(); // Actualiser l'état des sièges après réservation
-    // });
+  confirm() {
+    const selectedSeatsString = this.selectedSeats.join(', ');
+    this.confirmReservationEvent.emit(selectedSeatsString);
   }
 
   ngOnDestroy() {

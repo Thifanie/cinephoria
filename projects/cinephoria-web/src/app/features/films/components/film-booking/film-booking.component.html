@@ -32,5 +32,7 @@
     </div>
   </div>
 
-  <app-seat-selection></app-seat-selection>
+  <app-seat-selection
+    (confirmReservationEvent)="confirmReservation($event)"
+  ></app-seat-selection>
 </div>

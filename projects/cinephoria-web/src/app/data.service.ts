@@ -8,6 +8,7 @@ import { Session } from './features/films/models/session';
 import { Room } from './features/films/models/room';
 import { Quality } from './features/films/models/quality';
 import { Cinema } from './features/films/models/cinema';
+import { Order } from './features/films/models/order';
 
 @Injectable({
   providedIn: 'root',
@@ -123,6 +124,12 @@ export class DataService {
 
   postUser(userData: any) {
     return this.http.post<User>('http://localhost:3000/api/user', userData, {
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  reserveSeats(orderData: Order) {
+    return this.http.post<Order>('http://localhost:3000/api/order', orderData, {
       headers: { 'Content-Type': 'application/json' },
     });
   }

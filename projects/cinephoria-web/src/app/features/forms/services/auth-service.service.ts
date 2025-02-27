@@ -65,7 +65,7 @@ export class AuthServiceService {
   }
 
   // On récupère l'id de l'utilisateur connecté à partir de son token
-  private getUserIdFromToken(): number | null {
+  getUserIdFromToken(): number | null {
     if (typeof window !== 'undefined' && window.localStorage) {
       const token = localStorage.getItem('token');
       if (!token) return null;

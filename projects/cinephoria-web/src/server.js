@@ -235,6 +235,63 @@ app.post("/api/auth/login", async (req, res) => {
   res.json({ token });
 });
 
+app.post("/api/order", async (req, res) => {
+  try {
+    const {
+      idUser,
+      idFilm,
+      cinemaName,
+      idSession,
+      roomName,
+      date,
+      viewed,
+      placesNumber,
+      price,
+    } = req.body;
+
+    const cinemaResult = await db.pool.query(
+      "SELECT cinema.id FROM cinema WHERE cinema.name = ?",
+      [cinemaName]
+    );
+    const roomResult = await db.pool.query(
+      "SELECT room.id FROM room WHERE room.name = ?",
+      [roomName]
+    );
+    console.log("cinemaResult:", cinemaResult);
+    console.log("roomResult:", roomResult);
+
+    const idCinema = cinemaResult[0].id; // Extraire l'ID du cinéma
+    const idRoom = roomResult[0].id; // Extraire l'ID de la salle
+
+    console.log("Données reçues:", req.body); // ✅ Vérifier les données avant l'insertion
+    // const result = await db.pool.query(
+    //   "INSERT INTO `order` (idUser, idFilm, idCinema, idSession, idRoom, date, viewed, placesNumber, price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    //   [
+    //     idUser,
+    //     idFilm,
+    //     idCinema,
+    //     idSession,
+    //     idRoom,
+    //     date,
+    //     viewed,
+    //     placesNumber,
+    //     price,
+    //   ]
+    // );
+    // // ✅ Récupérer l'ID de la dernière réservation ajoutée
+    // const insertedOrderId = result.insertId;
+    // // ✅ Récupérer la réservation nouvellement insérée
+    // const [newOrder] = await db.pool.query("SELECT * FROM order WHERE id = ?", [
+    //   insertedOrderId,
+    // ]);
+
+    res.status(201).json(newOrder);
+  } catch (err) {
+    console.error("Error inserting order:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 app.listen(3000, () => {
   console.log("Serveur listening on port 3000");
 });

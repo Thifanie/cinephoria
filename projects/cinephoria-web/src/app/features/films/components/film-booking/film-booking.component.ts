@@ -5,6 +5,8 @@ import { DataService } from '../../../../data.service';
 import { Session } from '../../models/session';
 import { DateTimeFormattingService } from '../../services/date-time-formatting.service';
 import { SeatSelectionComponent } from '../../../booking/seat-selection/seat-selection.component';
+import { Order } from '../../models/order';
+import { AuthServiceService } from '../../../forms/services/auth-service.service';
 
 @Component({
   selector: 'app-film-booking',
@@ -21,10 +23,13 @@ export class FilmBookingComponent implements OnInit {
 
   moviePoster: string = '';
 
+  orderData!: Order;
+
   constructor(
     private readonly route: ActivatedRoute,
     private readonly dataService: DataService,
-    private readonly dateTimeFormatting: DateTimeFormattingService
+    private readonly dateTimeFormatting: DateTimeFormattingService,
+    private readonly authService: AuthServiceService
   ) {}
 
   ngOnInit() {
@@ -44,6 +49,28 @@ export class FilmBookingComponent implements OnInit {
         this.moviePoster = this.session[0].moviePoster;
       })
     );
+  }
+
+  confirmReservation(selectedSeatsString: string) {
+    const userId = this.authService.getUserIdFromToken();
+    this.orderData = {
+      idUser: userId,
+      idFilm: this.session[0].idFilm,
+      cinemaName: this.session[0].cinemaName,
+      idSession: this.sessionId,
+      roomName: this.session[0].roomName,
+      date: new Date(),
+      viewed: false,
+      placesNumber: selectedSeatsString,
+      price: this.session[0].price,
+    };
+    this.subs.push(
+      this.dataService.reserveSeats(this.orderData).subscribe((response) => {
+        alert('Réservation confirmée');
+        //   this.getSeats(); // Actualiser l'état des sièges après réservation
+      })
+    );
+    console.log(this.orderData);
   }
 
   ngOnDestroy() {
