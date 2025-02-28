@@ -263,27 +263,58 @@ app.post("/api/order", async (req, res) => {
     const idCinema = cinemaResult[0].id; // Extraire l'ID du cinéma
     const idRoom = roomResult[0].id; // Extraire l'ID de la salle
 
+    console.log("idCinema:", idCinema);
+    console.log("idRoom:", idRoom);
+
     console.log("Données reçues:", req.body); // ✅ Vérifier les données avant l'insertion
-    // const result = await db.pool.query(
-    //   "INSERT INTO `order` (idUser, idFilm, idCinema, idSession, idRoom, date, viewed, placesNumber, price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-    //   [
-    //     idUser,
-    //     idFilm,
-    //     idCinema,
-    //     idSession,
-    //     idRoom,
-    //     date,
-    //     viewed,
-    //     placesNumber,
-    //     price,
-    //   ]
-    // );
-    // // ✅ Récupérer l'ID de la dernière réservation ajoutée
-    // const insertedOrderId = result.insertId;
-    // // ✅ Récupérer la réservation nouvellement insérée
-    // const [newOrder] = await db.pool.query("SELECT * FROM order WHERE id = ?", [
-    //   insertedOrderId,
-    // ]);
+    const result = await db.pool.query(
+      "INSERT INTO `order` (idUser, idFilm, idCinema, idSession, idRoom, date, viewed, placesNumber, price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      [
+        idUser,
+        idFilm,
+        idCinema,
+        idSession,
+        idRoom,
+        date,
+        viewed,
+        placesNumber,
+        price,
+      ]
+    );
+
+    // On récupère les places réservées de la session actuelle
+    const reservedSeatsResult = await db.pool.query(
+      "SELECT reservedSeats FROM cinephoria.session WHERE session.id = ?",
+      [idSession]
+    );
+
+    // Si des places sont déjà réservées, les places de la réservation actuelle sont ajoutées à la liste des places
+    //  réservées de la session actuelle
+    if (
+      reservedSeatsResult.length > 0 &&
+      reservedSeatsResult[0].reservedSeats !== null
+    ) {
+      await db.pool.query(
+        "UPDATE cinephoria.session SET reservedSeats = CONCAT(reservedSeats, ', ', ?) WHERE session.id = ?",
+        [placesNumber, idSession]
+      );
+      // Sinon elles remplacent la valeur nulle de la colonne des places réservées de la session actuelle.
+    } else {
+      await db.pool.query(
+        "UPDATE cinephoria.session SET reservedSeats = IFNULL(reservedSeats, ?) WHERE id = ?",
+        [placesNumber, idSession]
+      );
+    }
+
+    console.log(reservedSeatsResult);
+
+    // ✅ Récupérer l'ID de la dernière réservation ajoutée
+    const insertedOrderId = result.insertId;
+    // ✅ Récupérer la réservation nouvellement insérée
+    const [newOrder] = await db.pool.query(
+      "SELECT * FROM `order` WHERE id = ?",
+      [insertedOrderId]
+    );
 
     res.status(201).json(newOrder);
   } catch (err) {

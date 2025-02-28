@@ -53,13 +53,15 @@ export class FilmBookingComponent implements OnInit {
 
   confirmReservation(selectedSeatsString: string) {
     const userId = this.authService.getUserIdFromToken();
+    const formattedDate = new Date().toISOString().split('T')[0];
+    console.log(formattedDate);
     this.orderData = {
       idUser: userId,
       idFilm: this.session[0].idFilm,
       cinemaName: this.session[0].cinemaName,
       idSession: this.sessionId,
       roomName: this.session[0].roomName,
-      date: new Date(),
+      date: formattedDate,
       viewed: false,
       placesNumber: selectedSeatsString,
       price: this.session[0].price,
@@ -67,7 +69,6 @@ export class FilmBookingComponent implements OnInit {
     this.subs.push(
       this.dataService.reserveSeats(this.orderData).subscribe((response) => {
         alert('Réservation confirmée');
-        //   this.getSeats(); // Actualiser l'état des sièges après réservation
       })
     );
     console.log(this.orderData);
