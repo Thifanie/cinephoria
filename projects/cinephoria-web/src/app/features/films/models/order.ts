@@ -6,8 +6,14 @@ export interface Order {
   cinemaName: string;
   idSession: number | null;
   roomName: string;
-  date: string;
+  date: Date;
   viewed: boolean;
   placesNumber: string;
   price: number | undefined;
+  moviePoster: string;
+  startHour: Date;
+  endHour: Date;
+  description: string;
+  actors: string;
+  title: string;
 }

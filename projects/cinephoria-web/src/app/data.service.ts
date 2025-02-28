@@ -112,6 +112,12 @@ export class DataService {
     });
   }
 
+  getOrdersByUser(idUser: number | null): Observable<Order[]> {
+    return this.http.get<Order[]>(`http://localhost:3000/api/order/${idUser}`, {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    });
+  }
+
   postFilms(filmData: any) {
     return this.http.post<FilmData>(
       'http://localhost:3000/api/films',

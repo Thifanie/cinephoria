@@ -132,6 +132,19 @@ app.get("/api/cinema", async (req, res) => {
   }
 });
 
+app.get("/api/order/:id", async (req, res) => {
+  try {
+    const userId = req.params.id; // Récupère l'id de la réservation depuis l'URL
+    const result = await db.pool.query(
+      "SELECT films.moviePoster, films.title, films.actors, films.description, `order`.date, cinema.name as cinemaName, room.name as roomName, `order`.price, quality.quality, viewed, placesNumber, session.startHour, session.endHour FROM `order` JOIN cinephoria.films ON `order`.idFilm = films.id JOIN cinephoria.cinema ON `order`.idCinema = cinema.id JOIN cinephoria.room ON `order`.idRoom = room.id JOIN cinephoria.quality ON room.idQuality = quality.id JOIN cinephoria.session ON `order`.idSession = session.id WHERE `order`.idUser = ?",
+      [userId] // Paramètre sécurisé pour éviter l'injection SQL
+    );
+    res.send(result);
+  } catch (err) {
+    res.status(500).send({ error: "Erreur serveur" });
+  }
+});
+
 app.post("/api/films", async (req, res) => {
   try {
     const {
@@ -249,6 +262,9 @@ app.post("/api/order", async (req, res) => {
       price,
     } = req.body;
 
+    const formatedDate = date.slice(0, 19).replace("T", " ");
+    console.log("Date formatée : ", formatedDate);
+
     const cinemaResult = await db.pool.query(
       "SELECT cinema.id FROM cinema WHERE cinema.name = ?",
       [cinemaName]
@@ -275,7 +291,7 @@ app.post("/api/order", async (req, res) => {
         idCinema,
         idSession,
         idRoom,
-        date,
+        formatedDate,
         viewed,
         placesNumber,
         price,

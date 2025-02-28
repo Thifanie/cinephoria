@@ -53,18 +53,23 @@ export class FilmBookingComponent implements OnInit {
 
   confirmReservation(selectedSeatsString: string) {
     const userId = this.authService.getUserIdFromToken();
-    const formattedDate = new Date().toISOString().split('T')[0];
-    console.log(formattedDate);
+    // const formattedDate = new Date().toISOString().split('T')[0];
     this.orderData = {
       idUser: userId,
       idFilm: this.session[0].idFilm,
       cinemaName: this.session[0].cinemaName,
       idSession: this.sessionId,
       roomName: this.session[0].roomName,
-      date: formattedDate,
+      date: new Date(),
       viewed: false,
       placesNumber: selectedSeatsString,
       price: this.session[0].price,
+      moviePoster: '',
+      startHour: new Date(),
+      endHour: new Date(),
+      description: '',
+      actors: '',
+      title: '',
     };
     this.subs.push(
       this.dataService.reserveSeats(this.orderData).subscribe((response) => {

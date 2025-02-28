@@ -1,0 +1,42 @@
+/* button {
+    background-color: #a57e8f;
+    color: #d4cdc9;
+    margin-top: 8px;
+  }
+  
+  button:hover {
+    background-color: #a57e8f93;
+  } */
+
+.container {
+  width: 100%;
+  margin: 0 0 50px;
+  display: flex;
+  /* align-items: center;
+  justify-content: center; */
+  background-color: #545163;
+}
+
+.card {
+  background-color: #d4cdc9;
+}
+
+.card-body {
+  color: #545163;
+  height: auto;
+  align-content: center;
+  text-align: justify;
+}
+
+.card-text {
+  font-size: x-small;
+  text-align: justify;
+}
+
+#actors {
+  font-size: small;
+}
+
+#title {
+  text-align: center;
+}
