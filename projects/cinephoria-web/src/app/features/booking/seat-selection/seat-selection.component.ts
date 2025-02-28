@@ -2,6 +2,7 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  Input,
   OnInit,
   Output,
   Renderer2,
@@ -22,9 +23,14 @@ export class SeatSelectionComponent implements OnInit {
   subs: Subscription[] = [];
   row!: HTMLElement;
   isBooked = false; // Variable pour savoir si le siège est réservé
-  seats: { element: HTMLImageElement; isBooked: boolean }[] = []; // Tableau pour suivre l'état de chaque siège
+  seats: {
+    element: HTMLImageElement;
+    isBooked: boolean;
+    isSelected: boolean;
+  }[] = []; // Tableau pour suivre l'état de chaque siège
 
   @Output() confirmReservationEvent = new EventEmitter<string>();
+  @Input() reservedSeats!: string;
 
   constructor(
     private readonly dataService: DataService,
@@ -75,6 +81,26 @@ export class SeatSelectionComponent implements OnInit {
     }
   }
 
+  // Vérifie si des sièges sont déjà réservés
+  async checkSeats(): Promise<void> {
+    this.seats.forEach((seat) => {
+      // On récupère le numéro de siège
+      const seatNumber = seat.element.id.split(' ')[1];
+      // Créer une expression régulière dynamique pour vérifier la valeur du numéro de siège dans sa globalité
+      const regex = new RegExp(`(^|, )${seatNumber}($|, )`);
+      // Si le numéro de siège existe dans la liste de sièges réservés, le siège apparaît réservé
+      if (regex.test(this.reservedSeats)) {
+        this.renderer.setAttribute(
+          seat.element,
+          'src',
+          'assets/booked-chair.png'
+        );
+        seat.isBooked = true;
+      }
+      console.log('Sièges occupés : ', this.reservedSeats);
+    });
+  }
+
   // Ajouter un siège dynamique avec un état
   addSeatClickListener(): void {
     const seatElements: HTMLImageElement[] =
@@ -84,14 +110,17 @@ export class SeatSelectionComponent implements OnInit {
     this.seats = Array.from(seatElements).map((seat) => ({
       element: seat,
       isBooked: false, // Initialiser isBooked à false pour chaque siège
+      isSelected: false,
     }));
+
     if (this.seats.length == this.seatsNumber) {
-      console.log(this.seats);
-      // Initialiser chaque siège avec un état "non réservé"
+      console.log('Sièges : ', this.seats);
+      // Initialiser chaque siège avec un état "non réservé" ou "réservé"
+      this.checkSeats();
       this.seats.forEach((seat) => {
         // Écouteur pour survol (mouseenter)
         this.renderer.listen(seat.element, 'mouseenter', () => {
-          if (!seat.isBooked) {
+          if (!seat.isSelected && !seat.isBooked) {
             this.renderer.setAttribute(
               seat.element,
               'src',
@@ -102,32 +131,35 @@ export class SeatSelectionComponent implements OnInit {
 
         // Revenir à l'URL d'origine lors du survol (mouseleave)
         this.renderer.listen(seat.element, 'mouseleave', () => {
-          if (!seat.isBooked) {
+          if (!seat.isSelected && !seat.isBooked) {
             this.renderer.setAttribute(seat.element, 'src', 'assets/chair.png');
           }
         });
 
         // Clic sur un siège
         this.renderer.listen(seat.element, 'click', () => {
-          if (!seat.isBooked) {
+          if (!seat.isSelected && !seat.isBooked) {
             this.renderer.setAttribute(
               seat.element,
               'src',
               'assets/booked-chair.png'
             );
-            seat.isBooked = true; // Marquer le siège comme réservé
+            seat.isSelected = true; // Marquer le siège comme sélectionné
             const seatNumber = seat.element.id.split(' ')[1];
             console.log(seatNumber);
             this.selectedSeats.push(seatNumber);
             console.log(this.selectedSeats);
-          } else {
+          } else if (!seat.isBooked && seat.isSelected) {
             this.renderer.setAttribute(seat.element, 'src', 'assets/chair.png');
-            seat.isBooked = false;
+            seat.isSelected = false;
             const seatNumber = seat.element.id.split(' ')[1];
             this.selectedSeats = this.selectedSeats.filter(
               (seat) => seat !== seatNumber
             );
           } // Marquer le siège comme non réservé et le supprime du tableau de sièges réservés
+          else if (seat.isBooked) {
+            return;
+          }
         });
       });
     }

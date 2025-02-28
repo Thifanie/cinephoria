@@ -17,4 +17,5 @@ export interface Session {
   price: number | undefined;
   moviePoster: string;
   places: number;
+  reservedSeats: string;
 }
