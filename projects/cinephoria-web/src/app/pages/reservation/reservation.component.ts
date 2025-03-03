@@ -10,6 +10,7 @@ import { DateTimeFormattingService } from '../../features/films/services/date-ti
 import { Room } from '../../features/films/models/room';
 import { Quality } from '../../features/films/models/quality';
 import { CinemaNamePipe } from '../../pipes/cinema-name.pipe';
+import { AuthServiceService } from '../../features/forms/services/auth-service.service';
 
 @Component({
   selector: 'app-reservation',
@@ -32,10 +33,12 @@ export class ReservationComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly dataService: DataService,
-    private readonly dateTimeFormatting: DateTimeFormattingService
+    private readonly dateTimeFormatting: DateTimeFormattingService,
+    private readonly authService: AuthServiceService
   ) {}
 
   ngOnInit() {
+    this.authService.getExpFromToken();
     // Appel pour récupérer la liste des films lors de l'initialisation du composant
     this.dataService.getFilms();
 

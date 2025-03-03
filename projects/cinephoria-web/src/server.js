@@ -234,11 +234,7 @@ app.post("/api/auth/login", async (req, res) => {
     "SELECT * FROM cinephoria.user WHERE email = ?",
     [email]
   );
-  if (
-    !user ||
-    // || user.password !== password
-    !(await bcrypt.compare(password, user.password))
-  ) {
+  if (!user || !(await bcrypt.compare(password, user.password))) {
     return res.status(401).json({ message: "Identifiants incorrects" });
   }
 

@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { DataService } from '../../../data.service';
 import { map, Subscription } from 'rxjs';
 import { AuthServiceService } from '../services/auth-service.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-connexion-form',

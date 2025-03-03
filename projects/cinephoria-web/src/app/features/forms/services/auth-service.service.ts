@@ -24,7 +24,25 @@ export class AuthServiceService {
   // Vérifie si un token est présent dans le localStorage
   private checkToken(): boolean {
     if (typeof window !== 'undefined' && window.localStorage) {
-      return !!window.localStorage.getItem('token');
+      const token = window.localStorage.getItem('token');
+      if (!token) {
+        return false;
+      }
+
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1])); // Décoder le token
+        const now = Math.floor(Date.now() / 1000); // Timestamp actuel en secondes
+
+        if (payload.exp <= now) {
+          window.localStorage.removeItem('token'); // Supprime le token expiré
+          return false;
+        }
+
+        return true;
+      } catch (error) {
+        window.localStorage.removeItem('token'); // Supprime si le token est corrompu
+        return false;
+      }
     }
     return false; // Si ce n'est pas un environnement client, retourne false
   }
@@ -77,6 +95,18 @@ export class AuthServiceService {
         return null;
       }
     }
+    return null; // Si ce n'est pas un environnement client, retourne false
+  }
+
+  getExpFromToken(): number | null {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const token = localStorage.getItem('token');
+      if (!token) return null;
+      const decodedToken: any = jwtDecode(token);
+      console.log(decodedToken);
+
+      return decodedToken.userId;
+    } // Suppose que le token contient `userId`
     return null; // Si ce n'est pas un environnement client, retourne false
   }
 
