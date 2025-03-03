@@ -19,6 +19,17 @@ export class DateTimeFormattingService {
     );
   }
 
+  dateTimeFormatting(date: Date) {
+    return date.toLocaleDateString('fr-FR', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      second: '2-digit',
+    });
+  }
+
   startHourFormatting(listSessions: Session[]) {
     listSessions.forEach(
       (session) => (session.formatedStartHour = session.startHour.slice(0, 5))

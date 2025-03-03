@@ -6,7 +6,7 @@ export interface Order {
   cinemaName: string;
   idSession: number | null;
   roomName: string;
-  date: Date;
+  date: string;
   viewed: boolean;
   placesNumber: string;
   price: number | undefined;

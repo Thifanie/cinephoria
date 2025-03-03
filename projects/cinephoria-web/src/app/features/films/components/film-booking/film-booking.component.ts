@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DataService } from '../../../../data.service';
 import { Session } from '../../models/session';
@@ -29,7 +29,8 @@ export class FilmBookingComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly dataService: DataService,
     private readonly dateTimeFormatting: DateTimeFormattingService,
-    private readonly authService: AuthServiceService
+    private readonly authService: AuthServiceService,
+    private readonly router: Router
   ) {}
 
   ngOnInit() {
@@ -53,14 +54,16 @@ export class FilmBookingComponent implements OnInit {
 
   confirmReservation(selectedSeatsString: string) {
     const userId = this.authService.getUserIdFromToken();
-    // const formattedDate = new Date().toISOString().split('T')[0];
+    const formattedDate = this.dateTimeFormatting.dateTimeFormatting(
+      new Date()
+    );
     this.orderData = {
       idUser: userId,
       idFilm: this.session[0].idFilm,
       cinemaName: this.session[0].cinemaName,
       idSession: this.sessionId,
       roomName: this.session[0].roomName,
-      date: new Date(),
+      date: formattedDate,
       viewed: false,
       placesNumber: selectedSeatsString,
       price: this.session[0].price,
@@ -74,6 +77,7 @@ export class FilmBookingComponent implements OnInit {
     this.subs.push(
       this.dataService.reserveSeats(this.orderData).subscribe((response) => {
         alert('Réservation confirmée');
+        this.router.navigate(['compte']);
       })
     );
     console.log(this.orderData);
