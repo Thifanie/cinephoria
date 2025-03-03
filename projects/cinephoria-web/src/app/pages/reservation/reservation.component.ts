@@ -38,7 +38,6 @@ export class ReservationComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.authService.getExpFromToken();
     // Appel pour récupérer la liste des films lors de l'initialisation du composant
     this.dataService.getFilms();
 

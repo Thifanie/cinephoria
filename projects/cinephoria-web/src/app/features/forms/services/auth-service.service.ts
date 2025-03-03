@@ -98,18 +98,6 @@ export class AuthServiceService {
     return null; // Si ce n'est pas un environnement client, retourne false
   }
 
-  getExpFromToken(): number | null {
-    if (typeof window !== 'undefined' && window.localStorage) {
-      const token = localStorage.getItem('token');
-      if (!token) return null;
-      const decodedToken: any = jwtDecode(token);
-      console.log(decodedToken);
-
-      return decodedToken.userId;
-    } // Suppose que le token contient `userId`
-    return null; // Si ce n'est pas un environnement client, retourne false
-  }
-
   getUserRole$(): Observable<string> {
     return this.userRole$.asObservable();
   }
