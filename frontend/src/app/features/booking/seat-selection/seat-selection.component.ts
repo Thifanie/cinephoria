@@ -7,7 +7,7 @@ import {
   Output,
   Renderer2,
 } from '@angular/core';
-import { DataService } from '../../../../../../backend/data.service';
+import { DataService } from '../../../data.service';
 import { Subscription } from 'rxjs';
 import { NgFor, NgIf } from '@angular/common';
 

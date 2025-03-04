@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Film } from '../../models/film';
 import { CardFilmsComponent } from '../card-films/card-films.component';
 import { Subscription } from 'rxjs';
-import { DataService } from '../../../../../../../backend/data.service';
+import { DataService } from '../../../../data.service';
 
 @Component({
   selector: 'app-list-films',

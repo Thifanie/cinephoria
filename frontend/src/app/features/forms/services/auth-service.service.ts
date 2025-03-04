@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription, tap } from 'rxjs';
-import { DataService } from '../../../../../../backend/data.service';
+import { DataService } from '../../../data.service';
 import { jwtDecode } from 'jwt-decode';
 import { User } from '../models/user';
 

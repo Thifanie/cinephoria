@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { DataService } from '../../../../../backend/data.service';
+import { DataService } from '../../data.service';
 import { Cinema } from '../../features/films/models/cinema';
 import { NgFor, NgIf } from '@angular/common';
 import { Film } from '../../features/films/models/film';

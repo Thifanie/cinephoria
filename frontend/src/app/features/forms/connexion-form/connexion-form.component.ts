@@ -8,7 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DataService } from '../../../../../../backend/data.service';
+import { DataService } from '../../../data.service';
 import { Subscription } from 'rxjs';
 import { AuthServiceService } from '../services/auth-service.service';
 

@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const db = require("./db");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
@@ -335,6 +335,6 @@ app.post("/api/order", async (req, res) => {
   }
 });
 
-app.listen(3000, () => {
-  console.log("Serveur listening on port 3000");
+app.listen(3000, "0.0.0.0", () => {
+  console.log("Serveur listening on http://0.0.0.0:3000");
 });

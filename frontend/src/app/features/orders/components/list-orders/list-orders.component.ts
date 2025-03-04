@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CardOrdersComponent } from '../card-orders/card-orders.component';
 import { Order } from '../../../films/models/order';
 import { Subscription } from 'rxjs';
-import { DataService } from '../../../../../../../backend/data.service';
+import { DataService } from '../../../../data.service';
 import { AuthServiceService } from '../../../forms/services/auth-service.service';
 
 @Component({

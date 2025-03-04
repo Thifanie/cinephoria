@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { DataService } from '../../../../../../backend/data.service';
+import { DataService } from '../../../data.service';
 import { FilmData } from '../../films/models/film';
 import { Type } from '../../films/models/type';
 import { NgFor } from '@angular/common';
@@ -16,6 +16,7 @@ import { NgFor } from '@angular/common';
   imports: [ReactiveFormsModule, NgFor],
   templateUrl: './add-film-form.component.html',
   styleUrl: './add-film-form.component.css',
+  standalone: true,
 })
 export class AddFilmFormComponent implements OnInit, OnDestroy {
   addFilmForm!: FormGroup;

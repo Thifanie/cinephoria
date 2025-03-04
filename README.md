@@ -10,9 +10,16 @@ Les outils utilisés sont :
 - Visual Studio Code pour l'IDE
 - Angular CLI pour la partie front
 - nodeJS pour la partie back
-- Mariadb pour la base de données SQL : 
-    - DataGrip a été utilisé pour la gestion de la base de données
-    - il faut créer une base de données et remplacer les valeurs par défaut dans le fichier .env par les informations de connexion à la base de données
+- Mariadb pour la base de données SQL :
+  - DataGrip a été utilisé pour la gestion de la base de données
+  - il faut créer une base de données et remplacer les valeurs par défaut dans le fichier .env par les informations de connexion à la base de données
+
+# Architecture
+
+Le projet sépare le front-end du back-end par deux sous-dossiers appelés "frontend" et "backend".
+Ces deux dossiers possèdent chacun un fichier package.json et un Dockerfile.
+Le dossier "frontend" comporte le dossier src et public de l'application.
+Le dossier "backend" contient le serveur Express, le fichier relatif à la base de données, les routes, et le service de récupération de données de l'application.
 
 ## Lancement en local
 

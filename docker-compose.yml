@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  frontend:
+    image: cinephoria-frontend
+    build:
+      context: ./frontend
+      args:
+        API_URL: http://backend:3000/api
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+  backend:
+    image: cinephoria-backend
+    build: ./backend
+    ports:
+      - "3000:3000"

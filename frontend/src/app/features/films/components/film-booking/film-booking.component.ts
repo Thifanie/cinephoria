@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { DataService } from '../../../../../../../backend/data.service';
+import { DataService } from '../../../../data.service';
 import { Session } from '../../models/session';
 import { DateTimeFormattingService } from '../../services/date-time-formatting.service';
 import { SeatSelectionComponent } from '../../../booking/seat-selection/seat-selection.component';

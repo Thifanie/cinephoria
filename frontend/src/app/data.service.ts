@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { User } from '../frontend/src/app/features/forms/models/user';
-import { Film, FilmData } from '../frontend/src/app/features/films/models/film';
-import { Type } from '../frontend/src/app/features/films/models/type';
-import { Session } from '../frontend/src/app/features/films/models/session';
-import { Room } from '../frontend/src/app/features/films/models/room';
-import { Quality } from '../frontend/src/app/features/films/models/quality';
-import { Cinema } from '../frontend/src/app/features/films/models/cinema';
-import { Order } from '../frontend/src/app/features/films/models/order';
+import { User } from './features/forms/models/user';
+import { Film, FilmData } from './features/films/models/film';
+import { Type } from './features/films/models/type';
+import { Session } from './features/films/models/session';
+import { Room } from './features/films/models/room';
+import { Quality } from './features/films/models/quality';
+import { Cinema } from './features/films/models/cinema';
+import { Order } from './features/films/models/order';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +17,8 @@ export class DataService {
   private readonly filmsSubject = new BehaviorSubject<Film[]>([]);
   public films$ = this.filmsSubject.asObservable();
   constructor(private readonly http: HttpClient) {}
+  private readonly apiUrl =
+    (window as any)['API_URL'] || 'http://localhost:3000/api';
 
   filmData: Film[] = [];
 
@@ -27,7 +29,7 @@ export class DataService {
   // }
   getFilms(): void {
     this.http
-      .get<Film[]>('http://localhost:3000/api/films', {
+      .get<Film[]>(`${this.apiUrl}/films`, {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
       })
       .subscribe((films: Film[]) => {
@@ -36,35 +38,32 @@ export class DataService {
   }
 
   getType(): Observable<Type[]> {
-    return this.http.get<Type[]>('http://localhost:3000/api/type', {
+    return this.http.get<Type[]>(`${this.apiUrl}/type`, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     });
   }
 
   getAdmin(): Observable<User[]> {
-    return this.http.get<User[]>('http://localhost:3000/api/admin', {
+    return this.http.get<User[]>(`${this.apiUrl}/admin`, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     });
   }
 
   getUser(): Observable<User[]> {
-    return this.http.get<User[]>('http://localhost:3000/api/user', {
+    return this.http.get<User[]>(`${this.apiUrl}/user`, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     });
   }
 
   getSessions(idFilm: number): Observable<Session[]> {
-    return this.http.get<Session[]>(
-      `http://localhost:3000/api/session/${idFilm}`,
-      {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-      }
-    );
+    return this.http.get<Session[]>(`${this.apiUrl}/session/${idFilm}`, {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    });
   }
 
   getSessionById(idSession: number): Observable<Session[]> {
     return this.http.get<Session[]>(
-      `http://localhost:3000/api/session/booking/${idSession}`,
+      `${this.apiUrl}/session/booking/${idSession}`,
       {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
       }
@@ -73,7 +72,7 @@ export class DataService {
 
   getSessionsByCinema(cinemaId: number): Observable<Session[]> {
     return this.http.get<Session[]>(
-      `http://localhost:3000/api/session?cinemaId=${cinemaId}`,
+      `${this.apiUrl}/session?cinemaId=${cinemaId}`,
       {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
       }
@@ -82,7 +81,7 @@ export class DataService {
 
   getSeatsBySession(idSession: number): Observable<Session[]> {
     return this.http.get<Session[]>(
-      `http://localhost:3000/api/session/seats/${idSession}`,
+      `${this.apiUrl}/session/seats/${idSession}`,
       {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
       }
@@ -90,47 +89,43 @@ export class DataService {
   }
 
   getRoom(): Observable<Room[]> {
-    return this.http.get<Room[]>('http://localhost:3000/api/room', {
+    return this.http.get<Room[]>(`${this.apiUrl}/room`, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     });
   }
 
   getQuality(): Observable<Quality[]> {
-    return this.http.get<Quality[]>('http://localhost:3000/api/quality', {
+    return this.http.get<Quality[]>(`${this.apiUrl}/quality`, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     });
   }
 
   getCinema(): Observable<Cinema[]> {
-    return this.http.get<Cinema[]>('http://localhost:3000/api/cinema', {
+    return this.http.get<Cinema[]>(`${this.apiUrl}/cinema`, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     });
   }
 
   getOrdersByUser(idUser: number | null): Observable<Order[]> {
-    return this.http.get<Order[]>(`http://localhost:3000/api/order/${idUser}`, {
+    return this.http.get<Order[]>(`${this.apiUrl}/order/${idUser}`, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     });
   }
 
   postFilms(filmData: any) {
-    return this.http.post<FilmData>(
-      'http://localhost:3000/api/films',
-      filmData,
-      {
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
+    return this.http.post<FilmData>(`${this.apiUrl}/films`, filmData, {
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 
   postUser(userData: any) {
-    return this.http.post<User>('http://localhost:3000/api/user', userData, {
+    return this.http.post<User>(`${this.apiUrl}/user`, userData, {
       headers: { 'Content-Type': 'application/json' },
     });
   }
 
   reserveSeats(orderData: Order) {
-    return this.http.post<Order>('http://localhost:3000/api/order', orderData, {
+    return this.http.post<Order>(`${this.apiUrl}/order`, orderData, {
       headers: { 'Content-Type': 'application/json' },
     });
   }

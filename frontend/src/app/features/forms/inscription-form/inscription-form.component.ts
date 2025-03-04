@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { User } from '../models/user';
 import { Subscription } from 'rxjs';
-import { DataService } from '../../../../../../backend/data.service';
+import { DataService } from '../../../data.service';
 import { Router } from '@angular/router';
 
 @Component({

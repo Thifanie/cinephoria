@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../../../../../backend/data.service';
+import { DataService } from '../../data.service';
 import { Subscription } from 'rxjs';
 import { Film } from '../../features/films/models/film';
 import { NgFor } from '@angular/common';

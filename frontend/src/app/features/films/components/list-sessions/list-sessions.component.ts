@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CardSessionsComponent } from '../card-sessions/card-sessions.component';
 import { Session } from '../../models/session';
 import { Subscription } from 'rxjs';
-import { DataService } from '../../../../../../../backend/data.service';
+import { DataService } from '../../../../data.service';
 import { ActivatedRoute } from '@angular/router';
 import { Film } from '../../models/film';
 import { Room } from '../../models/room';
