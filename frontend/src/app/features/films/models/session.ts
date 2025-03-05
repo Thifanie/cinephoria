@@ -3,13 +3,11 @@
 export interface Session {
   id: number;
   title: string;
-  date: Date;
+  date: string;
   filmTitle: string;
   formatedDate: string;
   startHour: string;
-  formatedStartHour: string;
   endHour: string;
-  formatedEndHour: string;
   idFilm: number;
   cinemaName: string;
   roomName: string;

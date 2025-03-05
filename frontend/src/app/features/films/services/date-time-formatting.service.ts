@@ -5,19 +5,19 @@ import { Session } from '../models/session';
   providedIn: 'root',
 })
 export class DateTimeFormattingService {
-  dateFormatting(listSessions: Session[]) {
-    listSessions.forEach(
-      (session: Session) => (session.date = new Date(session.date))
-    );
-    listSessions.forEach(
-      (session) =>
-        (session.formatedDate = session.date.toLocaleDateString('fr-FR', {
-          day: 'numeric',
-          month: 'long',
-          year: 'numeric',
-        }))
-    );
-  }
+  // dateFormatting(listSessions: Session[]) {
+  //   listSessions.forEach(
+  //     (session: Session) => (session.date = new Date(session.date))
+  //   );
+  //   listSessions.forEach(
+  //     (session) =>
+  //       (session.formatedDate = session.date.toLocaleDateString('fr-FR', {
+  //         day: 'numeric',
+  //         month: 'long',
+  //         year: 'numeric',
+  //       }))
+  //   );
+  // }
 
   dateTimeFormatting(date: Date) {
     return date.toLocaleDateString('fr-FR', {
@@ -30,15 +30,15 @@ export class DateTimeFormattingService {
     });
   }
 
-  startHourFormatting(listSessions: Session[]) {
-    listSessions.forEach(
-      (session) => (session.formatedStartHour = session.startHour.slice(0, 5))
-    );
-  }
+  // startHourFormatting(listSessions: Session[]) {
+  //   listSessions.forEach(
+  //     (session) => (session.formatedStartHour = session.startHour.slice(0, 5))
+  //   );
+  // }
 
-  endHourFormatting(listSessions: Session[]) {
-    listSessions.forEach(
-      (session) => (session.formatedEndHour = session.endHour.slice(0, 5))
-    );
-  }
+  // endHourFormatting(listSessions: Session[]) {
+  //   listSessions.forEach(
+  //     (session) => (session.formatedEndHour = session.endHour.slice(0, 5))
+  //   );
+  // }
 }

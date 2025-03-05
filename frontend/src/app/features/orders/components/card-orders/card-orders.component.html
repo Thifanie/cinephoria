@@ -18,5 +18,63 @@
         </div>
       </div>
     </div>
+
+    <div class="order-details">
+      <p>Réservation effectuée le {{ order.date }}</p>
+      <p>Pour la séance du {{ order.sessionDate }}</p>
+      <p>{{ order.cinemaName | cinemaName }}</p>
+      <p>dans la salle {{ order.roomName }} (qualité {{ order.quality }})</p>
+      <p>Début : {{ order.startHour }} - Fin : {{ order.endHour }}</p>
+      <p>Place(s) réservée(s) : {{ order.placesNumber }}</p>
+      <p>Total payé : {{ order.price }} &euro;</p>
+      <div class="rating" *ngIf="order.viewed">
+        <div>
+          <p class="m-0">Laisser un avis :</p>
+        </div>
+        <!-- Etoiles représentant la note du film -->
+        <div id="stars-outer">
+          <img
+            src="assets/emptyStar.png"
+            alt="empty star"
+            id="star1"
+            (mouseenter)="fillStars($event)"
+            (mouseleave)="resetStars($event)"
+            (click)="setRating($event, 1)"
+          />
+          <img
+            src="assets/emptyStar.png"
+            alt="empty star"
+            id="star2"
+            (mouseenter)="fillStars($event)"
+            (mouseleave)="resetStars($event)"
+            (click)="setRating($event, 2)"
+          />
+          <img
+            src="assets/emptyStar.png"
+            alt="empty star"
+            id="star3"
+            (mouseenter)="fillStars($event)"
+            (mouseleave)="resetStars($event)"
+            (click)="setRating($event, 3)"
+          />
+          <img
+            src="assets/emptyStar.png"
+            alt="empty star"
+            id="star4"
+            (mouseenter)="fillStars($event)"
+            (mouseleave)="resetStars($event)"
+            (click)="setRating($event, 4)"
+          />
+          <img
+            src="assets/emptyStar.png"
+            alt="empty star"
+            id="star5"
+            (mouseenter)="fillStars($event)"
+            (mouseleave)="resetStars($event)"
+            (click)="setRating($event, 5)"
+          />
+        </div>
+      </div>
+    </div>
   </div>
 </div>

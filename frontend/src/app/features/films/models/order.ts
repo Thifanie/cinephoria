@@ -16,4 +16,6 @@ export interface Order {
   description: string;
   actors: string;
   title: string;
+  sessionDate: string;
+  quality: string;
 }

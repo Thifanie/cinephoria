@@ -52,11 +52,11 @@ export class ListSessionsComponent implements OnInit, OnDestroy {
         console.log('Séances récupérées : ', data);
         this.listSessions = data;
         // Formatage de la date
-        this.dateTimeFormatting.dateFormatting(this.listSessions);
+        // this.dateTimeFormatting.dateFormatting(this.listSessions);
         // Formatage de l'heure de début
-        this.dateTimeFormatting.startHourFormatting(this.listSessions);
+        // this.dateTimeFormatting.startHourFormatting(this.listSessions);
         // Formatage de l'heure de fin
-        this.dateTimeFormatting.endHourFormatting(this.listSessions);
+        // this.dateTimeFormatting.endHourFormatting(this.listSessions);
 
         this.associateRoomQuality();
       }),

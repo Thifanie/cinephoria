@@ -67,9 +67,9 @@ export class ReservationComponent implements OnInit, OnDestroy {
           console.log('Séances récupérées pour le cinéma : ', sessions);
           this.listSessions = sessions;
           // Formatage des dates et heures
-          this.dateTimeFormatting.dateFormatting(this.listSessions);
-          this.dateTimeFormatting.startHourFormatting(this.listSessions);
-          this.dateTimeFormatting.endHourFormatting(this.listSessions);
+          // this.dateTimeFormatting.dateFormatting(this.listSessions);
+          // this.dateTimeFormatting.startHourFormatting(this.listSessions);
+          // this.dateTimeFormatting.endHourFormatting(this.listSessions);
 
           this.associateRoomQuality();
         }),
@@ -102,9 +102,9 @@ export class ReservationComponent implements OnInit, OnDestroy {
           console.log('Séances récupérées pour le film : ', sessions);
           this.listSessions = sessions;
           // Formatage des dates et heures
-          this.dateTimeFormatting.dateFormatting(this.listSessions);
-          this.dateTimeFormatting.startHourFormatting(this.listSessions);
-          this.dateTimeFormatting.endHourFormatting(this.listSessions);
+          // this.dateTimeFormatting.dateFormatting(this.listSessions);
+          // this.dateTimeFormatting.startHourFormatting(this.listSessions);
+          // this.dateTimeFormatting.endHourFormatting(this.listSessions);
 
           this.associateRoomQuality();
         }),

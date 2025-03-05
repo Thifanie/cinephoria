@@ -4,6 +4,7 @@ import { Order } from '../../../films/models/order';
 import { Subscription } from 'rxjs';
 import { DataService } from '../../../../data.service';
 import { AuthServiceService } from '../../../forms/services/auth-service.service';
+import { DateTimeFormattingService } from '../../../films/services/date-time-formatting.service';
 
 @Component({
   selector: 'app-list-orders',
@@ -18,7 +19,8 @@ export class ListOrdersComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly dataService: DataService,
-    private readonly authService: AuthServiceService
+    private readonly authService: AuthServiceService,
+    private readonly dateFormatting: DateTimeFormattingService
   ) {}
 
   ngOnInit() {
@@ -29,12 +31,7 @@ export class ListOrdersComponent implements OnInit, OnDestroy {
       this.dataService
         .getOrdersByUser(this.userId)
         .subscribe((orders: Order[]) => {
-          this.listOrders = orders.toSorted(
-            (
-              a: { date: string | number | Date },
-              b: { date: string | number | Date }
-            ) => new Date(b.date).getTime() - new Date(a.date).getTime()
-          ); // Tri des réservations de la plus récente à la plus ancienne
+          this.listOrders = orders;
           console.log('Liste des réservations : ', this.listOrders);
         })
     );

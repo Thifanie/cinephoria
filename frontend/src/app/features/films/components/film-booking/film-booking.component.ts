@@ -44,11 +44,11 @@ export class FilmBookingComponent implements OnInit {
           console.log('Séance récupérée : ', session);
           this.session = session;
           // Formatage de la date
-          this.dateTimeFormatting.dateFormatting(this.session);
+          // this.dateTimeFormatting.dateFormatting(this.session);
           // Formatage de l'heure de début
-          this.dateTimeFormatting.startHourFormatting(this.session);
+          // this.dateTimeFormatting.startHourFormatting(this.session);
           // Formatage de l'heure de fin
-          this.dateTimeFormatting.endHourFormatting(this.session);
+          // this.dateTimeFormatting.endHourFormatting(this.session);
           this.moviePoster = this.session[0].moviePoster;
         })
     );
@@ -75,6 +75,8 @@ export class FilmBookingComponent implements OnInit {
       description: '',
       actors: '',
       title: '',
+      sessionDate: '',
+      quality: '',
     };
     this.subs.push(
       this.dataService.reserveSeats(this.orderData).subscribe(() => {
