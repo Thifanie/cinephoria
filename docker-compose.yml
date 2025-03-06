@@ -6,9 +6,12 @@ services:
       args:
         API_URL: http://backend:3000/api
     ports:
-      - "80:80"
+      - "80:80" # Permet l'accès à Nginx via le port 80
+      - "443:443" # Si tu utilises HTTPS
     depends_on:
       - backend
+    networks:
+      - my_network
 
   mariadb:
     image: mariadb:latest
@@ -31,7 +34,7 @@ services:
     depends_on:
       - mariadb
     environment:
-      DB_HOST: mariadb # Utilise le nom du service de la BDD
+      DB_HOST: host.docker.internal
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_NAME: ${DB_NAME}

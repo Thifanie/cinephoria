@@ -25,10 +25,15 @@ Le dossier "backend" contient le serveur Express, le fichier relatif à la base 
 
 Pour lancer le projet en local :
 
-- Partie front : commande "npm start"
-- Partie back : commande "node projects\cinephoria-web\src\server.js"
+- Partie front : dans le dossier "frontend", commande "npm start"
+- Partie back : dans le dossier "backend", commande "node server.js"
 
 Quand le serveur est en route, ouvrir le navigateur à l'URL `http://localhost:4200/`. L'application se recharge automatiquement lors de changement dans les fichiers sources.
+
+# Docker
+
+Un fichier Dockerfile a été créé dans les dossiers "frontend" et "backend" et un fichier "docker-compose.yml" à la racine du projet. Les Dockerfile permettent la création des images correspondantes et le fichier "docker-compose.yml" permet de relier les conteneurs entre eux.
+A la racine du projet, taper la commande "docker compose --env-file backend/.env up -d --build" pour créer les images et conteneurs frontend, backend et mariadb connectés entre eux.
 
 ## Gestion du projet Angular
 
