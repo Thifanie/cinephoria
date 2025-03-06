@@ -1,4 +1,3 @@
-version: "3.8"
 services:
   frontend:
     image: cinephoria-frontend
@@ -11,8 +10,36 @@ services:
     depends_on:
       - backend
 
+  mariadb:
+    image: mariadb:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+    ports:
+      - "3307:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - my_network
+
   backend:
     image: cinephoria-backend
     build: ./backend
     ports:
       - "3000:3000"
+    depends_on:
+      - mariadb
+    environment:
+      DB_HOST: mariadb # Utilise le nom du service de la BDD
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+    networks:
+      - my_network
+
+networks:
+  my_network:
+
+volumes:
+  mariadb_data:

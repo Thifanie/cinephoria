@@ -5,21 +5,23 @@ FROM node:18-alpine3.19 AS build
 
 WORKDIR /app
 
-# Installer Python, Make et G++ pour node-gyp
-# RUN apk add --no-cache python3 make g++
-
 # Copier les fichiers nécessaires
 COPY package.json package-lock.json ./
 
 # Installe les dépendances et recompile bcrypt pour l’architecture Linux du conteneur 
 RUN npm install
-# && npm uninstall bcrypt && npm install bcrypt --build-from-source 
 
 # Copier le reste du projet dans le /app
 COPY . .
 
+# Copier le script wait-for-db.sh dans le conteneur
+COPY ./wait-for-db.sh /app/wait-for-db.sh
+
+# Donner les permissions d'exécution au script
+RUN chmod +x /app/wait-for-db.sh
+
 # Exposer le port 3000
 EXPOSE 3000
 
-# Lancer Nginx
-CMD ["npm", "start"]
+# Exécuter le script wait-for-db.sh
+CMD ["/bin/sh", "/app/wait-for-db.sh"]

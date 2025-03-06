@@ -9,6 +9,10 @@ require("dotenv").config();
 app.use(cors());
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send("Backend is running!");
+});
+
 app.get("/api/films", async (req, res) => {
   try {
     const result = await db.pool.query(
