@@ -77,6 +77,7 @@ export class FilmBookingComponent implements OnInit {
       title: '',
       sessionDate: '',
       quality: '',
+      opinionSent: false,
     };
     this.subs.push(
       this.dataService.reserveSeats(this.orderData).subscribe(() => {

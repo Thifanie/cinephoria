@@ -18,4 +18,5 @@ export interface Order {
   title: string;
   sessionDate: string;
   quality: string;
+  opinionSent: boolean;
 }

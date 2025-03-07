@@ -1,19 +1,23 @@
-/* button {
-    background-color: #a57e8f;
-    color: #d4cdc9;
-    margin-top: 8px;
-  }
-  
-  button:hover {
-    background-color: #a57e8f93;
-  } */
+button {
+  background-color: #545163;
+  color: #d4cdc9;
+  margin-top: 8px;
+  width: 50%;
+}
+
+button:hover {
+  background-color: rgba(84, 81, 99, 0.3);
+}
+
+p {
+  text-align: center;
+}
 
 .container {
   width: 100%;
   margin: 0 0 50px;
   display: flex;
-  /* align-items: center;
-  justify-content: center; */
+  justify-content: center;
   background-color: #545163;
 }
 
@@ -34,6 +38,8 @@
 }
 
 .order-details {
+  display: flex;
+  flex-direction: column;
   margin-left: 15px;
   color: #d4cdc9;
 }
@@ -43,6 +49,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  margin-bottom: 5px;
 }
 
 .rating img {
@@ -60,4 +67,15 @@
 
 #stars-outer img {
   cursor: pointer;
+}
+
+#opinion {
+  /* height: 45%; */
+  background-color: #cbb5ac;
+}
+
+#opinion-card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

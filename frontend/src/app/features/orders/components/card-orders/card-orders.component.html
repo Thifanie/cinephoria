@@ -1,6 +1,6 @@
 <div *ngFor="let order of items()">
   <div class="container">
-    <div class="card mb-3" style="width: 828px">
+    <div class="card mb-3" style="width: 828px" id="film-card">
       <div class="row g-0">
         <div class="col-md-6">
           <img
@@ -20,13 +20,16 @@
     </div>
 
     <div class="order-details">
-      <p>Réservation effectuée le {{ order.date }}</p>
-      <p>Pour la séance du {{ order.sessionDate }}</p>
-      <p>{{ order.cinemaName | cinemaName }}</p>
-      <p>dans la salle {{ order.roomName }} (qualité {{ order.quality }})</p>
-      <p>Début : {{ order.startHour }} - Fin : {{ order.endHour }}</p>
-      <p>Place(s) réservée(s) : {{ order.placesNumber }}</p>
-      <p>Total payé : {{ order.price }} &euro;</p>
+      <p style="margin-bottom: 5px">
+        Réservation effectuée le {{ order.date }}<br />
+        Pour la séance du
+        {{ order.sessionDate }}<br />
+        {{ order.cinemaName | cinemaName }}<br />
+        dans la salle {{ order.roomName }} (qualité {{ order.quality }})<br />
+        Début : {{ order.startHour }} - Fin : {{ order.endHour }}<br />
+        Place(s) réservée(s) : {{ order.placesNumber }} <br />
+        Total payé : {{ order.price }} &euro;
+      </p>
       <div class="rating" *ngIf="order.viewed">
         <div>
           <p class="m-0">Laisser un avis :</p>
@@ -73,6 +76,30 @@
             (mouseleave)="resetStars($event)"
             (click)="setRating($event, 5)"
           />
+        </div>
+      </div>
+
+      <!-- Description de l'avis -->
+      <div class="card" id="opinion" *ngIf="order.viewed && !order.opinionSent">
+        <div class="row g-0">
+          <div class="card-body col-md-4 p-2" id="opinion-card-body">
+            <h5 class="card-title mb-2">Description de l'avis</h5>
+            <textarea
+              id="opinion-details"
+              name="opinion-details"
+              rows="4"
+              cols="35"
+              [(ngModel)]="opinionDescription"
+            >
+            </textarea>
+            <button
+              type="button"
+              class="btn"
+              (click)="submitOpinion(order.idUser, order.idFilm)"
+            >
+              Envoyer
+            </button>
+          </div>
         </div>
       </div>
     </div>

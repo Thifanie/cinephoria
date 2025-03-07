@@ -9,6 +9,7 @@ import { Room } from './features/films/models/room';
 import { Quality } from './features/films/models/quality';
 import { Cinema } from './features/films/models/cinema';
 import { Order } from './features/films/models/order';
+import { Opinion } from './features/films/models/opinion';
 
 @Injectable({
   providedIn: 'root',
@@ -126,6 +127,12 @@ export class DataService {
 
   reserveSeats(orderData: Order) {
     return this.http.post<Order>(`${this.apiUrl}/order`, orderData, {
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  postOpinion(opinionData: Opinion) {
+    return this.http.post<Opinion>(`${this.apiUrl}/opinion`, opinionData, {
       headers: { 'Content-Type': 'application/json' },
     });
   }

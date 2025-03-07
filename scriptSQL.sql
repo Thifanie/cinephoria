@@ -121,6 +121,20 @@ CREATE TABLE order (
         FOREIGN KEY (idUser) REFERENCES user (id)
 );
 
+-- 10. Création de la table "opinion"
+-- Cette table stocke les avis d'utilisateur sur un film.
+CREATE TABLE opinion (
+    id INT AUTO_INCREMENT PRIMARY KEY,          -- Identifiant unique de l'avis
+    idUser INT NOT NULL,                        -- Identifiant de l'utilisateur associé à l'avis
+    idFilm INT NOT NULL,                        -- Identifiant du film associé à l'avis
+    note INT NOT NULL,                          -- Note donnée par l'utilisateur
+    description VARCHAR(500) NOT NULL,          -- Description de l'avis
+    CONSTRAINT opinion_films_id_fk
+        FOREIGN KEY (idFilm) REFERENCES films (id)
+    CONSTRAINT opinion_user_id_fk
+        FOREIGN KEY (idUser) REFERENCES user (id)
+);
+
 -- 2. Insertion de données d'exemple
 -- Ces utilisateurs sont ajoutés pour tester l'application et les fonctionnalités de connexion.
 INSERT INTO users (username, email, password) VALUES

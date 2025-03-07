@@ -2,10 +2,14 @@ import { NgFor, NgIf } from '@angular/common';
 import { Component, ElementRef, input, OnInit, Renderer2 } from '@angular/core';
 import { Order } from '../../../films/models/order';
 import { CinemaNamePipe } from '../../../../pipes/cinema-name.pipe';
+import { FormsModule } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { Opinion } from '../../../films/models/opinion';
+import { DataService } from '../../../../data.service';
 
 @Component({
   selector: 'app-card-orders',
-  imports: [NgFor, NgIf, CinemaNamePipe],
+  imports: [NgFor, NgIf, CinemaNamePipe, FormsModule],
   templateUrl: './card-orders.component.html',
   styleUrl: './card-orders.component.css',
 })
@@ -16,10 +20,13 @@ export class CardOrdersComponent implements OnInit {
     element: HTMLImageElement;
     isFilled: boolean;
   }[] = []; // Tableau pour suivre l'état de chaque étoile
+  opinionDescription: string = '';
+  subs: Subscription[] = [];
 
   constructor(
     private readonly renderer: Renderer2,
-    private readonly el: ElementRef
+    private readonly el: ElementRef,
+    private readonly dataService: DataService
   ) {}
 
   ngOnInit(): void {
@@ -121,5 +128,25 @@ export class CardOrdersComponent implements OnInit {
     // Clic sur une étoile vide et autre étoile remplie
     console.log('Note : ', this.rating);
     return this.rating;
+  }
+
+  submitOpinion(userId: number | null, filmId: number): void {
+    const opinionData: Opinion = {
+      idUser: userId,
+      idFilm: filmId,
+      note: this.rating,
+      description: this.opinionDescription,
+    };
+    console.log("Données de l'avis : ", opinionData);
+
+    this.subs.push(
+      this.dataService.postOpinion(opinionData).subscribe((data: Opinion) => {
+        console.log('Avis ajouté : ', data);
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subs.forEach((s) => s.unsubscribe());
   }
 }
