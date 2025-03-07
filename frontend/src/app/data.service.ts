@@ -125,7 +125,7 @@ export class DataService {
     });
   }
 
-  reserveSeats(orderData: Order) {
+  reserveSeats(orderData: any) {
     return this.http.post<Order>(`${this.apiUrl}/order`, orderData, {
       headers: { 'Content-Type': 'application/json' },
     });

@@ -1,5 +1,13 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component, ElementRef, input, OnInit, Renderer2 } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  input,
+  OnInit,
+  Output,
+  Renderer2,
+} from '@angular/core';
 import { Order } from '../../../films/models/order';
 import { CinemaNamePipe } from '../../../../pipes/cinema-name.pipe';
 import { FormsModule } from '@angular/forms';
@@ -130,8 +138,11 @@ export class CardOrdersComponent implements OnInit {
     return this.rating;
   }
 
-  submitOpinion(userId: number | null, filmId: number): void {
+  @Output() opinionSubmitted = new EventEmitter<void>(); // Événement pour informer le parent
+
+  submitOpinion(orderId: number, userId: number | null, filmId: number): void {
     const opinionData: Opinion = {
+      idOrder: orderId,
       idUser: userId,
       idFilm: filmId,
       note: this.rating,
@@ -142,6 +153,8 @@ export class CardOrdersComponent implements OnInit {
     this.subs.push(
       this.dataService.postOpinion(opinionData).subscribe((data: Opinion) => {
         console.log('Avis ajouté : ', data);
+        alert('Votre avis a bien été envoyée.');
+        this.opinionSubmitted.emit(); // Émet l'événement vers le parent après l'ajout de l'avis
       })
     );
   }

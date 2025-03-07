@@ -5,7 +5,6 @@ import { DataService } from '../../../../data.service';
 import { Session } from '../../models/session';
 import { DateTimeFormattingService } from '../../services/date-time-formatting.service';
 import { SeatSelectionComponent } from '../../../booking/seat-selection/seat-selection.component';
-import { Order } from '../../models/order';
 import { AuthServiceService } from '../../../forms/services/auth-service.service';
 
 @Component({
@@ -23,7 +22,26 @@ export class FilmBookingComponent implements OnInit {
 
   moviePoster: string = '';
 
-  orderData!: Order;
+  orderData!: {
+    idUser: number | null;
+    idFilm: number;
+    cinemaName: string;
+    idSession: number | null;
+    roomName: string;
+    date: string;
+    viewed: false;
+    placesNumber: string;
+    price: number | undefined;
+    moviePoster: string;
+    startHour: Date;
+    endHour: Date;
+    description: string;
+    actors: string;
+    title: string;
+    sessionDate: string;
+    quality: string;
+    opinionSent: false;
+  };
 
   constructor(
     private readonly route: ActivatedRoute,

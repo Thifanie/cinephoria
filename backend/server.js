@@ -140,7 +140,7 @@ app.get("/api/order/:id", async (req, res) => {
   try {
     const userId = req.params.id; // Récupère l'id de la réservation depuis l'URL
     const result = await db.pool.query(
-      "SELECT `order`.idUser, `order`.idFilm, films.moviePoster, films.title, films.actors, films.description, `order`.date, cinema.name as cinemaName, room.name as roomName, `order`.price, quality.quality, viewed, placesNumber, session.startHour, session.endHour, session.date as sessionDate, opinionSent FROM `order` JOIN cinephoria.films ON `order`.idFilm = films.id JOIN cinephoria.cinema ON `order`.idCinema = cinema.id JOIN cinephoria.room ON `order`.idRoom = room.id JOIN cinephoria.quality ON room.idQuality = quality.id JOIN cinephoria.session ON `order`.idSession = session.id WHERE `order`.idUser = ? ORDER BY `order`.id DESC",
+      "SELECT `order`.id, `order`.idUser, `order`.idFilm, films.moviePoster, films.title, films.actors, films.description, `order`.date, cinema.name as cinemaName, room.name as roomName, `order`.price, quality.quality, viewed, placesNumber, session.startHour, session.endHour, session.date as sessionDate, opinionSent, opinion.description as opinionDescription, opinion.note as note FROM `order` JOIN cinephoria.films ON `order`.idFilm = films.id JOIN cinephoria.cinema ON `order`.idCinema = cinema.id JOIN cinephoria.room ON `order`.idRoom = room.id JOIN cinephoria.quality ON room.idQuality = quality.id JOIN cinephoria.session ON `order`.idSession = session.id JOIN cinephoria.opinion ON `order`.id = opinion.idOrder WHERE `order`.idUser = ? ORDER BY `order`.id DESC",
       [userId] // Paramètre sécurisé pour éviter l'injection SQL
     );
     res.send(result);
@@ -341,12 +341,12 @@ app.post("/api/order", async (req, res) => {
 
 app.post("/api/opinion", async (req, res) => {
   try {
-    const { idUser, idFilm, note, description } = req.body;
+    const { idOrder, idUser, idFilm, note, description } = req.body;
 
     console.log("Données reçues:", req.body); // ✅ Vérifier les données avant l'insertion
     const result = await db.pool.query(
-      "INSERT INTO opinion (idUser, idFilm, note, description) VALUES (?, ?, ?, ?)",
-      [idUser, idFilm, note, description]
+      "INSERT INTO opinion (idUser, idFilm, idOrder, note, description) VALUES (?, ?, ?, ?, ?)",
+      [idUser, idFilm, idOrder, note, description]
     );
 
     // ✅ Récupérer l'ID du dernier avis ajouté

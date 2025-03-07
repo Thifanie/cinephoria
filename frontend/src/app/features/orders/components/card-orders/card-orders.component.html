@@ -30,7 +30,7 @@
         Place(s) réservée(s) : {{ order.placesNumber }} <br />
         Total payé : {{ order.price }} &euro;
       </p>
-      <div class="rating" *ngIf="order.viewed">
+      <div class="rating" *ngIf="order.viewed && !order.opinionSent">
         <div>
           <p class="m-0">Laisser un avis :</p>
         </div>
@@ -95,12 +95,22 @@
             <button
               type="button"
               class="btn"
-              (click)="submitOpinion(order.idUser, order.idFilm)"
+              (click)="submitOpinion(order.id, order.idUser, order.idFilm)"
             >
               Envoyer
             </button>
           </div>
         </div>
+      </div>
+
+      <!-- Avis écrit -->
+      <div *ngIf="order.opinionSent">
+        <div *ngFor="let _ of [].constructor(order.note)" id="rating-stars">
+          <img src="assets/filledStar.png" alt="star" />
+        </div>
+
+        <h6 class="mt-3">Avis partagé :</h6>
+        <p>{{ order.opinionDescription }}</p>
       </div>
     </div>
   </div>
