@@ -262,8 +262,7 @@ app.post("/api/order", async (req, res) => {
       price,
     } = req.body;
 
-    const formatedDate = date.slice(0, 19).replace("T", " ");
-    console.log("Date formatée : ", formatedDate);
+    // const formatedDate = date.slice(0, 19).replace("T", " ");
 
     const cinemaResult = await db.pool.query(
       "SELECT cinema.id FROM cinema WHERE cinema.name = ?",
@@ -291,7 +290,7 @@ app.post("/api/order", async (req, res) => {
         idCinema,
         idSession,
         idRoom,
-        formatedDate,
+        date,
         viewed,
         placesNumber,
         price,
@@ -308,6 +307,7 @@ app.post("/api/order", async (req, res) => {
     //  réservées de la session actuelle
     if (
       reservedSeatsResult.length > 0 &&
+      reservedSeatsResult[0].reservedSeats !== "" &&
       reservedSeatsResult[0].reservedSeats !== null
     ) {
       await db.pool.query(
@@ -315,9 +315,12 @@ app.post("/api/order", async (req, res) => {
         [placesNumber, idSession]
       );
       // Sinon elles remplacent la valeur nulle de la colonne des places réservées de la session actuelle.
-    } else {
+    } else if (
+      reservedSeatsResult[0].reservedSeats === "" ||
+      reservedSeatsResult[0].reservedSeats === null
+    ) {
       await db.pool.query(
-        "UPDATE cinephoria.session SET reservedSeats = IFNULL(reservedSeats, ?) WHERE id = ?",
+        "UPDATE cinephoria.session SET reservedSeats = ? WHERE id = ?",
         [placesNumber, idSession]
       );
     }

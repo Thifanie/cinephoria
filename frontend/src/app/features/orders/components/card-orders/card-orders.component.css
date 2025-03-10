@@ -43,6 +43,7 @@ p {
   margin-left: 15px;
   color: #d4cdc9;
   max-width: 20rem;
+  justify-content: space-evenly;
 }
 
 .rating {
@@ -71,13 +72,16 @@ p {
 }
 
 #opinion {
-  /* height: 45%; */
   background-color: #cbb5ac;
 }
 
 #opinion-card-body {
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+#sent-opinion {
   align-items: center;
 }
 

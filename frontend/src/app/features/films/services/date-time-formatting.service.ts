@@ -20,13 +20,13 @@ export class DateTimeFormattingService {
   // }
 
   dateTimeFormatting(date: Date) {
-    return date.toLocaleDateString('fr-FR', {
+    return date.toLocaleString('fr-FR', {
       day: 'numeric',
       month: 'long',
       year: 'numeric',
       hour: 'numeric',
       minute: '2-digit',
-      second: '2-digit',
+      hour12: false,
     });
   }
 
