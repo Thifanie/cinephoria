@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from '../../../data.service';
-import { Subscription } from 'rxjs';
+import { Subscription, first } from 'rxjs';
 import { AuthServiceService } from '../services/auth-service.service';
 
 @Component({
@@ -60,10 +60,16 @@ export class ConnexionFormComponent implements OnInit, OnDestroy {
       this.subs.push(
         this.authService.login(this.credentials).subscribe((response) => {
           localStorage.setItem('token', response.token); // Stocke le token
-          this.authService.loadUserRole();
-          this.authService.getUserRole$().subscribe((role) => {
-            console.log(role);
-            this.router.navigate([role === 'admin' ? '/admin' : '/compte']);
+          this.authService.loadUserRole$().subscribe(() => {
+            // Attendre la mise à jour du rôle
+            this.authService
+              .getUserRole$()
+              .pipe(first())
+              .subscribe((role) => {
+                // Prend une seule valeur
+                console.log('Rôle détecté après connexion : ', role);
+                this.router.navigate([role === 'admin' ? '/admin' : '/compte']);
+              });
           });
         })
       );

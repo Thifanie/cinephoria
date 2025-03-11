@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription, tap } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, tap, map } from 'rxjs';
 import { DataService } from '../../../data.service';
 import { jwtDecode } from 'jwt-decode';
 import { User } from '../models/user';
@@ -70,16 +70,17 @@ export class AuthServiceService {
     return this.isAuthenticatedSubject.asObservable(); // Renvoie l'état sous forme d'Observable
   }
 
-  loadUserRole(): void {
+  loadUserRole$(): Observable<void> {
     const userId = this.getUserIdFromToken(); // Récupère l'ID du token
-
-    this.subs.push(
-      this.dataService.getUser().subscribe((users: User[]) => {
-        const currentUser = users.find((user: User) => user.id === userId); // Trouve l'utilisateur connecté
+    return this.dataService.getUser().pipe(
+      tap((users: User[]) => {
+        const currentUser = users.find((user: User) => user.id === userId);
         if (currentUser) {
           this.userRole$.next(currentUser.role);
+          console.log("Rôle de l'utilisateur actif :", currentUser.role);
         }
-      })
+      }),
+      map(() => undefined) // Retourne "undefined" pour respecter le type Observable<void>
     );
   }
 
@@ -101,5 +102,9 @@ export class AuthServiceService {
 
   getUserRole$(): Observable<string> {
     return this.userRole$.asObservable();
+  }
+
+  ngOnDestroy() {
+    this.subs.forEach((s) => s.unsubscribe());
   }
 }

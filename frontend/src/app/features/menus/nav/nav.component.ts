@@ -14,22 +14,30 @@ export class NavComponent implements OnInit, OnDestroy {
   constructor(private readonly authService: AuthServiceService) {}
 
   isAuthenticated: boolean = false;
-  private authSubscription: Subscription = new Subscription();
+  isAdmin: boolean = false;
+  subs: Subscription[] = [];
 
   ngOnInit(): void {
-    // S'abonne à l'état d'authentification
-    this.authSubscription = this.authService
-      .isAuthenticated$()
-      .subscribe((status) => {
+    // S'abonne à l'état d'authentification et récupère le rôle de l'utilisateur
+    this.subs.push(
+      this.authService.isAuthenticated$().subscribe((status) => {
         this.isAuthenticated = status; // Met à jour l'état de la connexion
-      });
+      }),
+
+      this.authService.loadUserRole$().subscribe(() => {
+        // Charger le rôle utilisateur avant d'écouter `getUserRole$()`
+        // Ensuite, écouter le rôle de l'utilisateur
+        this.authService.getUserRole$().subscribe((role) => {
+          console.log("Rôle de l'utilisateur (nav) :", role);
+          this.isAdmin = role === 'admin';
+        });
+      })
+    );
   }
 
   ngOnDestroy(): void {
     // Se désabonne pour éviter les fuites de mémoire
-    if (this.authSubscription) {
-      this.authSubscription.unsubscribe();
-    }
+    this.subs.forEach((s) => s.unsubscribe());
   }
 
   // Méthode pour se déconnecter

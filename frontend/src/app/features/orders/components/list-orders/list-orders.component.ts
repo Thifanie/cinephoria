@@ -25,7 +25,7 @@ export class ListOrdersComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.userId = this.authService.getUserIdFromToken();
-    console.log(this.userId);
+    console.log('ID utilisateur : ', this.userId);
     this.getOrders();
   }
 
