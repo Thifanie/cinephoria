@@ -119,6 +119,15 @@ export class AddFilmFormComponent implements OnInit, OnDestroy {
       .subscribe((data: FilmData) => {
         console.log('Film ajouté : ', data);
         this.filmData = data;
+        alert(`Le film ${data.title} a été ajouté.`);
+        // Réinitialisation du formulaire
+        this.addFilmForm.reset();
+        this.moviePosterPath = '';
+        this.selectedTypes.clear();
+        const fileNameElement = document.getElementById(
+          'file-name'
+        ) as HTMLElement;
+        fileNameElement.textContent = '';
         // Récupérer à nouveau les films depuis le backend après l'ajout
         this.dataService.getFilms(); // Cela déclenchera la mise à jour dans `FilmsListComponent`
       });

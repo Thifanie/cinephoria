@@ -1,0 +1,191 @@
+<form [formGroup]="updateFilmForm" (submit)="updateFilm()">
+  <div class="container">
+    <!-- Choix du film à modifier -->
+    <div class="dropdown">
+      <button
+        class="btn dropdown-toggle"
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        Choisissez un film
+      </button>
+      <ul class="dropdown-menu">
+        <li *ngFor="let film of listFilms">
+          <a class="dropdown-item" (click)="selectFilm(film)">{{
+            film.title
+          }}</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-6">
+      <!-- Input titre -->
+      <input
+        formControlName="title"
+        type="text"
+        class="form-control-sm"
+        id="titre"
+        aria-describedby="titre"
+        required
+        placeholder="Nom du film"
+      />
+
+      <!-- input acteurs -->
+      <textarea
+        formControlName="actors"
+        class="form-control-sm"
+        id="actors"
+        required
+        placeholder="Acteurs"
+        rows="3"
+        cols="30"
+      ></textarea>
+
+      <!-- Input description -->
+      <textarea
+        formControlName="description"
+        class="form-control-sm"
+        id="description"
+        required
+        placeholder="Description"
+        rows="5"
+        cols="30"
+      ></textarea>
+    </div>
+
+    <div class="col-2 d-flex flex-column align-items-start">
+      <!-- Input âge minimum -->
+      <label for="minAge" class="mb-2">Age minimum :</label>
+      <input
+        formControlName="minAge"
+        type="number"
+        id="minAge"
+        name="minAge"
+        min="12"
+        max="18"
+        class="mb-2"
+      />
+
+      <!-- Input note -->
+      <div class="mb-3">
+        <label for="opinion" class="mb-2">Note :</label>
+        <input
+          formControlName="opinion"
+          type="number"
+          id="opinion"
+          name="opinion"
+          min="0"
+          max="5"
+          step="0.1"
+        />
+      </div>
+
+      <!-- Input à l'affiche -->
+      <div class="d-flex">
+        <div>
+          <label for="onView">A l'affiche</label>
+        </div>
+        <div>
+          <input
+            formControlName="onView"
+            type="checkbox"
+            id="onView"
+            name="onView"
+            class="form-check-input"
+          />
+        </div>
+      </div>
+
+      <!-- Input coup de coeur -->
+      <div class="d-flex mb-2">
+        <div>
+          <label for="favorite">Coup de coeur</label>
+        </div>
+        <div>
+          <input
+            formControlName="favorite"
+            type="checkbox"
+            id="favorite"
+            name="favorite"
+            class="form-check-input"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Affichage de l'affiche du film -->
+    <div class="col">
+      <div class="text-center mb-3">
+        <label for="moviePoster">Affiche du film :</label>
+        <img
+          *ngIf="moviePosterPath"
+          [src]="moviePosterPath"
+          alt="Affiche du film"
+          id="movie-poster"
+          class="img-fluid"
+          style="width: 300px; height: 300px"
+        />
+      </div>
+    </div>
+
+    <!-- Input affiche du film -->
+    <div class="col">
+      <div class="col" id="div-img-upload">
+        <label for="affiche">
+          <img
+            src="assets/image.png"
+            alt="add-affiche"
+            id="affiche-film"
+            title="Cliquez pour télécharger une image"
+          />
+          <input
+            type="file"
+            id="affiche"
+            name="affiche"
+            accept="image/*"
+            style="display: none"
+            (change)="showFileName($event)"
+          />
+        </label>
+      </div>
+      <div id="file-name-container" style="display: none; margin-top: 10px">
+        <h5 class="me-2">Fichier sélectionné :</h5>
+        <p id="file-name"></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Input genres -->
+      <div class="col-12">
+        <fieldset>
+          <legend>Genres :</legend>
+          <div formGroupName="typeForm" class="d-flex flex-wrap gap-3">
+            <div *ngFor="let type of types; let i = index">
+              <div>
+                <label [for]="'type-' + type.id">{{ type.type }}</label>
+                <input
+                  [formControlName]="type.id.toString()"
+                  class="form-check-input"
+                  [value]="type.type"
+                  type="checkbox"
+                  [id]="'type-' + type.id"
+                />
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+
+    <!-- Bouton modifier le film -->
+    <div class="text-center">
+      <button type="submit" class="btn">Modifier</button>
+    </div>
+
+    <!-- Bouton supprimer le film -->
+    <div class="text-center">
+      <button class="btn">Supprimer</button>
+    </div>
+  </div>
+</form>

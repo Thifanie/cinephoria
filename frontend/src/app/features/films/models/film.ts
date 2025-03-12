@@ -10,7 +10,7 @@ export interface Film {
   opinion: number;
   movieposter: string;
   onview: boolean;
-  type: number[];
+  type: string;
 }
 
 export interface FilmData {
