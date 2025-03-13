@@ -97,7 +97,18 @@
       </div>
 
       <!-- Input affiche du film -->
-      <div class="col">
+      <div class="col d-flex flex-column align-items-center">
+        <div class="text-center mb-3">
+          <label for="add-moviePoster">Affiche du film :</label>
+          <img
+            [src]="addFilmMoviePosterPath"
+            *ngIf="addFilmMoviePosterPath"
+            alt="Affiche du film"
+            id="add-movie-poster"
+            class="img-fluid"
+            style="width: 300px; height: 300px"
+          />
+        </div>
         <div class="col" id="div-img-upload">
           <label for="affiche">
             <img

@@ -3,6 +3,7 @@
     <button
       class="btn"
       type="button"
+      (click)="toggleMenu()"
       data-bs-toggle="collapse"
       data-bs-target="#updateFilm"
       aria-expanded="false"
@@ -12,11 +13,16 @@
       Modifier un film
     </button>
   </p>
-  <div class="collapse" id="updateFilm">
+  <div
+    class="collapse"
+    id="updateFilm"
+    [class.show]="isOpen"
+    (hidden.bs.collapse)="resetForm()"
+  >
     <!-- Formulaire pour modifier un film -->
     <div class="card card-body">
       <div class="accordion-body">
-        <app-update-film-form></app-update-film-form>
+        <app-update-film-form *ngIf="showForm"></app-update-film-form>
       </div>
     </div>
   </div>

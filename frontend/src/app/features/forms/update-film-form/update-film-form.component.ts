@@ -16,6 +16,7 @@ import { NgFor, NgIf } from '@angular/common';
   imports: [NgFor, ReactiveFormsModule, NgIf],
   templateUrl: './update-film-form.component.html',
   styleUrl: './update-film-form.component.css',
+  standalone: true,
 })
 export class UpdateFilmFormComponent implements OnInit {
   updateFilmForm!: FormGroup;
@@ -36,6 +37,7 @@ export class UpdateFilmFormComponent implements OnInit {
   listFilms: Film[] = [];
   selectedFilm: Film | null = null;
   moviePosterPath: string = '';
+  fileName: string | null = null;
 
   constructor(
     private readonly fb: FormBuilder,
@@ -73,12 +75,20 @@ export class UpdateFilmFormComponent implements OnInit {
   }
 
   showFileName(event: any): void {
+    console.log('Événement déclenché !', event);
+
     const file = event.target.files[0]; // Récupère le premier fichier sélectionné
-    const fileNameContainer = document.getElementById('file-name-container')!;
-    const fileNameElement = document.getElementById('file-name') as HTMLElement;
+    const fileNameContainer = document.getElementById(
+      'update-file-name-container'
+    )!;
+    const fileNameElement = document.getElementById(
+      'update-file-name'
+    ) as HTMLElement;
 
     if (file) {
       const fileName = file.name; // Récupère uniquement le nom du fichier
+      console.log('Fichier sélectionné : ', fileName);
+
       // Affiche le nom du fichier dans l'élément p
       fileNameElement.textContent = fileName;
       // Affiche la zone contenant le nom du fichier
@@ -130,6 +140,9 @@ export class UpdateFilmFormComponent implements OnInit {
       }
     });
 
+    // Met à jour l'affiche du film si elle existe
+    this.moviePosterPath = film.movieposter;
+
     this.updateFilmForm.patchValue({
       title: film.title,
       actors: film.actors,
@@ -137,13 +150,10 @@ export class UpdateFilmFormComponent implements OnInit {
       minAge: film.minage,
       favorite: film.favorite,
       opinion: film.opinion,
-      moviePoster: film.movieposter,
+      moviePoster: this.moviePosterPath,
       onView: film.onview,
       typeForm: this.updateFilmForm.get('typeForm'),
     });
-
-    // Met à jour l'affiche du film si elle existe
-    this.moviePosterPath = film.movieposter || '';
   }
 
   updateFilm(): void {

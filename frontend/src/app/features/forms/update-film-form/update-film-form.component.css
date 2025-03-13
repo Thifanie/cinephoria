@@ -65,12 +65,17 @@ button:hover {
   color: #d4cdc9;
 }
 
-#affiche-film {
+button:focus {
+  background-color: #a57e8fad;
+  color: #d4cdc9;
+}
+
+#update-affiche-film {
   cursor: pointer;
   margin: auto;
 }
 
-#div-img-upload {
+#update-div-img-upload {
   width: 40px;
   height: 40px;
   margin: auto;
@@ -95,6 +100,14 @@ button:hover {
   transform: translateY(10%);
 }
 
-#file-name-container {
+#update-file-name-container {
   color: #d4cdc9;
+}
+
+#delete-button {
+  background-color: rgb(181, 93, 95);
+}
+
+#delete-button:hover {
+  background-color: rgba(181, 93, 95, 0.5);
 }

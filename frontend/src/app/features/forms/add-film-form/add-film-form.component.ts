@@ -9,35 +9,18 @@ import { Subscription } from 'rxjs';
 import { DataService } from '../../../data.service';
 import { FilmData } from '../../films/models/film';
 import { Type } from '../../films/models/type';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-add-film-form',
-  imports: [ReactiveFormsModule, NgFor],
+  imports: [ReactiveFormsModule, NgFor, NgIf],
   templateUrl: './add-film-form.component.html',
   styleUrl: './add-film-form.component.css',
   standalone: true,
 })
 export class AddFilmFormComponent implements OnInit, OnDestroy {
   addFilmForm!: FormGroup;
-
-  showFileName(event: any): void {
-    const file = event.target.files[0]; // Récupère le premier fichier sélectionné
-    const fileNameContainer = document.getElementById('file-name-container')!;
-    const fileNameElement = document.getElementById('file-name') as HTMLElement;
-
-    if (file) {
-      const fileName = file.name; // Récupère uniquement le nom du fichier
-      // Affiche le nom du fichier dans l'élément p
-      fileNameElement.textContent = fileName;
-      // Affiche la zone contenant le nom du fichier
-      fileNameContainer.style.display = 'flex';
-
-      const newPath = 'assets/movie-posters/' + fileName;
-      this.moviePosterPath = newPath;
-    }
-  }
-
+  addFilmMoviePosterPath: string = '';
   subscription: Subscription | undefined;
   filmData: FilmData = {
     title: '',
@@ -57,6 +40,23 @@ export class AddFilmFormComponent implements OnInit, OnDestroy {
     private readonly fb: FormBuilder,
     private readonly dataService: DataService
   ) {}
+
+  showFileName(event: any): void {
+    const file = event.target.files[0]; // Récupère le premier fichier sélectionné
+    const fileNameContainer = document.getElementById('file-name-container')!;
+    const fileNameElement = document.getElementById('file-name') as HTMLElement;
+
+    if (file) {
+      const fileName = file.name; // Récupère uniquement le nom du fichier
+      // Affiche le nom du fichier dans l'élément p
+      fileNameElement.textContent = fileName;
+      // Affiche la zone contenant le nom du fichier
+      fileNameContainer.style.display = 'flex';
+
+      const newPath = 'assets/movie-posters/' + fileName;
+      this.addFilmMoviePosterPath = newPath;
+    }
+  }
 
   ngOnInit(): void {
     // Initialiser le formulaire réactif avec un FormArray pour les types
@@ -92,11 +92,9 @@ export class AddFilmFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  moviePosterPath: string = '';
-
   addFilm(): void {
     if (this.addFilmForm.invalid) return;
-    console.log("Chemin de l'image:", this.moviePosterPath);
+    console.log("Chemin de l'image:", this.addFilmMoviePosterPath);
 
     const typeGroup = this.addFilmForm.get('typeForm') as FormGroup;
     // Récupérer les types sélectionnés
@@ -109,7 +107,7 @@ export class AddFilmFormComponent implements OnInit, OnDestroy {
     // Mise à jour du chemin de l'image téléchargée dans le formulaire
     const filmData = {
       ...this.addFilmForm.value,
-      moviePoster: this.moviePosterPath,
+      moviePoster: this.addFilmMoviePosterPath,
       types: selectedTypes,
     };
 
@@ -122,7 +120,7 @@ export class AddFilmFormComponent implements OnInit, OnDestroy {
         alert(`Le film ${data.title} a été ajouté.`);
         // Réinitialisation du formulaire
         this.addFilmForm.reset();
-        this.moviePosterPath = '';
+        this.addFilmMoviePosterPath = '';
         this.selectedTypes.clear();
         const fileNameElement = document.getElementById(
           'file-name'
