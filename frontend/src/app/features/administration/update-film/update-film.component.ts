@@ -18,7 +18,7 @@ export class UpdateFilmComponent {
   constructor(private readonly menuService: MenuService) {}
 
   ngOnInit() {
-    this.menuService.activeMenu$.subscribe((activeMenu) => {
+    this.subscription = this.menuService.activeMenu$.subscribe((activeMenu) => {
       const wasOpen = this.isOpen;
       this.isOpen = activeMenu === 'updateFilm';
 

@@ -136,4 +136,24 @@ export class DataService {
       headers: { 'Content-Type': 'application/json' },
     });
   }
+
+  updateFilm(filmTitle: string, filmData: FilmData) {
+    return this.http.post<FilmData>(
+      `${this.apiUrl}/films/${filmTitle}`,
+      filmData,
+      {
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+  }
+
+  deleteFilm(filmTitle: string, filmData: FilmData) {
+    return this.http.post<FilmData>(
+      `${this.apiUrl}/films/delete/${filmTitle}`,
+      filmData,
+      {
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+  }
 }

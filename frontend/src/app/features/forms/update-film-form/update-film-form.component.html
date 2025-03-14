@@ -187,7 +187,14 @@
       </div>
       <!-- Bouton supprimer le film -->
       <div class="col-6">
-        <button class="btn w-100" id="delete-button">Supprimer</button>
+        <button
+          class="btn w-100"
+          id="delete-button"
+          type="button"
+          (click)="deleteFilm()"
+        >
+          Supprimer
+        </button>
       </div>
     </div>
   </div>

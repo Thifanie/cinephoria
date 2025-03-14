@@ -157,7 +157,84 @@ export class UpdateFilmFormComponent implements OnInit {
   }
 
   updateFilm(): void {
-    console.log('d');
+    if (this.updateFilmForm.invalid) return;
+
+    const typeGroup = this.updateFilmForm.get('typeForm') as FormGroup;
+    // Récupérer les types sélectionnés
+    const selectedTypes = Object.keys(typeGroup.controls)
+      .filter((key) => typeGroup.get(key)?.value) // Filtrer les types sélectionnés
+      .map((key) => Number(key)); // Convertir les clés (IDs) en nombres
+
+    //Mise à jour des données du film à modifier
+    console.log('IDs des types sélectionnés : ', selectedTypes);
+    const updateFilmData = {
+      ...this.updateFilmForm.value,
+      moviePoster: this.moviePosterPath,
+      types: selectedTypes,
+    };
+    console.log('Données du film à modifier : ', updateFilmData);
+
+    this.subs.push(
+      this.dataService
+        .updateFilm(updateFilmData.title, updateFilmData)
+        .subscribe((data) => {
+          console.log('Film modifié : ', data);
+          this.filmData = data;
+          alert(`Le film ${updateFilmData.title} a été modifié.`);
+          // Réinitialisation du formulaire
+          this.updateFilmForm.reset();
+          this.moviePosterPath = '';
+          this.selectedTypes.clear();
+          const fileNameElement = document.getElementById(
+            'update-file-name'
+          ) as HTMLElement;
+          fileNameElement.textContent = '';
+          // Récupérer à nouveau les films depuis le backend après l'ajout
+          this.dataService.getFilms(); // Cela déclenchera la mise à jour dans `FilmsListComponent`
+        })
+    );
+  }
+
+  deleteFilm(): void {
+    const deleteFilmData = {
+      ...this.updateFilmForm.value,
+      moviePoster: this.moviePosterPath,
+    };
+    const confirmation = window.confirm(
+      'Êtes-vous sûr de vouloir supprimer ce film ? Cet action est irréversible.'
+    );
+    if (confirmation) {
+      console.log('Titre du film à supprimer : ', deleteFilmData.title);
+
+      // Suppression du film de la liste des films pour le dropdown
+      this.listFilms = this.listFilms.filter(
+        (film) => film.title !== deleteFilmData.title
+      );
+
+      // Réinitialisation du formulaire
+      this.updateFilmForm.reset();
+      this.moviePosterPath = '';
+      this.selectedTypes.clear();
+      const fileNameElement = document.getElementById(
+        'update-file-name'
+      ) as HTMLElement;
+      fileNameElement.textContent = '';
+
+      this.subs.push(
+        this.dataService
+          .deleteFilm(deleteFilmData.title, deleteFilmData)
+          .subscribe((data) => {
+            console.log('Données du film à supprimer : ', data);
+            alert(`Le film ${deleteFilmData.title} a été supprimé.`);
+
+            // Récupérer à nouveau les films depuis le backend après la suppression
+            this.dataService.getFilms(); // Cela déclenchera la mise à jour dans `FilmsListComponent`
+          })
+      );
+    } else {
+      alert('La suppression a été annulée.');
+      console.log('Suppression annulée !');
+    }
   }
 
   ngOnDestroy() {

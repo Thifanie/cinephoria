@@ -262,8 +262,6 @@ app.post("/api/order", async (req, res) => {
       price,
     } = req.body;
 
-    // const formatedDate = date.slice(0, 19).replace("T", " ");
-
     const cinemaResult = await db.pool.query(
       "SELECT cinema.id FROM cinema WHERE cinema.name = ?",
       [cinemaName]
@@ -369,6 +367,108 @@ app.post("/api/opinion", async (req, res) => {
   } catch (err) {
     console.error("Error inserting order:", err);
     res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+app.post("/api/films/:title", async (req, res) => {
+  const connection = await db.pool.getConnection();
+  try {
+    const filmTitle = req.params.title; // Récupère le titre du film depuis l'URL
+    const {
+      actors,
+      description,
+      favorite,
+      minAge,
+      moviePoster,
+      onView,
+      opinion,
+      types,
+    } = req.body;
+
+    // Début de la transaction
+    await connection.beginTransaction();
+
+    await connection.query(
+      "UPDATE cinephoria.films SET actors = ?, description = ?, favorite = ?, minAge = ?, moviePoster = ?, onView = ?, opinion = ? WHERE films.title = ?",
+      [
+        actors,
+        description,
+        favorite,
+        minAge,
+        moviePoster,
+        onView,
+        opinion,
+        filmTitle,
+      ] // Paramètre sécurisé pour éviter l'injection SQL
+    );
+
+    const filmId = await connection.query(
+      "SELECT films.id FROM cinephoria.films WHERE films.title = ?",
+      [filmTitle]
+    );
+
+    await connection.query(
+      "DELETE FROM cinephoria.films_type WHERE idFilm = ?",
+      [filmId[0].id]
+    );
+
+    for (const typeId of types) {
+      await connection.query(
+        "INSERT INTO cinephoria.films_type (idFilm, idType) VALUES (?, ?)",
+        [filmId[0].id, typeId] // Paramètre sécurisé pour éviter l'injection SQL
+      );
+    }
+
+    // Validation de la transaction
+    await connection.commit();
+
+    res.send({ message: "Film mis à jour avec succès !" });
+  } catch (err) {
+    // Annulation en cas d'erreur
+    await connection.rollback();
+    console.error("Erreur lors de la mise à jour :", err);
+    res.status(500).send({ error: "Erreur serveur" });
+  } finally {
+    // Libération de la connexion
+    connection.release();
+  }
+});
+
+app.post("/api/films/delete/:title", async (req, res) => {
+  const connection = await db.pool.getConnection();
+
+  try {
+    const filmTitle = req.params.title; // Récupération du paramètre dans l'URL
+    console.log("Titre du film : ", filmTitle);
+
+    // Début de la transaction
+    await connection.beginTransaction();
+
+    const filmId = await connection.query(
+      "SELECT films.id FROM cinephoria.films WHERE films.title = ?",
+      [filmTitle]
+    );
+    console.log("ID du film : ", filmId);
+
+    await connection.query(
+      "DELETE FROM cinephoria.films_type WHERE idFilm = ?",
+      [filmId[0].id]
+    );
+
+    await connection.query("DELETE FROM cinephoria.films WHERE title = ?", [
+      filmTitle,
+    ]);
+
+    // Validation de la transaction
+    await connection.commit();
+  } catch (err) {
+    // Annulation en cas d'erreur
+    await connection.rollback();
+    console.error("Erreur lors de la suppression :", err);
+    res.status(500).send({ error: "Erreur serveur" });
+  } finally {
+    // Libération de la connexion
+    connection.release();
   }
 });
 
