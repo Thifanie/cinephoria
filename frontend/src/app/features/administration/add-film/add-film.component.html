@@ -13,16 +13,14 @@
       Ajouter un film
     </button>
   </p>
-  <div
-    class="collapse"
-    id="addFilm"
-    [class.show]="isOpen"
-    (hidden.bs.collapse)="resetForm()"
-  >
+  <div class="collapse" id="addFilm" [class.show]="isOpen">
     <!-- Formulaire pour ajouter un film -->
     <div class="card card-body">
       <div class="accordion-body">
-        <app-add-film-form *ngIf="showForm"></app-add-film-form>
+        <app-add-film-form
+          [listTypes]="listTypes"
+          [listFilms]="listFilms"
+        ></app-add-film-form>
       </div>
     </div>
   </div>

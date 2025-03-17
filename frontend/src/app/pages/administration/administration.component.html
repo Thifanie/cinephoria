@@ -1,5 +1,8 @@
 <h1>Espace administration</h1>
 
-<app-add-film></app-add-film>
+<app-add-film [listTypes]="listTypes" [listFilms]="listFilms"></app-add-film>
 
-<app-update-film></app-update-film>
+<app-update-film
+  [listTypes]="listTypes"
+  [listFilms]="listFilms"
+></app-update-film>

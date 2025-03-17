@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -18,9 +24,12 @@ import { NgFor, NgIf } from '@angular/common';
   styleUrl: './update-film-form.component.css',
   standalone: true,
 })
-export class UpdateFilmFormComponent implements OnInit {
+export class UpdateFilmFormComponent implements OnInit, OnChanges {
   updateFilmForm!: FormGroup;
   subs: Subscription[] = [];
+  @Input() listTypes!: Type[];
+  @Input() listFilms: Film[] = [];
+
   filmData: FilmData = {
     title: '',
     actors: '',
@@ -32,9 +41,7 @@ export class UpdateFilmFormComponent implements OnInit {
     onView: true,
     type: [],
   };
-  types: Type[] = [];
   selectedTypes: Set<number> = new Set(); // Utilisation d'un Set pour éviter les doublons
-  listFilms: Film[] = [];
   selectedFilm: Film | null = null;
   moviePosterPath: string = '';
   fileName: string | null = null;
@@ -45,22 +52,6 @@ export class UpdateFilmFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Appel pour récupérer la liste des films lors de l'initialisation du composant
-    this.dataService.getFilms();
-
-    this.subs = [
-      this.dataService.films$.subscribe((films: Film[]) => {
-        this.listFilms = films;
-        console.log('Films récupérés', this.listFilms);
-      }),
-      // Récupérer les genres de films
-      this.dataService.getType().subscribe((data: Type[]) => {
-        console.log('Types récupérés : ', data);
-        this.types = data;
-        this.setTypes(); // Initialiser les cases à cocher
-      }),
-    ];
-
     this.updateFilmForm = this.fb.group({
       title: '',
       actors: '',
@@ -74,9 +65,27 @@ export class UpdateFilmFormComponent implements OnInit {
     });
   }
 
-  showFileName(event: any): void {
-    console.log('Événement déclenché !', event);
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['listTypes'] && this.listTypes?.length) {
+      this.setTypes(); // Initialiser les cases à cocher
+    }
+  }
 
+  // Créer un FormControl pour chaque type
+  setTypes(): void {
+    if (!this.updateFilmForm) return; // Vérifie que le formulaire est initialisé
+
+    const typeGroup = this.updateFilmForm.get('typeForm') as FormGroup;
+    if (!typeGroup) return;
+
+    this.listTypes.forEach((type) => {
+      if (!typeGroup.contains(type.id.toString())) {
+        typeGroup.addControl(type.id.toString(), new FormControl(false));
+      }
+    });
+  }
+
+  showFileName(event: any): void {
     const file = event.target.files[0]; // Récupère le premier fichier sélectionné
     const fileNameContainer = document.getElementById(
       'update-file-name-container'
@@ -99,18 +108,6 @@ export class UpdateFilmFormComponent implements OnInit {
     }
   }
 
-  // Créer un FormControl pour chaque type
-  setTypes(): void {
-    const typeGroup = this.updateFilmForm.get('typeForm') as FormGroup;
-    if (!typeGroup) return;
-
-    this.types.forEach((type) => {
-      if (!typeGroup.contains(type.id.toString())) {
-        typeGroup.addControl(type.id.toString(), new FormControl(false));
-      }
-    });
-  }
-
   selectFilm(film: Film): void {
     this.selectedFilm = film;
 
@@ -126,14 +123,14 @@ export class UpdateFilmFormComponent implements OnInit {
     // Ajouter les types associés au film sélectionné dans 'selectedTypes'
     filmTypes.forEach((type) => {
       // Chercher le type dans la liste des types récupérés
-      const matchedType = this.types.find((t) => t.type === type);
+      const matchedType = this.listTypes.find((t) => t.type === type);
       if (matchedType) {
         this.selectedTypes.add(matchedType.id); // Ajoute l'ID du type au Set
       }
     });
 
     // Mettre à jour les cases à cocher en fonction des types du film sélectionné
-    this.types.forEach((type) => {
+    this.listTypes.forEach((type) => {
       const control = typeGroup.get(type.id.toString()) as FormControl;
       if (control) {
         control.setValue(this.selectedTypes.has(type.id)); // Coche la case si le type est associé au film
@@ -212,13 +209,7 @@ export class UpdateFilmFormComponent implements OnInit {
       );
 
       // Réinitialisation du formulaire
-      this.updateFilmForm.reset();
-      this.moviePosterPath = '';
-      this.selectedTypes.clear();
-      const fileNameElement = document.getElementById(
-        'update-file-name'
-      ) as HTMLElement;
-      fileNameElement.textContent = '';
+      this.resetForm();
 
       this.subs.push(
         this.dataService
@@ -235,6 +226,19 @@ export class UpdateFilmFormComponent implements OnInit {
       alert('La suppression a été annulée.');
       console.log('Suppression annulée !');
     }
+  }
+
+  resetForm(): void {
+    this.updateFilmForm.reset();
+
+    const fileNameElement = document.getElementById(
+      'update-file-name'
+    ) as HTMLElement;
+    fileNameElement.textContent = '';
+
+    // Réinitialiser les autres variables si nécessaire
+    this.moviePosterPath = '';
+    this.selectedTypes.clear();
   }
 
   ngOnDestroy() {

@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { AddFilmFormComponent } from '../../forms/add-film-form/add-film-form.component';
 import { MenuService } from '../../menus/menu.service';
 import { Subscription } from 'rxjs';
-import { NgIf } from '@angular/common';
+import { Type } from '../../films/models/type';
+import { Film } from '../../films/models/film';
 
 @Component({
   selector: 'app-add-film',
-  imports: [AddFilmFormComponent, NgIf],
+  imports: [AddFilmFormComponent],
   templateUrl: './add-film.component.html',
   styleUrl: './add-film.component.css',
 })
@@ -14,6 +15,10 @@ export class AddFilmComponent {
   isOpen = false; // État local pour savoir si le menu est ouvert
   subscription!: Subscription;
   showForm = true; // Contrôle le rendu du formulaire
+  @Input() listTypes: Type[] = [];
+  @Input() listFilms: Film[] = [];
+  @ViewChild(AddFilmFormComponent)
+  addFilmFormComponent!: AddFilmFormComponent;
 
   constructor(private readonly menuService: MenuService) {}
 
@@ -25,7 +30,7 @@ export class AddFilmComponent {
 
       // Si le menu se ferme (que ce soit en cliquant ailleurs ou via un autre menu), réinitialiser le formulaire
       if (wasOpen && !this.isOpen) {
-        this.resetForm();
+        this.addFilmFormComponent.resetForm();
       }
     });
   }
@@ -37,13 +42,8 @@ export class AddFilmComponent {
 
     // Réinitialise le formulaire directement si on ferme sans transition
     if (!this.isOpen) {
-      this.resetForm();
+      this.addFilmFormComponent.resetForm();
     }
-  }
-
-  resetForm() {
-    this.showForm = false;
-    setTimeout(() => (this.showForm = true), 0); // Force le rechargement du composant
   }
 
   ngOnDestroy() {

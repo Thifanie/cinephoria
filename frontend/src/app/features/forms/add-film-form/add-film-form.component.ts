@@ -1,4 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -7,7 +14,7 @@ import {
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { DataService } from '../../../data.service';
-import { FilmData } from '../../films/models/film';
+import { Film, FilmData } from '../../films/models/film';
 import { Type } from '../../films/models/type';
 import { NgFor, NgIf } from '@angular/common';
 
@@ -18,7 +25,7 @@ import { NgFor, NgIf } from '@angular/common';
   styleUrl: './add-film-form.component.css',
   standalone: true,
 })
-export class AddFilmFormComponent implements OnInit, OnDestroy {
+export class AddFilmFormComponent implements OnInit, OnDestroy, OnChanges {
   addFilmForm!: FormGroup;
   addFilmMoviePosterPath: string = '';
   subscription: Subscription | undefined;
@@ -33,7 +40,8 @@ export class AddFilmFormComponent implements OnInit, OnDestroy {
     onView: true,
     type: [],
   };
-  types: Type[] = [];
+  @Input() listTypes: Type[] = [];
+  @Input() listFilms: Film[] = [];
   selectedTypes: Set<number> = new Set(); // Utilisation d'un Set pour éviter les doublons
 
   constructor(
@@ -71,13 +79,12 @@ export class AddFilmFormComponent implements OnInit, OnDestroy {
       onView: true,
       typeForm: this.fb.group({}),
     });
+  }
 
-    // Récupérer les genres de films
-    this.dataService.getType().subscribe((data: Type[]) => {
-      console.log('Types récupérés : ', data);
-      this.types = data;
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['listTypes'] && this.listTypes?.length) {
       this.setTypes(); // Initialiser les cases à cocher
-    });
+    }
   }
 
   // Créer un FormControl pour chaque type
@@ -85,7 +92,7 @@ export class AddFilmFormComponent implements OnInit, OnDestroy {
     const typeGroup = this.addFilmForm.get('typeForm') as FormGroup;
     if (!typeGroup) return;
 
-    this.types.forEach((type) => {
+    this.listTypes.forEach((type) => {
       if (!typeGroup.contains(type.id.toString())) {
         typeGroup.addControl(type.id.toString(), new FormControl(false));
       }
@@ -119,16 +126,21 @@ export class AddFilmFormComponent implements OnInit, OnDestroy {
         this.filmData = data;
         alert(`Le film ${data.title} a été ajouté.`);
         // Réinitialisation du formulaire
-        this.addFilmForm.reset();
-        this.addFilmMoviePosterPath = '';
-        this.selectedTypes.clear();
-        const fileNameElement = document.getElementById(
-          'file-name'
-        ) as HTMLElement;
-        fileNameElement.textContent = '';
+        this.resetForm();
         // Récupérer à nouveau les films depuis le backend après l'ajout
         this.dataService.getFilms(); // Cela déclenchera la mise à jour dans `FilmsListComponent`
       });
+  }
+
+  resetForm(): void {
+    this.addFilmForm.reset();
+
+    const fileNameElement = document.getElementById('file-name') as HTMLElement;
+    fileNameElement.textContent = '';
+
+    // Réinitialiser les autres variables si nécessaire
+    this.addFilmMoviePosterPath = '';
+    this.selectedTypes.clear();
   }
 
   ngOnDestroy() {

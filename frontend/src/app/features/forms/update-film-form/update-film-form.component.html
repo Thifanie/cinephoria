@@ -163,7 +163,7 @@
         <fieldset>
           <legend>Genres :</legend>
           <div formGroupName="typeForm" class="d-flex flex-wrap gap-3">
-            <div *ngFor="let type of types; let i = index">
+            <div *ngFor="let type of listTypes; let i = index">
               <div>
                 <label [for]="'type-' + type.id">{{ type.type }}</label>
                 <input

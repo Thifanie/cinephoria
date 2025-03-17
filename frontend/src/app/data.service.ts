@@ -28,14 +28,18 @@ export class DataService {
   //     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   //   });
   // }
-  getFilms(): void {
-    this.http
-      .get<Film[]>(`${this.apiUrl}/films`, {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-      })
-      .subscribe((films: Film[]) => {
-        this.filmsSubject.next(films); // Mise à jour du BehaviorSubject avec les films récupérés
-      });
+  getFilms(): Observable<Film[]> {
+    if (this.filmsSubject.value.length === 0) {
+      // Si les films ne sont pas encore récupérés, faire la requête
+      this.http
+        .get<Film[]>(`${this.apiUrl}/films`, {
+          headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+        })
+        .subscribe((films: Film[]) => {
+          this.filmsSubject.next(films);
+        });
+    }
+    return this.films$; // Renvoie un observable de la liste des films
   }
 
   getType(): Observable<Type[]> {
