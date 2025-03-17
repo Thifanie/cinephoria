@@ -99,6 +99,12 @@ export class DataService {
     });
   }
 
+  getRoomByCinema(cinema: string): Observable<Room[]> {
+    return this.http.get<Room[]>(`${this.apiUrl}/room/${cinema}`, {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    });
+  }
+
   getQuality(): Observable<Quality[]> {
     return this.http.get<Quality[]>(`${this.apiUrl}/quality`, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -137,6 +143,12 @@ export class DataService {
 
   postOpinion(opinionData: Opinion) {
     return this.http.post<Opinion>(`${this.apiUrl}/opinion`, opinionData, {
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  postSession(sessionData: Session) {
+    return this.http.post<Session>(`${this.apiUrl}/session`, sessionData, {
       headers: { 'Content-Type': 'application/json' },
     });
   }

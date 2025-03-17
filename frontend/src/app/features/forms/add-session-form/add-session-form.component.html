@@ -1,0 +1,117 @@
+<form [formGroup]="addSessionForm" (submit)="addSession()">
+  <div class="container">
+    <div class="d-flex flex-column">
+      <!-- Choix du film -->
+      <div class="row d-flex flex-row justify-content-center" id="selects">
+        <div class="dropdown col-3 mb-4">
+          <button
+            class="btn dropdown-toggle w-100"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            {{ selectedFilm?.title || "Choisissez un film" }}
+          </button>
+          <ul class="dropdown-menu">
+            <li *ngFor="let film of listFilms">
+              <a class="dropdown-item" (click)="selectFilm(film)">{{
+                film.title
+              }}</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Choix du cinéma -->
+        <div class="dropdown col-3 mb-4">
+          <button
+            class="btn dropdown-toggle w-100"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            {{ selectedCinema?.name || "Choisissez un cinéma" }}
+          </button>
+          <ul class="dropdown-menu">
+            <li *ngFor="let cinema of listCinemas">
+              <a class="dropdown-item" (click)="selectCinema(cinema)">{{
+                cinema.name
+              }}</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Choix de la salle -->
+        <div
+          class="dropdown col-3 mb-4"
+          [style.opacity]="selectedCinema ? '1' : '0.5'"
+          [style.pointerEvents]="selectedCinema ? 'auto' : 'none'"
+        >
+          <button
+            class="btn dropdown-toggle w-100"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            {{ selectedRoom?.name || "Choisissez une salle" }}
+          </button>
+          <ul class="dropdown-menu">
+            <li *ngFor="let room of listRooms">
+              <a class="dropdown-item" (click)="selectRoom(room)">{{
+                room.name
+              }}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="d-flex flex-row justify-content-center">
+        <div class="col-3 justify-content-center text-center">
+          <!-- Input date -->
+          <label for="date">Date de la séance : </label>
+          <input
+            formControlName="date"
+            type="date"
+            class="form-control-sm"
+            id="date"
+            aria-describedby="date"
+            required
+            [attr.min]="today"
+          />
+        </div>
+
+        <div class="col-3 justify-content-center text-center">
+          <!-- Input heure de début -->
+          <label for="start-hour">Heure de début : </label>
+          <input
+            formControlName="startHour"
+            type="time"
+            class="form-control-sm"
+            id="start-hour"
+            aria-describedby="start-hour"
+            required
+          />
+        </div>
+
+        <div class="col-3 justify-content-center text-center">
+          <!-- Input heure de fin -->
+          <label for="end-hour">Heure de fin : </label>
+          <input
+            formControlName="endHour"
+            type="time"
+            class="form-control-sm"
+            id="end-hour"
+            aria-describedby="end-hour"
+            required
+          />
+        </div>
+      </div>
+
+      <!-- Bouton ajouter la séance -->
+      <div class="d-flex flex-row justify-content-center">
+        <div class="col-3 text-center">
+          <button type="submit" class="btn w-100">Ajouter</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

@@ -118,6 +118,20 @@ app.get("/api/room", async (req, res) => {
   }
 });
 
+app.get("/api/room/:cinema", async (req, res) => {
+  try {
+    const cinema = req.params.cinema; // Utilisation de req.query pour accéder au paramètre de la query string
+    console.log(cinema);
+    const result = await db.pool.query(
+      "SELECT room.name FROM cinephoria.room JOIN cinephoria.cinema ON cinema.id = room.idCinema WHERE cinema.name = ?",
+      [cinema] // Paramètre sécurisé pour éviter l'injection SQL);
+    );
+    res.send(result);
+  } catch (err) {
+    throw err;
+  }
+});
+
 app.get("/api/quality", async (req, res) => {
   try {
     const result = await db.pool.query("SELECT * FROM cinephoria.quality");
@@ -364,6 +378,53 @@ app.post("/api/opinion", async (req, res) => {
     );
 
     res.status(201).json(newOpinion);
+  } catch (err) {
+    console.error("Error inserting order:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+app.post("/api/session", async (req, res) => {
+  try {
+    const { filmTitle, cinema, room, date, startHour, endHour } = req.body;
+
+    console.log("Données reçues:", req.body); // ✅ Vérifier les données avant l'insertion
+
+    const idFilm = await db.pool.query(
+      "SELECT films.id FROM cinephoria.films WHERE title = ?",
+      [filmTitle]
+    );
+
+    console.log("id du film : ", idFilm);
+
+    const idCinema = await db.pool.query(
+      "SELECT cinema.id FROM cinephoria.cinema WHERE name = ?",
+      [cinema]
+    );
+
+    console.log("id du cinéma : ", idCinema);
+
+    const idRoom = await db.pool.query(
+      "SELECT room.id FROM cinephoria.room WHERE name = ?",
+      [room]
+    );
+
+    console.log("id de la salle : ", idRoom[0].id);
+
+    const result = await db.pool.query(
+      "INSERT INTO session (date, startHour, endHour, idFilm, idCinema, idRoom) VALUES (?, ?, ?, ?, ?, ?)",
+      [date, startHour, endHour, idFilm[0].id, idCinema[0].id, idRoom[0].id]
+    );
+
+    // ✅ Récupérer l'ID de la séance ajoutée
+    const insertedSessionId = result.insertId;
+    // ✅ Récupérer la séance ajoutée
+    const [newSession] = await db.pool.query(
+      "SELECT * FROM session WHERE id = ?",
+      [insertedSessionId]
+    );
+
+    res.status(201).json(newSession);
   } catch (err) {
     console.error("Error inserting order:", err);
     res.status(500).json({ error: "Internal server error" });
