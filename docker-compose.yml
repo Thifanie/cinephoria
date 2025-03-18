@@ -37,7 +37,7 @@ services:
     depends_on:
       - mariadb
     environment:
-      DB_HOST: cinephoria.railway.internal # host.docker.internal
+      DB_HOST: mariadb # host.docker.internal
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_NAME: ${DB_NAME}
