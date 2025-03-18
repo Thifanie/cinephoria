@@ -1,11 +1,11 @@
 services:
   frontend:
-    image: thifanie/cinephoria-frontend:v1.0
-    build:
-      context: ./frontend
-      args:
-        API_URL: http://backend:3000/api
-      dockerfile: Dockerfile
+    image: nginx:latest # thifanie/cinephoria-frontend:v1.0
+    # build:
+    #   context: ./frontend
+    #   args:
+    #     API_URL: http://backend:3000/api
+    #   dockerfile: Dockerfile
     ports:
       - "80:80" # Permet l'accès à Nginx via le port 80
       # - "443:443" # Si tu utilises HTTPS
@@ -28,10 +28,11 @@ services:
     #   - my_network
 
   backend:
-    image: thifanie/cinephoria-backend:v1.0
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    image: node:latest # thifanie/cinephoria-backend:v1.0
+    command: ["node", "server.js"]
+    # build:
+    #   context: ./backend
+    #   dockerfile: Dockerfile
     ports:
       - "3000:3000"
     depends_on:
