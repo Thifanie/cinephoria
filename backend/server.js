@@ -9,6 +9,17 @@ require("dotenv").config();
 app.use(cors());
 app.use(express.json());
 
+// Middleware CORS
+app.use((req, res, next) => {
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://cinephoria-frontend-production.up.railway.app"
+  ); // Remplace par l'URL de ton frontend
+  res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next(); // Passe au middleware suivant
+});
+
 app.get("/", (req, res) => {
   res.send("Backend is running!");
 });
