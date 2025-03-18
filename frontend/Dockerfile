@@ -21,7 +21,7 @@ RUN npm run build
 FROM nginx:alpine3.19
 
 # Définir un argument API_URL (avec une valeur par défaut pour éviter les erreurs)
-ARG API_URL=https://cinephoria-backend-production.up.railway.app/api/
+ARG API_URL=https://cinephoria-backend-production.up.railway.app/api
 
 # Copier le resultat du "build" dans mon serveur
 COPY --from=build /app/dist/cinephoria-web/ /usr/share/nginx/html

@@ -3,7 +3,7 @@ services:
     build:
       context: ./frontend
       args:
-        API_URL: https://cinephoria-backend-production.up.railway.app/api/
+        API_URL: https://cinephoria-backend-production.up.railway.app/api
       dockerfile: Dockerfile
     ports:
       - "80:80" # Permet l'accès à Nginx via le port 80
