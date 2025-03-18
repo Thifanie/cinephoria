@@ -1,0 +1,27 @@
+<div class="container">
+  <p class="d-inline-flex gap-1">
+    <button
+      class="btn"
+      type="button"
+      (click)="toggleMenu()"
+      data-bs-toggle="collapse"
+      data-bs-target="#updateFilm"
+      aria-expanded="false"
+      aria-controls="updateFilm"
+    >
+      <img src="assets/edit.png" alt="edit" />
+      Modifier un film
+    </button>
+  </p>
+  <div class="collapse" id="updateFilm" [class.show]="isOpen">
+    <!-- Formulaire pour modifier un film -->
+    <div class="card card-body">
+      <div class="accordion-body">
+        <app-update-film-form
+          [listTypes]="listTypes"
+          [listFilms]="listFilms"
+        ></app-update-film-form>
+      </div>
+    </div>
+  </div>
+</div>

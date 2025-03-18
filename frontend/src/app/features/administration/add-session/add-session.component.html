@@ -1,0 +1,27 @@
+<div class="container">
+  <p class="d-inline-flex gap-1">
+    <button
+      class="btn"
+      type="button"
+      (click)="toggleMenu()"
+      data-bs-toggle="collapse"
+      data-bs-target="#addSession"
+      aria-expanded="false"
+      aria-controls="addSession"
+    >
+      <img src="assets/plus.png" alt="plus" />
+      Ajouter une séance
+    </button>
+  </p>
+  <div class="collapse" id="addSession" [class.show]="isOpen">
+    <!-- Formulaire pour ajouter une séance -->
+    <div class="card card-body">
+      <div class="accordion-body">
+        <app-add-session-form
+          [listFilms]="listFilms"
+          [listCinemas]="listCinemas"
+        ></app-add-session-form>
+      </div>
+    </div>
+  </div>
+</div>

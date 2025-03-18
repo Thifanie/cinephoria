@@ -1,0 +1,48 @@
+services:
+  frontend:
+    image: cinephoria-frontend
+    build:
+      context: ./frontend
+      args:
+        API_URL: http://backend:3000/api
+    ports:
+      - "80:80" # Permet l'accès à Nginx via le port 80
+      - "443:443" # Si tu utilises HTTPS
+    depends_on:
+      - backend
+    networks:
+      - my_network
+
+  mariadb:
+    image: mariadb:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+    ports:
+      - "3307:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - my_network
+
+  backend:
+    image: cinephoria-backend
+    build: ./backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mariadb
+    environment:
+      DB_HOST: host.docker.internal
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+    networks:
+      - my_network
+
+networks:
+  my_network:
+
+volumes:
+  mariadb_data:

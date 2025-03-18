@@ -123,3 +123,6 @@ node_modules/
 
 #SSH key
 .ssh
+
+#Docker
+.dockerignore

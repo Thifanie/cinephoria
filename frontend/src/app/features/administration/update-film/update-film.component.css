@@ -1,0 +1,30 @@
+button {
+  color: #d4cdc9;
+  font-weight: bold;
+}
+
+button:hover {
+  color: #d4cdc9;
+}
+
+button:active {
+  color: #d4cdc9;
+  border: none;
+}
+
+button:focus {
+  color: #d4cdc9;
+  border: none;
+}
+
+button img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.card {
+  background-color: #545163;
+  border: none;
+  padding-top: 0;
+}

@@ -1,0 +1,62 @@
+form {
+  background-color: #545163;
+
+  border-radius: 10px;
+  max-width: 100%;
+
+  color: #545163;
+}
+
+a {
+  color: #545163;
+  margin-top: 16px;
+  text-align: center;
+}
+
+textarea {
+  height: 100%;
+  padding: 0;
+}
+
+input,
+textarea {
+  background-color: #d4cdc9;
+  color: #545163;
+  width: 40%;
+  padding: 4px 8px;
+}
+
+label {
+  color: #d4cdc9;
+  margin-right: 5px;
+}
+
+.erreur {
+  font-size: small;
+}
+
+.form-check-input {
+  width: 20px;
+}
+
+.form-check-input:checked {
+  background-color: #a57e8f;
+  box-shadow: none;
+  border: #545163;
+}
+
+button {
+  margin-top: 16px;
+  background-color: #a57e8f;
+  color: #d4cdc9;
+}
+
+button:hover {
+  background-color: #a57e8fad;
+  color: #d4cdc9;
+}
+
+button:focus {
+  background-color: #a57e8fad;
+  color: #d4cdc9;
+}

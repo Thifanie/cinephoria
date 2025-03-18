@@ -10,18 +10,30 @@ Les outils utilisés sont :
 - Visual Studio Code pour l'IDE
 - Angular CLI pour la partie front
 - nodeJS pour la partie back
-- Mariadb pour la base de données SQL : 
-    - DataGrip a été utilisé pour la gestion de la base de données
-    - il faut créer une base de données et remplacer les valeurs par défaut dans le fichier .env par les informations de connexion à la base de données
+- Mariadb pour la base de données SQL :
+  - DataGrip a été utilisé pour la gestion de la base de données
+  - il faut créer une base de données et remplacer les valeurs par défaut dans le fichier .env par les informations de connexion à la base de données
+
+# Architecture
+
+Le projet sépare le front-end du back-end par deux sous-dossiers appelés "frontend" et "backend".
+Ces deux dossiers possèdent chacun un fichier package.json et un Dockerfile.
+Le dossier "frontend" comporte le dossier src et public de l'application.
+Le dossier "backend" contient le serveur Express, le fichier relatif à la base de données, les routes, et le service de récupération de données de l'application.
 
 ## Lancement en local
 
 Pour lancer le projet en local :
 
-- Partie front : commande "npm start"
-- Partie back : commande "node projects\cinephoria-web\src\server.js"
+- Partie front : dans le dossier "frontend", commande "npm start"
+- Partie back : dans le dossier "backend", commande "node server.js"
 
 Quand le serveur est en route, ouvrir le navigateur à l'URL `http://localhost:4200/`. L'application se recharge automatiquement lors de changement dans les fichiers sources.
+
+# Docker
+
+Un fichier Dockerfile a été créé dans les dossiers "frontend" et "backend" et un fichier "docker-compose.yml" à la racine du projet. Les Dockerfile permettent la création des images correspondantes et le fichier "docker-compose.yml" permet de relier les conteneurs entre eux.
+A la racine du projet, taper la commande "docker compose --env-file backend/.env up -d --build" pour créer les images et conteneurs frontend, backend et mariadb connectés entre eux.
 
 ## Gestion du projet Angular
 

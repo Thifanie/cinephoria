@@ -1,0 +1,113 @@
+form {
+  background-color: #545163;
+
+  border-radius: 10px;
+  max-width: 100%;
+
+  color: #545163;
+}
+
+a {
+  color: #545163;
+  margin-top: 16px;
+  text-align: center;
+}
+
+textarea {
+  height: 100%;
+  padding: 0;
+}
+
+input,
+textarea {
+  background-color: #d4cdc9;
+  width: 100%;
+  padding: 4px 8px;
+}
+
+label {
+  color: #d4cdc9;
+  margin-right: 5px;
+}
+
+img {
+  width: 40px;
+  height: 40px;
+}
+
+legend {
+  color: #d4cdc9;
+}
+
+.erreur {
+  font-size: small;
+}
+
+.form-check-input {
+  width: 20px;
+}
+
+.form-check-input:checked {
+  background-color: #a57e8f;
+  box-shadow: none;
+  border: #545163;
+}
+
+button {
+  margin-top: 16px;
+  background-color: #a57e8f;
+  color: #d4cdc9;
+  width: 20%;
+}
+
+button:hover {
+  background-color: #a57e8fad;
+  color: #d4cdc9;
+}
+
+button:focus {
+  background-color: #a57e8fad;
+  color: #d4cdc9;
+}
+
+#update-affiche-film {
+  cursor: pointer;
+  margin: auto;
+}
+
+#update-div-img-upload {
+  width: 40px;
+  height: 40px;
+  margin: auto;
+}
+
+#titre,
+#actors {
+  margin-bottom: 15px;
+  padding: 4px 8px;
+}
+
+#opinion {
+  width: 100%;
+}
+
+#minAge {
+  width: 75%;
+}
+
+#favorite,
+#onView {
+  transform: translateY(10%);
+}
+
+#update-file-name-container {
+  color: #d4cdc9;
+}
+
+#delete-button {
+  background-color: rgb(181, 93, 95);
+}
+
+#delete-button:hover {
+  background-color: rgba(181, 93, 95, 0.5);
+}
