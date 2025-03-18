@@ -16,7 +16,7 @@ FROM node:14-alpine
 WORKDIR /app
 
 # Copier les fichiers du projet dans l'image
-COPY . .
+COPY ./frontend .
 
 # Installer les dépendances
 RUN npm install
