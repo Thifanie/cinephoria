@@ -14,12 +14,6 @@ RUN npm install
 # Copier le reste du projet dans le /app
 COPY . .
 
-# Copier le script wait-for-db.sh dans le conteneur
-COPY ./wait-for-db.sh /app/wait-for-db.sh
-
-# Donner les permissions d'exécution au script
-RUN chmod +x /app/wait-for-db.sh
-
 # Exposer le port 3000
 EXPOSE 3000
 
