@@ -1,6 +1,5 @@
 services:
   frontend:
-    image: cinephoria-frontend
     build:
       context: ./frontend
       args:
@@ -15,7 +14,6 @@ services:
       - my_network
 
   backend:
-    image: cinephoria-backend
     build:
       context: ./backend
       dockerfile: Dockerfile
