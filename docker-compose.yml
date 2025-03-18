@@ -1,18 +1,18 @@
 services:
   frontend:
-    image: nginx:latest # thifanie/cinephoria-frontend:v1.0
-    # build:
-    #   context: ./frontend
-    #   args:
-    #     API_URL: http://backend:3000/api
-    #   dockerfile: Dockerfile
+    # image: thifanie/cinephoria-frontend:v1.0
+    build:
+      context: ./frontend
+      args:
+        API_URL: http://backend:3000/api
+      dockerfile: Dockerfile
     ports:
       - "80:80" # Permet l'accès à Nginx via le port 80
       # - "443:443" # Si tu utilises HTTPS
     depends_on:
       - backend
-    # networks:
-    #   - my_network
+    networks:
+      - my_network
 
   mariadb:
     image: mariadb:latest
@@ -22,17 +22,16 @@ services:
       MYSQL_DATABASE: ${DB_NAME}
     ports:
       - "3307:3306"
-    # volumes:
-    #   - mariadb_data:/var/lib/mysql
-    # networks:
-    #   - my_network
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - my_network
 
   backend:
-    image: node:latest # thifanie/cinephoria-backend:v1.0
-    command: ["node", "server.js"]
-    # build:
-    #   context: ./backend
-    #   dockerfile: Dockerfile
+    # image: thifanie/cinephoria-backend:v1.0
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
     depends_on:
@@ -42,11 +41,11 @@ services:
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_NAME: ${DB_NAME}
-#     networks:
-#       - my_network
+    networks:
+      - my_network
 
-# networks:
-#   my_network:
+networks:
+  my_network:
 
-# volumes:
-#   mariadb_data:
+volumes:
+  mariadb_data:
