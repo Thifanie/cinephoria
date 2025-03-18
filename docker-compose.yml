@@ -1,6 +1,6 @@
 services:
   frontend:
-    # image: thifanie/cinephoria-frontend:v1.0
+    image: cinephoria-frontend
     build:
       context: ./frontend
       args:
@@ -28,7 +28,7 @@ services:
       - my_network
 
   backend:
-    # image: thifanie/cinephoria-backend:v1.0
+    image: cinephoria-backend
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -37,7 +37,7 @@ services:
     depends_on:
       - mariadb
     environment:
-      DB_HOST: mariadb # host.docker.internal
+      DB_HOST: host.docker.internal
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_NAME: ${DB_NAME}
