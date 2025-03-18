@@ -1,6 +1,6 @@
 services:
   frontend:
-    image: thifanie/cinephoria-frontend:latest
+    image: thifanie/cinephoria-frontend:v1.0
     build:
       context: ./frontend
       args:
@@ -28,7 +28,7 @@ services:
       - my_network
 
   backend:
-    image: thifanie/cinephoria-backend:latest
+    image: thifanie/cinephoria-backend:v1.0
     build:
       context: ./backend
       dockerfile: Dockerfile
