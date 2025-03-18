@@ -7,4 +7,4 @@ WORKDIR /app
 COPY . .
 
 # Lancer Docker Compose
-CMD ["docker-compose", "--env-file", "backend/.env", "up", "-d", "--build"]
+CMD ["docker-compose", "up", "-d", "--build"]
