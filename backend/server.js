@@ -4,6 +4,7 @@ const app = express();
 const db = require("./db");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const port = process.env.PORT || 3000;
 require("dotenv").config();
 
 app.use(cors());
@@ -544,6 +545,6 @@ app.post("/api/films/delete/:title", async (req, res) => {
   }
 });
 
-app.listen(3000, "0.0.0.0", () => {
-  console.log("Serveur listening on http://0.0.0.0:3000");
+app.listen(port, "0.0.0.0", () => {
+  console.log(`Serveur listening on http://0.0.0.0:${port}`);
 });
