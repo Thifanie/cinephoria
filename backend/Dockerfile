@@ -18,4 +18,4 @@ COPY . .
 EXPOSE 3000
 
 # Exécuter le script wait-for-db.sh
-CMD ["npm", "start"]
+CMD ["node", "server.js"]
