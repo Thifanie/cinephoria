@@ -10,29 +10,19 @@ require("dotenv").config();
 app.use(cors());
 app.use(express.json());
 
-// Middleware CORS
-app.use((req, res, next) => {
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://cinephoria-frontend-production.up.railway.app"
-  ); // Remplace par l'URL de ton frontend
-  res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  next(); // Passe au middleware suivant
-});
-
 app.get("/", (req, res) => {
   res.send("Backend is running!");
 });
 
 app.get("/api/films", async (req, res) => {
   try {
-    const result = await db.pool.query(
+    const [films] = await db.pool.query(
       "SELECT films.id, title, actors, description, minage, favorite, opinion, movieposter, onview, GROUP_CONCAT(type SEPARATOR ', ') AS type FROM films JOIN films_type ON films.id = films_type.idFilm JOIN type ON films_type.idType = type.id GROUP BY films.id"
     );
-    res.send(result);
+    res.send(films);
   } catch (err) {
-    throw err;
+    console.error("Erreur lors de la récupération des films :", err);
+    res.status(500).send("Erreur serveur");
   }
 });
 
