@@ -7,7 +7,6 @@ import { NgClass, NgFor } from '@angular/common';
 import { DataService } from '../../../data.service';
 import { Subscription } from 'rxjs';
 import { DateTimeFormattingService } from '../../films/services/date-time-formatting.service';
-import { Session } from 'inspector';
 
 @Component({
   selector: 'app-add-session-form',
