@@ -3,14 +3,14 @@ import { Film } from '../../films/models/film';
 import { Cinema } from '../../films/models/cinema';
 import { Room } from '../../films/models/room';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { NgClass, NgFor } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { DataService } from '../../../data.service';
 import { Subscription } from 'rxjs';
 import { DateTimeFormattingService } from '../../films/services/date-time-formatting.service';
 
 @Component({
   selector: 'app-add-session-form',
-  imports: [ReactiveFormsModule, NgFor, NgClass],
+  imports: [ReactiveFormsModule, NgFor],
   templateUrl: './add-session-form.component.html',
   styleUrl: './add-session-form.component.css',
 })
@@ -19,9 +19,9 @@ export class AddSessionFormComponent implements OnInit, OnDestroy {
   @Input() listCinemas: Cinema[] = [];
 
   addSessionForm!: FormGroup;
-  selectedFilm!: Film;
-  selectedCinema!: Cinema;
-  selectedRoom!: Room;
+  selectedFilm!: Film | null;
+  selectedCinema!: Cinema | null;
+  selectedRoom!: Room | null;
   subs: Subscription[] = [];
   listRooms: Room[] = [];
   today: string = new Date().toISOString().split('T')[0];
