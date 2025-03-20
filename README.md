@@ -83,6 +83,18 @@ ng e2e
 
 Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
+## Sonarqube
+
+Lancer l'image Docker de Sonarqube : docker run -d --name sonarqube -p 9000:9000 sonarqube:lts
+Se connecter sur http://localhost:9000 avec ses identifiants Sonarqube
+Pour analyser un dossier (frontend ou backend) :
+
+- installer le scanner à la racine du dossier avec la commande : npm install --save-dev sonarqube-scanner
+- créer un fichier sonar-project.properties à la racine du dossier contenant les propriétés pour réaliser le scan
+- ajouter le script "sonar": "npx sonarqube-scanner" dans le package.json
+- lancer la commande : npm run sonar
+- consulter les résultats sur http://localhost:9000
+
 ## Ressources additionnelles
 
 Pour plus d'informations sur le CLI Angular, visiter la page https://angular.dev/tools/cli.

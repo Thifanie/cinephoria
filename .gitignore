@@ -126,3 +126,6 @@ node_modules/
 
 #Docker
 .dockerignore
+
+#Sonarqube
+sonar-project.properties
