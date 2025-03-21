@@ -1,12 +1,30 @@
 const express = require("express");
-const cors = require("cors");
 const app = express();
+app.disable("x-powered-by"); // Pour masquer l'en-tête HTTP et éviter l'identification de la technologie par des attaquants
+
+const helmet = require("helmet");
+// Appliquer les protections par défaut de Helmet (middleware de sécurité pour Express qui ajoute automatiquement plusieurs en-têtes HTTP pour protéger l'application contre des vulnérabilités courantes)
+app.use(helmet());
+
 const db = require("./db");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-app.use(cors());
+// Configuration plus sécurisée de CORS
+const cors = require("cors");
+const corsOptions = {
+  origin: [
+    "http://localhost:4200",
+    "https://cinephoria-frontend-production.up.railway.app",
+  ], // Autorise uniquement ces origines
+  methods: ["GET", "POST", "PUT", "DELETE"], // Limite les méthodes autorisées
+  allowedHeaders: ["Content-Type", "Authorization"], // Limite les en-têtes autorisés
+  credentials: true, // Permet d’envoyer les cookies ou les en-têtes d’autorisation si nécessaire
+};
+
+app.use(cors(corsOptions));
+
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -20,7 +38,7 @@ app.get("/api/films", async (req, res) => {
     );
     res.send(result);
   } catch (err) {
-    throw err;
+    console.error("Erreur lors de la récupération des films :", err.message);
   }
 });
 
@@ -31,7 +49,7 @@ app.get("/api/admin", async (req, res) => {
     );
     res.send(result);
   } catch (err) {
-    throw err;
+    console.error("Erreur lors de la récupération des films :", err.message);
   }
 });
 
@@ -42,7 +60,7 @@ app.get("/api/user", async (req, res) => {
     );
     res.send(result);
   } catch (err) {
-    throw err;
+    console.error("Erreur lors de la récupération des films :", err.message);
   }
 });
 
@@ -51,7 +69,7 @@ app.get("/api/type", async (req, res) => {
     const result = await db.pool.query("select * from type");
     res.send(result);
   } catch (err) {
-    throw err;
+    console.error("Erreur lors de la récupération des films :", err.message);
   }
 });
 
@@ -91,7 +109,7 @@ app.get("/api/session", async (req, res) => {
     );
     res.send(result);
   } catch (err) {
-    throw err;
+    console.error("Erreur lors de la récupération des films :", err.message);
   }
 });
 
@@ -105,7 +123,7 @@ app.get("/api/session/seats/:id", async (req, res) => {
     );
     res.send(result);
   } catch (err) {
-    throw err;
+    console.error("Erreur lors de la récupération des films :", err.message);
   }
 });
 
@@ -128,7 +146,7 @@ app.get("/api/room/:cinema", async (req, res) => {
     );
     res.send(result);
   } catch (err) {
-    throw err;
+    console.error("Erreur lors de la récupération des films :", err.message);
   }
 });
 
