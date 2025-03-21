@@ -43,7 +43,7 @@
           [src]="film.movieposter"
           [alt]="film.title"
         />
-        <a href="/films">
+        <a [routerLink]="['/films']" [fragment]="film.title">
           <div class="carousel-caption d-none d-md-block">
             <h5>{{ film.title }}</h5>
           </div>
