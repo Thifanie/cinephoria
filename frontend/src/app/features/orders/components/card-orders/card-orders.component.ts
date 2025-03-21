@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  Input,
   input,
   OnInit,
   Output,
@@ -22,7 +23,7 @@ import { DataService } from '../../../../data.service';
   styleUrl: './card-orders.component.css',
 })
 export class CardOrdersComponent implements OnInit {
-  items = input.required<Order[]>();
+  @Input() listOrders: Order[] = [];
   rating: number = 0;
   stars: {
     element: HTMLImageElement;
@@ -45,7 +46,15 @@ export class CardOrdersComponent implements OnInit {
         element: star,
         isFilled: false, // Initialiser isFilled à false pour chaque étoile
       }));
-      console.log("Tableau d'étoiles initial : ", this.stars);
+
+      // Maj de la variable viewed en fonction de la date d'aujourd'hui
+      this.listOrders.forEach((order) => {
+        const today = new Date();
+        const orderDate = new Date(`${order.sessionDate} 00:00:00`);
+        if (orderDate < today) {
+          order.viewed = true;
+        }
+      });
     }, 500);
   }
 
@@ -86,7 +95,6 @@ export class CardOrdersComponent implements OnInit {
     const starSelected = this.stars.find(
       (star) => star.element === (event.target as HTMLImageElement)
     );
-    console.log('Etoile sélectionnée : ', starSelected);
     const isAnyStarFilled = this.stars.some((star) => star.isFilled === true);
 
     if (
@@ -103,7 +111,6 @@ export class CardOrdersComponent implements OnInit {
         }
       });
       starSelected.isFilled = true;
-      console.log("Tableau d'étoiles après sélection : ", this.stars);
       this.rating = rating;
     } else if (allStars && starSelected?.isFilled) {
       // Clic sur une étoile remplie
@@ -134,7 +141,6 @@ export class CardOrdersComponent implements OnInit {
       this.rating = rating;
     }
     // Clic sur une étoile vide et autre étoile remplie
-    console.log('Note : ', this.rating);
     return this.rating;
   }
 
@@ -148,11 +154,9 @@ export class CardOrdersComponent implements OnInit {
       note: this.rating,
       description: this.opinionDescription,
     };
-    console.log("Données de l'avis : ", opinionData);
 
     this.subs.push(
       this.dataService.postOpinion(opinionData).subscribe((data: Opinion) => {
-        console.log('Avis ajouté : ', data);
         alert('Votre avis a bien été envoyée.');
         this.opinionSubmitted.emit(); // Émet l'événement vers le parent après l'ajout de l'avis
       })
