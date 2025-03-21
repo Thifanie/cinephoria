@@ -61,12 +61,6 @@ export class FilmBookingComponent implements OnInit {
         .subscribe((session: Session[]) => {
           console.log('Séance récupérée : ', session);
           this.session = session;
-          // Formatage de la date
-          // this.dateTimeFormatting.dateFormatting(this.session);
-          // Formatage de l'heure de début
-          // this.dateTimeFormatting.startHourFormatting(this.session);
-          // Formatage de l'heure de fin
-          // this.dateTimeFormatting.endHourFormatting(this.session);
           this.moviePoster = this.session[0].moviePoster;
         })
     );
@@ -77,33 +71,37 @@ export class FilmBookingComponent implements OnInit {
     const formattedDate = this.dateTimeFormatting.dateTimeFormatting(
       new Date()
     );
-    this.orderData = {
-      idUser: userId,
-      idFilm: this.session[0].idFilm,
-      cinemaName: this.session[0].cinemaName,
-      idSession: this.sessionId,
-      roomName: this.session[0].roomName,
-      date: formattedDate,
-      viewed: false,
-      placesNumber: selectedSeatsString,
-      price: this.session[0].price,
-      moviePoster: '',
-      startHour: new Date(),
-      endHour: new Date(),
-      description: '',
-      actors: '',
-      title: '',
-      sessionDate: '',
-      quality: '',
-      opinionSent: false,
-    };
+    const totalNumberOfSeats = selectedSeatsString.split(', ').length;
+    if (this.session[0].price) {
+      const totalPrice = this.session[0].price * totalNumberOfSeats;
+      this.orderData = {
+        idUser: userId,
+        idFilm: this.session[0].idFilm,
+        cinemaName: this.session[0].cinemaName,
+        idSession: this.sessionId,
+        roomName: this.session[0].roomName,
+        date: formattedDate,
+        viewed: false,
+        placesNumber: selectedSeatsString,
+        price: totalPrice,
+        moviePoster: '',
+        startHour: new Date(),
+        endHour: new Date(),
+        description: '',
+        actors: '',
+        title: '',
+        sessionDate: '',
+        quality: '',
+        opinionSent: false,
+      };
+    }
+
     this.subs.push(
       this.dataService.reserveSeats(this.orderData).subscribe(() => {
         alert('Réservation confirmée');
         this.router.navigate(['compte']);
       })
     );
-    console.log(this.orderData);
   }
 
   ngOnDestroy() {
