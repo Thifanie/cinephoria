@@ -11,6 +11,7 @@ import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { DataService } from '../../../data.service';
@@ -69,13 +70,13 @@ export class AddFilmFormComponent implements OnInit, OnDestroy, OnChanges {
   ngOnInit(): void {
     // Initialiser le formulaire réactif avec un FormArray pour les types
     this.addFilmForm = this.fb.group({
-      title: '',
-      actors: '',
-      description: '',
-      minAge: null,
+      title: ['', [Validators.required, Validators.maxLength(100)]],
+      actors: ['', [Validators.required, Validators.maxLength(300)]],
+      description: ['', [Validators.required, Validators.maxLength(999)]],
+      minAge: [null, [Validators.min(12), Validators.max(18)]],
       favorite: false,
-      opinion: null,
-      moviePoster: '',
+      opinion: [null, [Validators.min(0), Validators.max(5)]],
+      moviePoster: ['', [Validators.required, Validators.maxLength(100)]],
       onView: true,
       typeForm: this.fb.group({}),
     });
@@ -100,16 +101,14 @@ export class AddFilmFormComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   addFilm(): void {
-    if (this.addFilmForm.invalid) return;
-    console.log("Chemin de l'image:", this.addFilmMoviePosterPath);
+    if (this.addFilmForm.invalid)
+      return alert('Un ou plusieurs champs du formulaire sont invalides.');
 
     const typeGroup = this.addFilmForm.get('typeForm') as FormGroup;
     // Récupérer les types sélectionnés
     const selectedTypes = Object.keys(typeGroup.controls)
       .filter((key) => typeGroup.get(key)?.value) // Filtrer les types sélectionnés
       .map((key) => Number(key)); // Convertir les clés (IDs) en nombres
-
-    console.log('IDs des types sélectionnés : ', selectedTypes);
 
     // Mise à jour du chemin de l'image téléchargée dans le formulaire
     const filmData = {
@@ -118,11 +117,9 @@ export class AddFilmFormComponent implements OnInit, OnDestroy, OnChanges {
       types: selectedTypes,
     };
 
-    console.log('Film soumis : ', filmData);
     this.subscription = this.dataService
       .postFilms(filmData)
       .subscribe((data: FilmData) => {
-        console.log('Film ajouté : ', data);
         this.filmData = data;
         alert(`Le film ${data.title} a été ajouté.`);
         // Réinitialisation du formulaire
