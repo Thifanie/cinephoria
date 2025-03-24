@@ -5,7 +5,7 @@ export interface Film {
   title: string;
   actors: string;
   description: string;
-  minage: number;
+  minage: number | null;
   favorite: boolean;
   opinion: number;
   movieposter: string;

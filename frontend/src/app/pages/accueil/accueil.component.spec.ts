@@ -4,12 +4,7 @@ import { AccueilComponent } from './accueil.component';
 import { Film } from '../../features/films/models/film';
 import { of } from 'rxjs';
 import { DataService } from '../../data.service';
-import {
-  provideRouter,
-  Router,
-  RouterLink,
-  RouterModule,
-} from '@angular/router';
+import { RouterLink, RouterModule } from '@angular/router';
 import { FilmsComponent } from '../films/films.component';
 import { NgFor } from '@angular/common';
 
