@@ -2,10 +2,13 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CardSessionsComponent } from './card-sessions.component';
 import { Session } from '../../models/session';
+import { Router } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('CardSessionsComponent', () => {
   let component: CardSessionsComponent;
   let fixture: ComponentFixture<CardSessionsComponent>;
+  let mockRouter: any;
 
   // Mock data pour les séances
   const mockSessions: Session[] = [
@@ -29,8 +32,14 @@ describe('CardSessionsComponent', () => {
   ];
 
   beforeEach(async () => {
+    mockRouter = jasmine.createSpyObj('Router', ['navigate']);
+
     await TestBed.configureTestingModule({
       imports: [CardSessionsComponent],
+      providers: [
+        provideHttpClient(),
+        { provide: Router, useValue: mockRouter },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CardSessionsComponent);
@@ -91,6 +100,11 @@ describe('CardSessionsComponent', () => {
     expect(price.textContent).toContain(mockSessions[0].price);
   });
 
+  it('should have a button to choose the session', () => {
+    const button = fixture.nativeElement.querySelector('button');
+    expect(button).toBeTruthy();
+  });
+
   it('should call goToFilmBooking when button is clicked', () => {
     spyOn(component, 'goToFilmBooking');
 
@@ -98,5 +112,14 @@ describe('CardSessionsComponent', () => {
     button.click();
 
     expect(component.goToFilmBooking).toHaveBeenCalledWith(mockSessions[0].id);
+  });
+
+  it('should navigate to reservation when goToFilmBooking is called', () => {
+    component.goToFilmBooking(mockSessions[0].id);
+    fixture.detectChanges();
+    expect(mockRouter.navigate).toHaveBeenCalledWith([
+      'reservation',
+      mockSessions[0].id,
+    ]);
   });
 });

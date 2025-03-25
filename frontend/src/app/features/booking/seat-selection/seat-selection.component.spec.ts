@@ -4,6 +4,7 @@ import { SeatSelectionComponent } from './seat-selection.component';
 import { DataService } from '../../../data.service';
 import { of } from 'rxjs';
 import { ElementRef, Renderer2 } from '@angular/core';
+import { FilmBookingComponent } from '../../films/components/film-booking/film-booking.component';
 
 describe('SeatSelectionComponent', () => {
   let component: SeatSelectionComponent;
@@ -19,7 +20,7 @@ describe('SeatSelectionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SeatSelectionComponent],
+      imports: [SeatSelectionComponent, FilmBookingComponent],
       providers: [
         { provide: DataService, useValue: mockDataService },
         Renderer2,
@@ -56,6 +57,21 @@ describe('SeatSelectionComponent', () => {
     const seats = parentElement.querySelectorAll('img');
     expect(seats.length).toBe(30);
   });
+
+  // it('should marked reserved seats as booked', () => {
+  //   component.reservedSeats = '22, 23';
+  //   const seatElements: HTMLImageElement[] =
+  //     fixture.nativeElement.querySelectorAll('.seats-container img');
+  //   const seats = Array.from(seatElements).map((seat) => ({
+  //     element: seat,
+  //     isBooked: false, // Initialiser isBooked à false pour chaque siège
+  //     isSelected: false,
+  //   }));
+
+  //   const firstSeat = seatElements.find((seat) => seat.id === 'seat-1');
+  //   expect(firstSeat).toBeDefined();
+  //   // expect(firstSeat.id).toBe('seat-1');
+  // });
 
   // it('should mark selected seats on click and emit event on confirm', () => {
   //   // Récupérer tous les sièges (images) dans le DOM

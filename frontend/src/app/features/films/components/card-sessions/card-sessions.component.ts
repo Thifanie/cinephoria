@@ -17,6 +17,8 @@ export class CardSessionsComponent {
   @Input() isRow: boolean = true;
 
   goToFilmBooking(id: number) {
+    console.log('goToFilmBooking called with id:', id);
+
     this.router.navigate(['reservation', id]);
   }
 }

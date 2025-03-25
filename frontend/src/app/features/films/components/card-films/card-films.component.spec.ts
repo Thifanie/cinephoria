@@ -1,13 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CardFilmsComponent } from './card-films.component';
-import { Router } from 'express';
 import { Film } from '../../models/film';
+import { provideHttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 describe('CardFilmsComponent', () => {
   let component: CardFilmsComponent;
   let fixture: ComponentFixture<CardFilmsComponent>;
-  let routerSpy: jasmine.SpyObj<Router>;
+  let mockRouter: any;
 
   // Mock data pour les films
   const mockFilms: Film[] = [
@@ -39,12 +40,13 @@ describe('CardFilmsComponent', () => {
 
   beforeEach(async () => {
     // Création d'un mock de Router
-    // routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+    mockRouter = jasmine.createSpyObj('Router', ['navigate']);
 
     await TestBed.configureTestingModule({
       imports: [CardFilmsComponent],
       providers: [
-        // { provide: Router, useValue: routerSpy }, // Injection du mock Router
+        provideHttpClient(),
+        { provide: Router, useValue: mockRouter },
       ],
     }).compileComponents();
 
@@ -149,13 +151,13 @@ describe('CardFilmsComponent', () => {
     expect(component.goToFilmSessions).toHaveBeenCalledWith(mockFilms[0].id);
   });
 
-  // it('should navigate to the film sessions page when the button is clicked', () => {
-  //   const button = fixture.nativeElement.querySelector('button');
-  //   button.click();
+  it('should navigate to the film sessions page when the button is clicked', () => {
+    const button = fixture.nativeElement.querySelector('button');
+    button.click();
 
-  //   expect(routerSpy.navigate).toHaveBeenCalledWith([
-  //     'sessions',
-  //     mockFilms[0].id,
-  //   ]);
-  // });
+    expect(mockRouter.navigate).toHaveBeenCalledWith([
+      'sessions',
+      mockFilms[0].id,
+    ]);
+  });
 });

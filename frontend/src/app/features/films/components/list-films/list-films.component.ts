@@ -3,7 +3,6 @@ import { Film } from '../../models/film';
 import { CardFilmsComponent } from '../card-films/card-films.component';
 import { Subscription } from 'rxjs';
 import { DataService } from '../../../../data.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-list-films',
@@ -15,10 +14,7 @@ export class ListFilmsComponent implements OnInit, OnDestroy {
   listFilms: Film[] = [];
   subs: Subscription[] = [];
 
-  constructor(
-    private readonly dataService: DataService,
-    private readonly route: ActivatedRoute
-  ) {}
+  constructor(private readonly dataService: DataService) {}
 
   ngOnInit() {
     // Appel pour récupérer la liste des films lors de l'initialisation du composant
