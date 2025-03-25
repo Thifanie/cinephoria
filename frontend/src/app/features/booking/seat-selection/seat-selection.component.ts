@@ -65,7 +65,7 @@ export class SeatSelectionComponent implements OnInit {
       const seat = new Image(30, 30);
       seat.src = 'assets/chair.png';
       seat.alt = 'siège';
-      seat.id = `seat ${i}`;
+      seat.id = `seat-${i}`;
       const seatsPerRow = 15;
 
       // Si on commence une nouvelle ligne, créer un conteneur pour la ligne

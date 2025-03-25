@@ -1,4 +1,4 @@
-import { Component, Input, input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Session } from '../../models/session';
 import { NgClass, NgFor } from '@angular/common';
 import { Router } from '@angular/router';
@@ -12,8 +12,7 @@ import { Router } from '@angular/router';
 export class CardSessionsComponent {
   constructor(private readonly router: Router) {}
 
-  items = input.required<Session[]>();
-
+  @Input() items: Session[] = [];
   @Input() showButton: boolean = true;
   @Input() isRow: boolean = true;
 
