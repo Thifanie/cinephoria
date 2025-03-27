@@ -9,6 +9,7 @@ app.use(helmet());
 const db = require("./db");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
 require("dotenv").config();
 
 // Configuration plus sécurisée de CORS
@@ -235,27 +236,46 @@ app.post("/api/films", async (req, res) => {
   }
 });
 
-app.post("/api/user", async (req, res) => {
+// Définir un modèle MongoDB pour l'utilisateur
+const userSchema = new mongoose.Schema({
+  firstname: { type: String, required: true },
+  name: { type: String, required: true },
+  username: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  role: { type: String, required: true },
+});
+
+const User = mongoose.model("User", userSchema);
+
+app.post("/api/users", async (req, res) => {
   try {
-    const { firstname, name, username, email, password } = req.body;
+    const { firstname, name, username, email, password, role } = req.body;
+
+    // Vérifier que l'utilisateur existe déjà avec le même email ou nom d'utilisateur
+    const existingUser = await User.findOne({ $or: [{ username }, { email }] });
+    if (existingUser) {
+      return res
+        .status(400)
+        .json({ error: "L'utilisateur ou l'email existe déjà" });
+    }
 
     // Générer un sel et hacher le mot de passe
     const saltRounds = 10; // Nombre d'itérations pour renforcer le hachage
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    req.body = { firstname, name, username, email, hashedPassword };
+    // Créer un nouvel utilisateur
+    const newUser = new User({
+      firstname,
+      name,
+      username,
+      email,
+      password: hashedPassword,
+      role,
+    });
 
-    console.log("Données reçues:", req.body); // ✅ Vérifier les données avant l'insertion
-    const result = await db.pool.query(
-      "INSERT INTO user (firstname, name, username, email, password) VALUES (?, ?, ?, ?, ?)",
-      [firstname, name, username, email, hashedPassword]
-    );
-    // ✅ Récupérer l'ID du dernier utilisateur ajouté
-    const insertedUserId = result.insertId;
-    // ✅ Récupérer l'utilisateur nouvellement inséré
-    const [newUser] = await db.pool.query("SELECT * FROM user WHERE id = ?", [
-      insertedUserId,
-    ]);
+    // Sauvegarder l'utilisateur dans MongoDB
+    await newUser.save();
 
     res.status(201).json(newUser);
   } catch (err) {
