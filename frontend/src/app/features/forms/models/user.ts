@@ -1,7 +1,7 @@
 /** Un utilisateur enregistré dans l'application*/
 
 export interface User {
-  id: number;
+  _id: number;
   firstname: string;
   name: string;
   username: string;

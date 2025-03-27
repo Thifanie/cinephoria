@@ -87,7 +87,7 @@ export class SeatSelectionComponent implements OnInit {
   async checkSeats(): Promise<void> {
     this.seats.forEach((seat) => {
       // On récupère le numéro de siège
-      const seatNumber = seat.element.id.split(' ')[1];
+      const seatNumber = seat.element.id.split('-')[1];
       // Créer une expression régulière dynamique pour vérifier la valeur du numéro de siège dans sa globalité
       const regex = new RegExp(`(^|, )${seatNumber}($|, )`);
       // Si le numéro de siège existe dans la liste de sièges réservés, le siège apparaît réservé
@@ -147,14 +147,14 @@ export class SeatSelectionComponent implements OnInit {
               'assets/booked-chair.png'
             );
             seat.isSelected = true; // Marquer le siège comme sélectionné
-            const seatNumber = seat.element.id.split(' ')[1];
+            const seatNumber = seat.element.id.split('-')[1];
             console.log(seatNumber);
             this.selectedSeats.push(seatNumber);
             console.log(this.selectedSeats);
           } else if (!seat.isBooked && seat.isSelected) {
             this.renderer.setAttribute(seat.element, 'src', 'assets/chair.png');
             seat.isSelected = false;
-            const seatNumber = seat.element.id.split(' ')[1];
+            const seatNumber = seat.element.id.split('-')[1];
             this.selectedSeats = this.selectedSeats.filter(
               (seat) => seat !== seatNumber
             );

@@ -28,6 +28,18 @@ app.use(cors(corsOptions));
 
 app.use(express.json());
 
+// Définir un modèle MongoDB pour l'utilisateur
+const userSchema = new mongoose.Schema({
+  firstname: { type: String, required: true },
+  name: { type: String, required: true },
+  username: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  role: { type: String, required: true },
+});
+
+const User = mongoose.model("User", userSchema);
+
 app.get("/", (req, res) => {
   res.send("Backend is running!");
 });
@@ -56,12 +68,14 @@ app.get("/api/admin", async (req, res) => {
 
 app.get("/api/user", async (req, res) => {
   try {
-    const result = await db.pool.query(
-      "select id, email, password, role from cinephoria.user"
-    );
-    res.send(result);
+    const users = await User.find();
+    res.send(users);
   } catch (err) {
-    console.error("Erreur lors de la récupération des films :", err.message);
+    console.error(
+      "Erreur lors de la récupération des utilisateurs :",
+      err.message
+    );
+    res.status(500).json({ message: "Erreur interne du serveur" });
   }
 });
 
@@ -172,10 +186,12 @@ app.get("/api/cinema", async (req, res) => {
 app.get("/api/order/:id", async (req, res) => {
   try {
     const userId = req.params.id; // Récupère l'id de l'utilisateur depuis l'URL
+
     const result = await db.pool.query(
       "SELECT `order`.id, `order`.idUser, `order`.idFilm, films.moviePoster, films.title, films.actors, films.description, `order`.date, cinema.name as cinemaName, room.name as roomName, `order`.price, quality.quality, viewed, placesNumber, session.startHour, session.endHour, session.date as sessionDate, opinionSent, opinion.description as opinionDescription, opinion.note as note FROM `order` JOIN cinephoria.films ON `order`.idFilm = films.id JOIN cinephoria.cinema ON `order`.idCinema = cinema.id JOIN cinephoria.room ON `order`.idRoom = room.id JOIN cinephoria.quality ON room.idQuality = quality.id JOIN cinephoria.session ON `order`.idSession = session.id LEFT JOIN cinephoria.opinion ON `order`.id = opinion.idOrder WHERE `order`.idUser = ? ORDER BY `order`.id DESC",
       [userId] // Paramètre sécurisé pour éviter l'injection SQL
     );
+
     res.send(result);
   } catch (err) {
     res.status(500).send({ error: "Erreur serveur" });
@@ -236,18 +252,6 @@ app.post("/api/films", async (req, res) => {
   }
 });
 
-// Définir un modèle MongoDB pour l'utilisateur
-const userSchema = new mongoose.Schema({
-  firstname: { type: String, required: true },
-  name: { type: String, required: true },
-  username: { type: String, required: true, unique: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  role: { type: String, required: true },
-});
-
-const User = mongoose.model("User", userSchema);
-
 app.post("/api/users", async (req, res) => {
   try {
     const { firstname, name, username, email, password, role } = req.body;
@@ -286,15 +290,20 @@ app.post("/api/users", async (req, res) => {
 
 app.post("/api/auth/login", async (req, res) => {
   const { email, password } = req.body;
-  const [user] = await db.pool.query(
-    "SELECT * FROM cinephoria.user WHERE email = ?",
-    [email]
-  );
-  if (!user || !(await bcrypt.compare(password, user.password))) {
-    return res.status(401).json({ message: "Identifiants incorrects" });
+
+  // Vérifier que l'utilisateur existe déjà avec le même email ou nom d'utilisateur
+  const existingUser = await User.findOne({ email });
+
+  if (!existingUser) {
+    return res.status(400).json({ message: "L'email n'est pas enregistré" });
+  } else if (
+    existingUser &&
+    !(await bcrypt.compare(password, existingUser.password))
+  ) {
+    return res.status(401).json({ message: "Mot de passe incorrect" });
   }
 
-  const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
+  const token = jwt.sign({ userId: existingUser.id }, process.env.JWT_SECRET, {
     expiresIn: "1h",
   });
   res.json({ token });

@@ -61,14 +61,16 @@ export class ConnexionFormComponent implements OnInit, OnDestroy {
         .login(this.credentials)
         .pipe(
           catchError((error) => {
-            // Gérer l'erreur ici, par exemple, en affichant une alerte
+            console.error('Erreur reçue :', error); // Log l'erreur pour vérifier son contenu
+
             let errorMessage = 'Une erreur inattendue est survenue.';
-            if (error.status === 401 && error.error.message) {
+            // Gérer l'erreur ici, par exemple, en affichant une alerte
+            if (error.error && error.error.message) {
               errorMessage = error.error.message;
             }
             alert(errorMessage); // Afficher l'alerte
             // Renvoie l'erreur sous forme d'observable
-            return throwError(() => new Error(errorMessage));
+            return throwError(() => new Error(error));
           })
         )
         .subscribe((response) => {

@@ -14,7 +14,25 @@ import { AuthServiceService } from '../../../forms/services/auth-service.service
   styleUrl: './film-booking.component.css',
 })
 export class FilmBookingComponent implements OnInit {
-  session: Session[] = [];
+  session: Session[] = [
+    {
+      id: 0,
+      title: '',
+      date: '',
+      filmTitle: '',
+      formatedDate: '',
+      startHour: '',
+      endHour: '',
+      idFilm: 0,
+      cinemaName: '',
+      roomName: '',
+      quality: '',
+      price: 0,
+      moviePoster: '',
+      places: 0,
+      reservedSeats: '',
+    },
+  ];
 
   subs: Subscription[] = [];
 
@@ -53,13 +71,11 @@ export class FilmBookingComponent implements OnInit {
 
   ngOnInit() {
     this.sessionId = Number(this.route.snapshot.paramMap.get('id'));
-    console.log('ID de la séance sélectionnée :', this.sessionId);
 
     this.subs.push(
       this.dataService
         .getSessionById(this.sessionId)
         .subscribe((session: Session[]) => {
-          console.log('Séance récupérée : ', session);
           this.session = session;
           this.moviePoster = this.session[0].moviePoster;
         })
