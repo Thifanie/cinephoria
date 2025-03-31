@@ -9,6 +9,7 @@ node_modules/
 dist/
 out-tsc/
 .angular/
+out/
 
 # Cache et logs
 .npm/
@@ -129,3 +130,4 @@ node_modules/
 
 #Sonarqube
 sonar-project.properties
+.scannerwork/

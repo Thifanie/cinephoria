@@ -51,7 +51,10 @@ export class AuthServiceService {
   // Création d'un token si utilisateur autorisé
   login(credentials: { email: string; password: string }): Observable<any> {
     return this.http
-      .post(`http://localhost:3000/api/auth/login`, credentials)
+      .post(
+        `https://cinephoria-backend-production.up.railway.app/api/auth/login`,
+        credentials
+      )
       .pipe(
         // Si la connexion réussie, on met à jour l'état d'authentification
         tap(() => {
