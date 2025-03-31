@@ -6,8 +6,6 @@ FROM node:18-alpine3.19 AS build
 # Crée un utilisateur non root (pour éviter que quelqu'un exploite une faille avec les droits root)
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
-
-
 WORKDIR /app
 
 # Copier les fichiers nécessaires

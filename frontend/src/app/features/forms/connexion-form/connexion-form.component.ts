@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from '../../../data.service';
-import { Subscription, first } from 'rxjs';
+import { Subscription, catchError, first, of, throwError } from 'rxjs';
 import { AuthServiceService } from '../services/auth-service.service';
 
 @Component({
@@ -56,9 +56,24 @@ export class ConnexionFormComponent implements OnInit, OnDestroy {
       password: this.connexionForm.value.password,
     };
 
-    try {
-      this.subs.push(
-        this.authService.login(this.credentials).subscribe((response) => {
+    this.subs.push(
+      this.authService
+        .login(this.credentials)
+        .pipe(
+          catchError((error) => {
+            console.error('Erreur reçue :', error); // Log l'erreur pour vérifier son contenu
+
+            let errorMessage = 'Une erreur inattendue est survenue.';
+            // Gérer l'erreur ici, par exemple, en affichant une alerte
+            if (error.error && error.error.message) {
+              errorMessage = error.error.message;
+            }
+            alert(errorMessage); // Afficher l'alerte
+            // Renvoie l'erreur sous forme d'observable
+            return throwError(() => new Error(error));
+          })
+        )
+        .subscribe((response) => {
           localStorage.setItem('token', response.token); // Stocke le token
           this.authService.loadUserRole$().subscribe(() => {
             // Attendre la mise à jour du rôle
@@ -72,10 +87,7 @@ export class ConnexionFormComponent implements OnInit, OnDestroy {
               });
           });
         })
-      );
-    } catch (err) {
-      alert('Le mot de passe est incorrect.');
-    }
+    );
   }
 
   ngOnDestroy() {

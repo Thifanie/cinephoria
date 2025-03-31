@@ -1,4 +1,4 @@
-<div *ngFor="let film of items()">
+<div *ngFor="let film of items" [id]="film.title">
   <div class="container">
     <div class="card mb-3" style="width: 828px">
       <div class="row g-0">
@@ -12,14 +12,14 @@
         <div class="card-body col-md-4 p-2">
           <h4 class="card-title mb-4" id="title">{{ film.title }}</h4>
           <h5 class="card-subtitle mb-4" id="actors">{{ film.actors }}</h5>
-          <p class="card-text">
+          <p class="card-text" id="description">
             {{ film.description }}
           </p>
-          <h6 class="card-subtitle mb-2">
+          <h6 class="card-subtitle mb-2" id="types">
             {{ film.type }}
           </h6>
 
-          <h6 *ngIf="film.minage" class="card-subtitle mb-2">
+          <h6 *ngIf="film.minage" class="card-subtitle mb-2" id="minAge">
             Age minimum : {{ film.minage }} ans
           </h6>
 
@@ -27,6 +27,7 @@
             *ngIf="film.favorite"
             class="card-subtitle mb-2"
             style="color: #a57e8f; font-weight: bold; text-align: center"
+            id="favorite"
           >
             Coup de coeur
           </h5>
