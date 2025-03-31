@@ -2,12 +2,26 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <meta
+      http-equiv="X-Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
     <title>CinephoriaWeb</title>
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
   </head>
   <body>
+    <h1>Coucou depuis le rendu d'Electron !</h1>
+    <p>👋</p>
+    <!-- On affiche ici le texte indiqué dans renderer.js (infos des versions) -->
+    <p id="info"></p>
+
     <app-root></app-root>
   </body>
+  <script src="./renderer.js"></script>
 </html>
