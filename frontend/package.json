@@ -6,13 +6,14 @@
   "type": "commonjs",
   "scripts": {
     "ng": "ng",
-    "start": "electron .",
+    "start": "ng start",
     "build": "ng build cinephoria-web --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "sonar": "npx sonarqube-scanner"
+    "sonar": "npx sonarqube-scanner",
+    "electron": "ng build cinephoria-web --configuration production && electron ."
   },
   "dependencies": {
     "@angular/animations": "^19.0.0",
@@ -42,6 +43,7 @@
     "@types/express": "^4.17.17",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^18.18.0",
+    "electron": "^35.1.2",
     "esbuild": "^0.25.1",
     "jasmine-core": "~5.4.0",
     "karma": "~6.4.0",

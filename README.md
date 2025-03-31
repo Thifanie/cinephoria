@@ -96,6 +96,12 @@ Pour analyser un dossier (frontend ou backend) :
 - lancer la commande : npm run sonar
 - consulter les résultats sur http://localhost:9000
 
+## Application bureautique
+
+L'application Angular est transformée en application bureautique à l'aide d'Electron.
+Dans la branche electron du dépôt Git, après installation d'Electron via npm ("npm install electron --save-dev), les fichiers main.js, renderer.js et preload.js sont configurés pour permettre l'affichage de l'application bureautique.
+On lance ensuite l'application via "npm run electron" sans oublier de lancer le serveur backend avec "node server.js à partir du dossier "backend".
+
 ## Ressources additionnelles
 
 Pour plus d'informations sur le CLI Angular, visiter la page https://angular.dev/tools/cli.

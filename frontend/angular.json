@@ -22,7 +22,8 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              }
+              },
+              "src/renderer.js"
             ],
             "styles": [
               "./node_modules/bootstrap/scss/bootstrap.scss",
