@@ -71,13 +71,14 @@ export class FilmBookingComponent implements OnInit {
 
   ngOnInit() {
     this.sessionId = Number(this.route.snapshot.paramMap.get('id'));
-
+    console.log('ID session : ', this.sessionId);
     this.subs.push(
       this.dataService
         .getSessionById(this.sessionId)
         .subscribe((session: Session[]) => {
           this.session = session;
           this.moviePoster = this.session[0].moviePoster;
+          console.log('Séance récupérée : ', this.session);
         })
     );
   }
@@ -111,6 +112,8 @@ export class FilmBookingComponent implements OnInit {
         opinionSent: false,
       };
     }
+
+    this.sessionId = Number(this.route.snapshot.paramMap.get('id'));
 
     this.subs.push(
       this.dataService.reserveSeats(this.orderData).subscribe(() => {

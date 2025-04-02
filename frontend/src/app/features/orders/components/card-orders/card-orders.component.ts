@@ -4,7 +4,6 @@ import {
   ElementRef,
   EventEmitter,
   Input,
-  input,
   OnInit,
   Output,
   Renderer2,
@@ -15,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Opinion } from '../../../films/models/opinion';
 import { DataService } from '../../../../data.service';
+import { DateTimeFormattingService } from '../../../films/services/date-time-formatting.service';
 
 @Component({
   selector: 'app-card-orders',
@@ -35,7 +35,8 @@ export class CardOrdersComponent implements OnInit {
   constructor(
     private readonly renderer: Renderer2,
     private readonly el: ElementRef,
-    private readonly dataService: DataService
+    private readonly dataService: DataService,
+    private readonly dateTimeFormattingService: DateTimeFormattingService
   ) {}
 
   ngOnInit(): void {
@@ -50,7 +51,11 @@ export class CardOrdersComponent implements OnInit {
       // Maj de la variable viewed en fonction de la date d'aujourd'hui
       this.listOrders.forEach((order) => {
         const today = new Date();
-        const orderDate = new Date(`${order.sessionDate} 00:00:00`);
+        const orderDate = this.dateTimeFormattingService.stringDateFormatting(
+          order.sessionDate
+        );
+        console.log('Date séance :', order.sessionDate);
+        console.log('Date du jour :', orderDate);
         if (orderDate < today) {
           order.viewed = true;
         }

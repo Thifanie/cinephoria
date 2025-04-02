@@ -20,7 +20,8 @@ export class DataService {
   constructor(private readonly http: HttpClient) {}
   private readonly apiUrl =
     (window as any)['API_URL'] ||
-    'https://cinephoria-backend-production.up.railway.app/api'; // 'http://localhost:3000/api';
+    // 'https://cinephoria-backend-production.up.railway.app/api';
+    'http://localhost:3000/api';
 
   filmData: Film[] = [];
 
@@ -88,6 +89,15 @@ export class DataService {
   getSeatsBySession(idSession: number): Observable<Session[]> {
     return this.http.get<Session[]>(
       `${this.apiUrl}/session/seats/${idSession}`,
+      {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      }
+    );
+  }
+
+  getReservedSeatsBySession(idSession: number): Observable<string> {
+    return this.http.get<string>(
+      `${this.apiUrl}/session/reservedSeats/${idSession}`,
       {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
       }

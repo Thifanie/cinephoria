@@ -96,7 +96,8 @@ CREATE TABLE `order` (
     date VARCHAR(30) NOT NULL,                  -- Date de la réservation
     viewed TINYINT(1) NOT NULL,                 -- Booléen si la séance a été visionnée ou pas
     placesNumber VARCHAR(200) NOT NULL,         -- Les numéros des sièges réservés
-    pric INT NOT NULL,                          -- Prix de la réservation
+    price INT NOT NULL,                         -- Prix de la réservation
+    opinionSent TINYINT(0) NOT NULL,            -- Booléen si un avis a été envoyé
     CONSTRAINT order_cinema_id_fk
         FOREIGN KEY (idCinema) REFERENCES cinema (id),
     CONSTRAINT order_films_id_fk
