@@ -180,7 +180,7 @@ app.get("/api/quality", async (req, res) => {
 app.get("/api/cinema", async (req, res) => {
   try {
     const result = await db.pool.query("SELECT * FROM cinephoria.cinema");
-    res.send(result);
+    res.send(result[0]);
   } catch (err) {
     res.status(500).send({ error: "Erreur serveur" });
   }
