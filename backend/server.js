@@ -63,7 +63,7 @@ app.get("/api/admin", async (req, res) => {
     const result = await db.pool.query(
       "select email, password from cinephoria.admin WHERE name='CHRISTINE'"
     );
-    res.send(result);
+    res.send(result[0]);
   } catch (err) {
     console.error("Erreur lors de la récupération des films :", err.message);
   }
@@ -85,7 +85,7 @@ app.get("/api/user", async (req, res) => {
 app.get("/api/type", async (req, res) => {
   try {
     const result = await db.pool.query("select * from type");
-    res.send(result);
+    res.send(result[0]);
   } catch (err) {
     console.error("Erreur lors de la récupération des films :", err.message);
   }
@@ -98,7 +98,7 @@ app.get("/api/session/:id", async (req, res) => {
       "SELECT session.id, date, startHour, endHour, idFilm, cinema.name AS cinemaName, room.name AS roomName FROM cinephoria.session JOIN cinephoria.cinema on session.idCinema = cinema.id JOIN cinephoria.room ON session.idRoom = room.id WHERE idFilm = ?",
       [filmId] // Paramètre sécurisé pour éviter l'injection SQL
     );
-    res.send(result);
+    res.send(result[0]);
   } catch (err) {
     res.status(500).send({ error: "Erreur serveur" });
   }
@@ -111,7 +111,7 @@ app.get("/api/session/booking/:id", async (req, res) => {
       "SELECT date, startHour, endHour, idFilm, cinema.name AS cinemaName, room.name AS roomName, cinephoria.quality.quality AS quality, cinephoria.quality.price as price, cinephoria.films.moviePoster as moviePoster, cinephoria.films.title, reservedSeats FROM cinephoria.session JOIN cinephoria.cinema on session.idCinema = cinema.id JOIN cinephoria.room ON session.idRoom = room.id JOIN cinephoria.quality ON room.idQuality = quality.id JOIN cinephoria.films ON session.idFilm = films.id WHERE session.id = ?",
       [sessionId] // Paramètre sécurisé pour éviter l'injection SQL
     );
-    res.send(result);
+    res.send(result[0]);
   } catch (err) {
     res.status(500).send({ error: "Erreur serveur" });
   }
@@ -125,7 +125,7 @@ app.get("/api/session", async (req, res) => {
       "SELECT session.id, date, startHour, endHour, room.name AS roomName, films.title as filmTitle FROM cinephoria.session JOIN cinephoria.room ON session.idRoom = room.id JOIN cinephoria.films ON session.idFilm = films.id WHERE session.idCinema = ?",
       [cinemaId] // Paramètre sécurisé pour éviter l'injection SQL);
     );
-    res.send(result);
+    res.send(result[0]);
   } catch (err) {
     console.error("Erreur lors de la récupération des films :", err.message);
   }
@@ -139,7 +139,7 @@ app.get("/api/session/seats/:id", async (req, res) => {
       "SELECT room.places FROM cinephoria.session JOIN cinephoria.room ON session.idRoom = room.id WHERE session.id = ?",
       [sessionId] // Paramètre sécurisé pour éviter l'injection SQL);
     );
-    res.send(result);
+    res.send(result[0]);
   } catch (err) {
     console.error("Erreur lors de la récupération des films :", err.message);
   }
@@ -148,7 +148,7 @@ app.get("/api/session/seats/:id", async (req, res) => {
 app.get("/api/room", async (req, res) => {
   try {
     const result = await db.pool.query("SELECT * FROM cinephoria.room");
-    res.send(result);
+    res.send(result[0]);
   } catch (err) {
     res.status(500).send({ error: "Erreur serveur" });
   }
@@ -162,7 +162,7 @@ app.get("/api/room/:cinema", async (req, res) => {
       "SELECT room.name FROM cinephoria.room JOIN cinephoria.cinema ON cinema.id = room.idCinema WHERE cinema.name = ?",
       [cinema] // Paramètre sécurisé pour éviter l'injection SQL);
     );
-    res.send(result);
+    res.send(result[0]);
   } catch (err) {
     console.error("Erreur lors de la récupération des films :", err.message);
   }
@@ -171,7 +171,7 @@ app.get("/api/room/:cinema", async (req, res) => {
 app.get("/api/quality", async (req, res) => {
   try {
     const result = await db.pool.query("SELECT * FROM cinephoria.quality");
-    res.send(result);
+    res.send(result[0]);
   } catch (err) {
     res.status(500).send({ error: "Erreur serveur" });
   }
@@ -195,7 +195,7 @@ app.get("/api/order/:id", async (req, res) => {
       [userId] // Paramètre sécurisé pour éviter l'injection SQL
     );
 
-    res.send(result);
+    res.send(result[0]);
   } catch (err) {
     res.status(500).send({ error: "Erreur serveur" });
   }
