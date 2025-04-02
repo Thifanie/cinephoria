@@ -131,7 +131,7 @@ export class DataService {
   }
 
   postUser(userData: any) {
-    return this.http.post<User>(`${this.apiUrl}/user`, userData, {
+    return this.http.post<User>(`${this.apiUrl}/users`, userData, {
       headers: { 'Content-Type': 'application/json' },
     });
   }

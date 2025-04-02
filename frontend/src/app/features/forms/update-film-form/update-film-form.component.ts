@@ -10,6 +10,7 @@ import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Film, FilmData } from '../../films/models/film';
@@ -53,13 +54,16 @@ export class UpdateFilmFormComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.updateFilmForm = this.fb.group({
-      title: '',
-      actors: '',
-      description: '',
-      minAge: null,
+      title: [
+        { value: '', disabled: true },
+        [Validators.required, Validators.maxLength(100)],
+      ],
+      actors: ['', [Validators.required, Validators.maxLength(300)]],
+      description: ['', [Validators.required, Validators.maxLength(999)]],
+      minAge: [null, [Validators.min(12), Validators.max(18)]],
       favorite: false,
-      opinion: null,
-      moviePoster: '',
+      opinion: [null, [Validators.min(0), Validators.max(5)]],
+      moviePoster: ['', [Validators.required, Validators.maxLength(100)]],
       onView: true,
       typeForm: this.fb.group({}),
     });
@@ -154,7 +158,8 @@ export class UpdateFilmFormComponent implements OnInit, OnChanges {
   }
 
   updateFilm(): void {
-    if (this.updateFilmForm.invalid) return;
+    if (this.updateFilmForm.invalid)
+      return alert('Un ou plusieurs champs du formulaire sont invalides.');
 
     const typeGroup = this.updateFilmForm.get('typeForm') as FormGroup;
     // Récupérer les types sélectionnés

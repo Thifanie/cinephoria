@@ -17,3 +17,21 @@ const pool = mysql.createPool({
 module.exports = Object.freeze({
   pool: pool,
 });
+
+// Connexion à la base données NoSQL MongoDB
+
+const mongoose = require("mongoose");
+
+mongoose
+  .connect(
+    `mongodb://${process.env.MONGODB_USER}:${process.env.MONGODB_PWD}@127.0.0.1:${process.env.MONGODB_PORT}/cinephoria-mongodb?authSource=admin`,
+    {
+      serverSelectionTimeoutMS: 5000, // Timeout pour choisir un serveur
+      connectTimeoutMS: 10000, // Timeout de connexion
+    }
+  )
+  .then(() => console.log("MongoDB connecté"))
+  .catch((err) => {
+    console.error("Erreur de connexion à MongoDB", err);
+    console.error("Stack trace:", err.stack);
+  });

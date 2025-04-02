@@ -1,4 +1,4 @@
-<h1>Réservation pour {{ this.session[0].title }}</h1>
+<h1 id="title">Réservation pour {{ this.session[0].title }}</h1>
 
 <div
   class="container d-flex flex-column flex-md-row text-center justify-content-between"
@@ -13,19 +13,25 @@
             alt="moviePoster"
           />
           <div class="card-body">
-            <p class="card-text">
+            <p class="card-text" id="session-date">
               {{ this.session[0].date }}
             </p>
-            <p class="card-text">
+            <p class="card-text" id="start-end-hours">
               {{ this.session[0].startHour }} -
               {{ this.session[0].endHour }}
             </p>
-            <p class="card-text">
+            <p class="card-text" id="cinema-name">
               {{ this.session[0].cinemaName }}
             </p>
-            <p class="card-text">Salle {{ this.session[0].roomName }}</p>
-            <p class="card-text">Qualité {{ this.session[0].quality }}</p>
-            <p class="card-text">{{ this.session[0].price }} &euro;</p>
+            <p class="card-text" id="room-name">
+              Salle {{ this.session[0].roomName }}
+            </p>
+            <p class="card-text" id="quality">
+              Qualité {{ this.session[0].quality }}
+            </p>
+            <p class="card-text" id="price">
+              {{ this.session[0].price }} &euro;
+            </p>
           </div>
         </div>
       </div>

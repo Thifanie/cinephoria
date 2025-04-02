@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Film } from '../../models/film';
 import { CommonModule, NgFor } from '@angular/common';
 import { Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   imports: [CommonModule, NgFor],
 })
 export class CardFilmsComponent {
-  items = input.required<Film[]>();
+  @Input() items: Film[] = []; // Utilisation d'un tableau classique
 
   // Méthode pour calculer le pourcentage de la largeur des étoiles
   calculateRating(note: number): number {

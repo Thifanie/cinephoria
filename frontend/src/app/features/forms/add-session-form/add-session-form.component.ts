@@ -2,16 +2,20 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Film } from '../../films/models/film';
 import { Cinema } from '../../films/models/cinema';
 import { Room } from '../../films/models/room';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { NgClass, NgFor } from '@angular/common';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { NgFor } from '@angular/common';
 import { DataService } from '../../../data.service';
 import { Subscription } from 'rxjs';
 import { DateTimeFormattingService } from '../../films/services/date-time-formatting.service';
-import { Session } from 'inspector';
 
 @Component({
   selector: 'app-add-session-form',
-  imports: [ReactiveFormsModule, NgFor, NgClass],
+  imports: [ReactiveFormsModule, NgFor],
   templateUrl: './add-session-form.component.html',
   styleUrl: './add-session-form.component.css',
 })
@@ -20,9 +24,9 @@ export class AddSessionFormComponent implements OnInit, OnDestroy {
   @Input() listCinemas: Cinema[] = [];
 
   addSessionForm!: FormGroup;
-  selectedFilm!: Film;
-  selectedCinema!: Cinema;
-  selectedRoom!: Room;
+  selectedFilm!: Film | null;
+  selectedCinema!: Cinema | null;
+  selectedRoom!: Room | null;
   subs: Subscription[] = [];
   listRooms: Room[] = [];
   today: string = new Date().toISOString().split('T')[0];
@@ -36,12 +40,12 @@ export class AddSessionFormComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // Initialiser le formulaire réactif
     this.addSessionForm = this.fb.group({
-      filmTitle: '',
-      cinema: '',
-      room: '',
-      date: Date,
-      startHour: Date,
-      endHour: Date,
+      filmTitle: ['', [Validators.required, Validators.maxLength(100)]],
+      cinema: ['', [Validators.required, Validators.maxLength(50)]],
+      room: ['', [Validators.required, Validators.maxLength(20)]],
+      date: [Date, [Validators.required]],
+      startHour: [Date, [Validators.required]],
+      endHour: [Date, [Validators.required]],
     });
   }
 
@@ -104,22 +108,19 @@ export class AddSessionFormComponent implements OnInit, OnDestroy {
   }
 
   addSession(): void {
-    console.log('Formulaire rempli : ', this.addSessionForm.value);
+    if (this.addSessionForm.invalid)
+      return alert('Un ou plusieurs champs du formulaire sont invalides.');
+
     const sessionDate = new Date(this.addSessionForm.get('date')?.value);
     const formatedDate = this.dateFormattingService.dateFormatting(sessionDate);
-    console.log('Date formatée : ', formatedDate);
 
     const sessionData = {
       ...this.addSessionForm.value,
       date: formatedDate,
     };
 
-    console.log('Session soumise : ', sessionData);
-
     this.subs.push(
       this.dataService.postSession(sessionData).subscribe((data) => {
-        console.log('blabla');
-        console.log('Session ajoutée : ', data);
         alert(
           `La séance pour ${sessionData.filmTitle} le ${data.date} a été ajoutée.`
         );

@@ -47,6 +47,7 @@ export class InscriptionFormComponent {
     this.userData = {
       ...(this.inscriptionForm.value as User),
       name: nameUppercase,
+      role: 'user',
     };
 
     console.log('Nouvel utilisateur : ', this.userData);

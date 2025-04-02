@@ -1,14 +1,45 @@
 const express = require("express");
-const cors = require("cors");
 const app = express();
+app.disable("x-powered-by"); // Pour masquer l'en-tête HTTP et éviter l'identification de la technologie par des attaquants
+
+const helmet = require("helmet");
+// Appliquer les protections par défaut de Helmet (middleware de sécurité pour Express qui ajoute automatiquement plusieurs en-têtes HTTP pour protéger l'application contre des vulnérabilités courantes)
+app.use(helmet());
+
 const db = require("./db");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
 const port = process.env.PORT || 3000;
 require("dotenv").config();
 
-app.use(cors());
+// Configuration plus sécurisée de CORS
+const cors = require("cors");
+const corsOptions = {
+  origin: [
+    "http://localhost:4200",
+    "https://cinephoria-frontend-production.up.railway.app",
+  ], // Autorise uniquement ces origines
+  methods: ["GET", "POST", "PUT", "DELETE"], // Limite les méthodes autorisées
+  allowedHeaders: ["Content-Type", "Authorization"], // Limite les en-têtes autorisés
+  credentials: true, // Permet d’envoyer les cookies ou les en-têtes d’autorisation si nécessaire
+};
+
+app.use(cors(corsOptions));
+
 app.use(express.json());
+
+// Définir un modèle MongoDB pour l'utilisateur
+const userSchema = new mongoose.Schema({
+  firstname: { type: String, required: true },
+  name: { type: String, required: true },
+  username: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  role: { type: String, required: true },
+});
+
+const User = mongoose.model("User", userSchema);
 
 app.get("/", (req, res) => {
   res.send("Backend is running!");
@@ -21,6 +52,7 @@ app.get("/api/films", async (req, res) => {
     );
     res.send(films);
   } catch (err) {
+    console.error("Erreur lors de la récupération des films :", err.message);
     console.error("Erreur lors de la récupération des films :", err);
     res.status(500).send("Erreur serveur");
   }
@@ -33,18 +65,20 @@ app.get("/api/admin", async (req, res) => {
     );
     res.send(result);
   } catch (err) {
-    throw err;
+    console.error("Erreur lors de la récupération des films :", err.message);
   }
 });
 
 app.get("/api/user", async (req, res) => {
   try {
-    const result = await db.pool.query(
-      "select id, email, password, role from cinephoria.user"
-    );
-    res.send(result);
+    const users = await User.find();
+    res.send(users);
   } catch (err) {
-    throw err;
+    console.error(
+      "Erreur lors de la récupération des utilisateurs :",
+      err.message
+    );
+    res.status(500).json({ message: "Erreur interne du serveur" });
   }
 });
 
@@ -53,7 +87,7 @@ app.get("/api/type", async (req, res) => {
     const result = await db.pool.query("select * from type");
     res.send(result);
   } catch (err) {
-    throw err;
+    console.error("Erreur lors de la récupération des films :", err.message);
   }
 });
 
@@ -93,7 +127,7 @@ app.get("/api/session", async (req, res) => {
     );
     res.send(result);
   } catch (err) {
-    throw err;
+    console.error("Erreur lors de la récupération des films :", err.message);
   }
 });
 
@@ -107,7 +141,7 @@ app.get("/api/session/seats/:id", async (req, res) => {
     );
     res.send(result);
   } catch (err) {
-    throw err;
+    console.error("Erreur lors de la récupération des films :", err.message);
   }
 });
 
@@ -130,7 +164,7 @@ app.get("/api/room/:cinema", async (req, res) => {
     );
     res.send(result);
   } catch (err) {
-    throw err;
+    console.error("Erreur lors de la récupération des films :", err.message);
   }
 });
 
@@ -155,10 +189,12 @@ app.get("/api/cinema", async (req, res) => {
 app.get("/api/order/:id", async (req, res) => {
   try {
     const userId = req.params.id; // Récupère l'id de l'utilisateur depuis l'URL
+
     const result = await db.pool.query(
       "SELECT `order`.id, `order`.idUser, `order`.idFilm, films.moviePoster, films.title, films.actors, films.description, `order`.date, cinema.name as cinemaName, room.name as roomName, `order`.price, quality.quality, viewed, placesNumber, session.startHour, session.endHour, session.date as sessionDate, opinionSent, opinion.description as opinionDescription, opinion.note as note FROM `order` JOIN cinephoria.films ON `order`.idFilm = films.id JOIN cinephoria.cinema ON `order`.idCinema = cinema.id JOIN cinephoria.room ON `order`.idRoom = room.id JOIN cinephoria.quality ON room.idQuality = quality.id JOIN cinephoria.session ON `order`.idSession = session.id LEFT JOIN cinephoria.opinion ON `order`.id = opinion.idOrder WHERE `order`.idUser = ? ORDER BY `order`.id DESC",
       [userId] // Paramètre sécurisé pour éviter l'injection SQL
     );
+
     res.send(result);
   } catch (err) {
     res.status(500).send({ error: "Erreur serveur" });
@@ -219,27 +255,34 @@ app.post("/api/films", async (req, res) => {
   }
 });
 
-app.post("/api/user", async (req, res) => {
+app.post("/api/users", async (req, res) => {
   try {
-    const { firstname, name, username, email, password } = req.body;
+    const { firstname, name, username, email, password, role } = req.body;
+
+    // Vérifier que l'utilisateur existe déjà avec le même email ou nom d'utilisateur
+    const existingUser = await User.findOne({ $or: [{ username }, { email }] });
+    if (existingUser) {
+      return res
+        .status(400)
+        .json({ error: "L'utilisateur ou l'email existe déjà" });
+    }
 
     // Générer un sel et hacher le mot de passe
     const saltRounds = 10; // Nombre d'itérations pour renforcer le hachage
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    req.body = { firstname, name, username, email, hashedPassword };
+    // Créer un nouvel utilisateur
+    const newUser = new User({
+      firstname,
+      name,
+      username,
+      email,
+      password: hashedPassword,
+      role,
+    });
 
-    console.log("Données reçues:", req.body); // ✅ Vérifier les données avant l'insertion
-    const result = await db.pool.query(
-      "INSERT INTO user (firstname, name, username, email, password) VALUES (?, ?, ?, ?, ?)",
-      [firstname, name, username, email, hashedPassword]
-    );
-    // ✅ Récupérer l'ID du dernier utilisateur ajouté
-    const insertedUserId = result.insertId;
-    // ✅ Récupérer l'utilisateur nouvellement inséré
-    const [newUser] = await db.pool.query("SELECT * FROM user WHERE id = ?", [
-      insertedUserId,
-    ]);
+    // Sauvegarder l'utilisateur dans MongoDB
+    await newUser.save();
 
     res.status(201).json(newUser);
   } catch (err) {
@@ -250,15 +293,20 @@ app.post("/api/user", async (req, res) => {
 
 app.post("/api/auth/login", async (req, res) => {
   const { email, password } = req.body;
-  const [user] = await db.pool.query(
-    "SELECT * FROM cinephoria.user WHERE email = ?",
-    [email]
-  );
-  if (!user || !(await bcrypt.compare(password, user.password))) {
-    return res.status(401).json({ message: "Identifiants incorrects" });
+
+  // Vérifier que l'utilisateur existe déjà avec le même email ou nom d'utilisateur
+  const existingUser = await User.findOne({ email });
+
+  if (!existingUser) {
+    return res.status(400).json({ message: "L'email n'est pas enregistré" });
+  } else if (
+    existingUser &&
+    !(await bcrypt.compare(password, existingUser.password))
+  ) {
+    return res.status(401).json({ message: "Mot de passe incorrect" });
   }
 
-  const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
+  const token = jwt.sign({ userId: existingUser.id }, process.env.JWT_SECRET, {
     expiresIn: "1h",
   });
   res.json({ token });

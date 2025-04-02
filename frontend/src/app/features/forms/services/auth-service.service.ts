@@ -74,7 +74,7 @@ export class AuthServiceService {
     const userId = this.getUserIdFromToken(); // Récupère l'ID du token
     return this.dataService.getUser().pipe(
       tap((users: User[]) => {
-        const currentUser = users.find((user: User) => user.id === userId);
+        const currentUser = users.find((user: User) => user._id === userId);
         if (currentUser) {
           this.userRole$.next(currentUser.role);
           console.log("Rôle de l'utilisateur actif :", currentUser.role);
