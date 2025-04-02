@@ -18,8 +18,39 @@ Les outils utilisés sont :
 
 Le projet sépare le front-end du back-end par deux sous-dossiers appelés "frontend" et "backend".
 Ces deux dossiers possèdent chacun un fichier package.json et un Dockerfile.
-Le dossier "frontend" comporte le dossier src et public de l'application.
-Le dossier "backend" contient le serveur Express, le fichier relatif à la base de données, les routes, et le service de récupération de données de l'application.
+Le dossier "frontend" comporte le dossier src avec les routes, le service de récupération de données "data.service.ts" et toutes les fonctionnalités de l'application, et le dossier public de l'application.
+Le dossier "backend" contient le serveur Express et le fichier relatif à la base de données de l'application.
+
+## Base de données SQL
+
+La base de données MariaDB appelée "cinephoria" a été créée à partir de DataGrip.
+Ses tables sont ensuite générées avec le script "scriptSQL.sql" situé à la racine du projet.
+Un fichier .env doit être créé dans le dossier backend avec les informations de connexion à cette base de données :
+
+<!-- Hôte (en général localhost) -->
+
+DB_HOST=
+
+ <!-- Utilisateur -->
+
+DB_USER=
+
+ <!-- Mot de passe -->
+
+DB_PASSWORD=
+
+<!-- # Nom de la base de données -->
+
+DB_NAME=
+
+ <!-- Port de la base de données -->
+
+DB_PORT=
+
+## Base de données NoSQL
+
+La base de données MongoDB appelée "cinephoria-mongodb" a été créée via DataGrip.
+La collection "users" peut être créée via le script JS "scriptNoSQL.js" situé à la racine du projet en l'exécutant dans un shell MongoDB avec la commande "mongosh < scriptNoSQL.js".
 
 ## Lancement en local
 
