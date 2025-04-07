@@ -19,11 +19,12 @@ export class AccueilComponent implements OnInit {
   subscription: Subscription = new Subscription();
 
   ngOnInit() {
-    this.dataService.getFilms();
-    this.subscription = this.dataService.films$.subscribe((films: Film[]) => {
-      this.listFilms = films;
-      console.log(this.listFilms);
-    });
+    this.subscription = this.dataService
+      .getFilms()
+      .subscribe((films: Film[]) => {
+        this.listFilms = films;
+        console.log(this.listFilms);
+      });
   }
 
   ngOnDestroy() {
