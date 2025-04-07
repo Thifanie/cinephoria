@@ -9,8 +9,8 @@ Les outils utilisés sont :
 
 - Visual Studio Code pour l'IDE
 - Angular CLI pour la partie front
-- nodeJS pour la partie back
-- Mariadb pour la base de données SQL :
+- Node.js pour la partie back
+- MariaDB pour la base de données SQL et MongoDB pour la base de données NoSQL :
   - DataGrip a été utilisé pour la gestion de la base de données
   - il faut créer une base de données et remplacer les valeurs par défaut dans le fichier .env par les informations de connexion à la base de données
 
