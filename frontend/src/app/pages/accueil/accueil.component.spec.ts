@@ -36,8 +36,7 @@ const mockFilms: Film[] = [
   },
 ];
 const dataServiceMock = {
-  getFilms: jasmine.createSpy('getFilms'),
-  films$: of(mockFilms),
+  getFilms: jasmine.createSpy('getFilms').and.returnValue(of(mockFilms)),
 };
 
 describe('AccueilComponent', () => {
@@ -134,12 +133,9 @@ describe('AccueilComponent', () => {
     // Vérifier que le lien existe
     expect(selectedLink).toBeTruthy();
 
-    // Déclenche un clic sur le lien
-    selectedLink.click();
-
-    // Attendre que la navigation se fasse
-    fixture.detectChanges();
-
-    expect(RouterLink).toHaveBeenCalled();
+    expect(selectedLink.getAttribute('ng-reflect-router-link')).toBe('/films');
+    expect(selectedLink.getAttribute('ng-reflect-fragment')).toBe(
+      mockFilms[0].title
+    );
   });
 });

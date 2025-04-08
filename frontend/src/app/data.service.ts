@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { User } from './features/forms/models/user';
 import { Film, FilmData } from './features/films/models/film';
 import { Type } from './features/films/models/type';
