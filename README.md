@@ -64,7 +64,8 @@ Quand le serveur est en route, ouvrir le navigateur à l'URL `http://localhost:4
 # Docker
 
 Un fichier Dockerfile a été créé dans les dossiers "frontend" et "backend" et un fichier "docker-compose.yml" à la racine du projet. Les Dockerfile permettent la création des images correspondantes et le fichier "docker-compose.yml" permet de relier les conteneurs entre eux.
-A la racine du projet, taper la commande "docker compose --env-file backend/.env up -d --build" pour créer les images et conteneurs frontend, backend et mariadb connectés entre eux.
+Attention : pour avoir accès aux bases de données locales, il faut remplacer localhost par host.docker.internal.
+A la racine du projet, taper la commande "docker compose up -d --build" pour créer les images et conteneurs frontend, backend, mariadb et mongodb connectés entre eux.
 
 ## Gestion du projet Angular
 

@@ -4,7 +4,7 @@ const mariadb = require("mariadb");
 require("dotenv").config();
 
 const pool = mariadb.createPool({
-  host: process.env.DB_HOST || "host.docker.internal",
+  host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
@@ -28,7 +28,7 @@ const mongoose = require("mongoose");
 
 mongoose
   .connect(
-    `mongodb://${process.env.MONGODB_USER}:${process.env.MONGODB_PWD}@127.0.0.1:${process.env.MONGODB_PORT}/cinephoria-mongodb?authSource=admin`,
+    `mongodb://${process.env.MONGODB_USER}:${process.env.MONGODB_PWD}@${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/cinephoria-mongodb?authSource=admin`,
     {
       serverSelectionTimeoutMS: 5000, // Timeout pour choisir un serveur
       connectTimeoutMS: 10000, // Timeout de connexion
