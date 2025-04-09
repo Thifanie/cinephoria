@@ -23,6 +23,8 @@ const corsOptions = {
   methods: ["GET", "POST", "PUT", "DELETE"], // Limite les méthodes autorisées
   allowedHeaders: ["Content-Type", "Authorization"], // Limite les en-têtes autorisés
   credentials: true, // Permet d’envoyer les cookies ou les en-têtes d’autorisation si nécessaire
+  preflightContinue: false, // Laisser Express gérer les pré-vols
+  optionsSuccessStatus: 204, // Réponse 204 pour les requêtes OPTIONS (pré-vols)
 };
 
 app.use(cors(corsOptions));
