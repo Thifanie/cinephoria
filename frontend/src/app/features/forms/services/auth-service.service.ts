@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription, tap, map } from 'rxjs';
 import { DataService } from '../../../data.service';
@@ -54,7 +54,7 @@ export class AuthServiceService {
       .post(
         `https://cinephoria-backend-production.up.railway.app/api/auth/login`,
         credentials,
-        { withCredentials: true }
+        { headers: { 'Content-Type': 'application/json' } }
       )
       .pipe(
         // Si la connexion réussie, on met à jour l'état d'authentification
