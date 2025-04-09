@@ -32,6 +32,11 @@ app.options("*", cors(corsOptions));
 
 app.use(express.json());
 
+app.use((req, res, next) => {
+  console.log(`CORS Middleware Applied: ${req.method} ${req.url}`);
+  next();
+});
+
 // Définir un modèle MongoDB pour l'utilisateur
 const userSchema = new mongoose.Schema({
   firstname: { type: String, required: true },
