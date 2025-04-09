@@ -18,7 +18,7 @@ const cors = require("cors");
 const corsOptions = {
   origin: [
     "http://localhost:4200",
-    "https://railway-frontend-production.up.railway.app",
+    "https://cinephoria-frontend-production.up.railway.app",
   ], // Autorise uniquement ces origines
   methods: ["GET", "POST", "PUT", "DELETE"], // Limite les méthodes autorisées
   allowedHeaders: ["Content-Type", "Authorization"], // Limite les en-têtes autorisés
