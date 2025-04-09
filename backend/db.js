@@ -24,7 +24,7 @@ const mongoose = require("mongoose");
 
 mongoose
   .connect(
-    `mongodb://${process.env.MONGODB_USER}:${process.env.MONGODB_PWD}@${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}`,
+    `mongodb://${process.env.MONGOUSER}:${process.env.MONGOPWD}@${process.env.MONGOHOST}:${process.env.MONGOPORT}`,
     // `mongodb://${process.env.MONGODB_USER}:${process.env.MONGODB_PWD}@${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/cinephoria-mongodb`,
     // Ajout ?authSource=admin pour utilisation en local
     {
