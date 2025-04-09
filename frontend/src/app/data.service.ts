@@ -19,7 +19,6 @@ export class DataService {
   public films$ = this.filmsSubject.asObservable();
   constructor(private readonly http: HttpClient) {}
   private readonly apiUrl =
-    (window as any)['API_URL'] ||
     'https://cinephoria-backend-production.up.railway.app/api';
   // 'http://localhost:3000/api';
 
