@@ -329,6 +329,15 @@ app.post("/api/auth/login", async (req, res) => {
   const token = jwt.sign({ userId: existingUser.id }, process.env.JWT_SECRET, {
     expiresIn: "1h",
   });
+
+  // Ajoute le token comme cookie sécurisé
+  res.cookie("authToken", token, {
+    httpOnly: true, // Le cookie ne sera pas accessible via JavaScript
+    secure: process.env.NODE_ENV === "production", // Permet l'utilisation du cookie en HTTPS en prod
+    maxAge: 3600000, // 1 heure
+    sameSite: "None", // Pour permettre les cookies dans des requêtes cross-origin
+  });
+
   res.json({ token });
 });
 

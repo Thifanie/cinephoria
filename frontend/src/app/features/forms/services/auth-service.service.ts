@@ -54,9 +54,7 @@ export class AuthServiceService {
       .post(
         `https://cinephoria-backend-production.up.railway.app/api/auth/login`,
         credentials,
-        {
-          headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-        }
+        { withCredentials: true }
       )
       .pipe(
         // Si la connexion réussie, on met à jour l'état d'authentification
