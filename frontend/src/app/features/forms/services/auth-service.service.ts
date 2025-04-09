@@ -53,7 +53,8 @@ export class AuthServiceService {
     return this.http
       .post(
         `https://cinephoria-backend-production.up.railway.app/api/auth/login`,
-        credentials
+        credentials,
+        { withCredentials: true }
       )
       .pipe(
         // Si la connexion réussie, on met à jour l'état d'authentification
