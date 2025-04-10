@@ -93,7 +93,7 @@ Cette commande va compiler le projet et stocker les fichiers de build générés
 
 ## Lancer des tests unitaires
 
-Pour exécuter des tests unitaires avec [Karma](https://karma-runner.github.io, utiliser les commandes suivantes :
+Pour exécuter des tests unitaires avec [Karma](https://karma-runner.github.io), utiliser les commandes suivantes :
 
 ```bash
 ng test # Pour lancer tous les tests
