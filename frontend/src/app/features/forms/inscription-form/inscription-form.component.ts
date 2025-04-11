@@ -27,8 +27,11 @@ export class InscriptionFormComponent {
     firstname: new FormControl('', Validators.required),
     name: new FormControl('', Validators.required),
     username: new FormControl('', Validators.required),
-    email: new FormControl('', Validators.email),
-    password: new FormControl('', Validators.minLength(8)),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(8),
+    ]),
   });
 
   userData!: User;
@@ -49,8 +52,6 @@ export class InscriptionFormComponent {
       name: nameUppercase,
       role: 'user',
     };
-
-    console.log('Nouvel utilisateur : ', this.userData);
 
     this.subscription = this.dataService
       .postUser(this.userData)

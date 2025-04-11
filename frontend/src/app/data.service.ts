@@ -15,8 +15,6 @@ import { Opinion } from './features/films/models/opinion';
   providedIn: 'root',
 })
 export class DataService {
-  // private readonly filmsSubject = new BehaviorSubject<Film[]>([]);
-  // public films$ = this.filmsSubject.asObservable();
   constructor(private readonly http: HttpClient) {}
   private readonly apiUrl =
     (window as any)['API_URL'] || 'http://localhost:3000/api';
