@@ -187,7 +187,7 @@
             <mxPoint x="200" y="564" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="wifZ-9k00RwjJwxD-yln-51" value="Visiteur" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
+        <mxCell id="wifZ-9k00RwjJwxD-yln-51" value="Utilisateur" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
           <mxGeometry x="20" y="534" width="30" height="60" as="geometry" />
         </mxCell>
         <mxCell id="wifZ-9k00RwjJwxD-yln-52" value="" style="endArrow=none;html=1;rounded=0;" parent="1" edge="1">
@@ -217,8 +217,8 @@
         <mxCell id="wifZ-9k00RwjJwxD-yln-57" value="BDD" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="570" y="494" width="60" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="wifZ-9k00RwjJwxD-yln-58" value="choisit un cinéma" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" parent="1" vertex="1">
-          <mxGeometry x="70" y="546.5" width="100" height="10" as="geometry" />
+        <mxCell id="wifZ-9k00RwjJwxD-yln-58" value="choisit un cinéma ou un film" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" parent="1" vertex="1">
+          <mxGeometry x="55" y="546.5" width="130" height="10" as="geometry" />
         </mxCell>
         <mxCell id="wifZ-9k00RwjJwxD-yln-59" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -226,7 +226,7 @@
             <mxPoint x="400" y="574" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="wifZ-9k00RwjJwxD-yln-60" value="GET des films" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" parent="1" vertex="1">
+        <mxCell id="wifZ-9k00RwjJwxD-yln-60" value="GET des séances" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" parent="1" vertex="1">
           <mxGeometry x="220" y="556.5" width="170" height="15" as="geometry" />
         </mxCell>
         <mxCell id="wifZ-9k00RwjJwxD-yln-61" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
@@ -235,7 +235,7 @@
             <mxPoint x="600" y="584" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="wifZ-9k00RwjJwxD-yln-62" value="vérification des données" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" parent="1" vertex="1">
+        <mxCell id="wifZ-9k00RwjJwxD-yln-62" value="récupération des données" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" parent="1" vertex="1">
           <mxGeometry x="414" y="564" width="170" height="15" as="geometry" />
         </mxCell>
         <mxCell id="wifZ-9k00RwjJwxD-yln-63" value="envoi des données" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
@@ -247,7 +247,7 @@
             <mxPoint x="399" y="614" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="wifZ-9k00RwjJwxD-yln-65" value="affiche la liste des films" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+        <mxCell id="wifZ-9k00RwjJwxD-yln-65" value="envoi de la liste des séances" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
           <mxGeometry x="221" y="604" width="170" height="15" as="geometry" />
         </mxCell>
         <mxCell id="wifZ-9k00RwjJwxD-yln-66" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
@@ -256,122 +256,29 @@
             <mxPoint x="200" y="624" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="wifZ-9k00RwjJwxD-yln-69" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="200" y="636.5" as="targetPoint" />
-            <mxPoint x="50" y="636.5" as="sourcePoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="wifZ-9k00RwjJwxD-yln-70" value="choisit un film et un nombre de places" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" parent="1" vertex="1">
-          <mxGeometry x="70" y="619" width="100" height="10" as="geometry" />
-        </mxCell>
-        <mxCell id="wifZ-9k00RwjJwxD-yln-71" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="201.5" y="651.5" as="sourcePoint" />
-            <mxPoint x="401.5" y="651.5" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="wifZ-9k00RwjJwxD-yln-72" value="GET des séances du film" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" parent="1" vertex="1">
-          <mxGeometry x="221.5" y="634" width="170" height="15" as="geometry" />
-        </mxCell>
-        <mxCell id="wifZ-9k00RwjJwxD-yln-73" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="399.5" y="664" as="sourcePoint" />
-            <mxPoint x="599.5" y="664" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="wifZ-9k00RwjJwxD-yln-74" value="vérification des données" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" parent="1" vertex="1">
-          <mxGeometry x="413.5" y="644" width="170" height="15" as="geometry" />
-        </mxCell>
-        <mxCell id="wifZ-9k00RwjJwxD-yln-75" value="envoi des données" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
-          <mxGeometry x="419.5" y="674" width="170" height="15" as="geometry" />
-        </mxCell>
-        <mxCell id="wifZ-9k00RwjJwxD-yln-76" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="598.5" y="694" as="sourcePoint" />
-            <mxPoint x="398.5" y="694" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="wifZ-9k00RwjJwxD-yln-80" value="affiche les séances du film" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
-          <mxGeometry x="222.5" y="684" width="170" height="15" as="geometry" />
-        </mxCell>
-        <mxCell id="wifZ-9k00RwjJwxD-yln-81" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="401.5" y="704" as="sourcePoint" />
-            <mxPoint x="201.5" y="704" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
         <mxCell id="wifZ-9k00RwjJwxD-yln-82" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="200" y="716.5" as="targetPoint" />
-            <mxPoint x="50" y="716.5" as="sourcePoint" />
+            <mxPoint x="200" y="658.5" as="targetPoint" />
+            <mxPoint x="50" y="658.5" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="wifZ-9k00RwjJwxD-yln-83" value="choisit la séance et le placement" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" parent="1" vertex="1">
-          <mxGeometry x="60" y="699" width="100" height="10" as="geometry" />
+        <mxCell id="wifZ-9k00RwjJwxD-yln-83" value="choisit la séance" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" parent="1" vertex="1">
+          <mxGeometry x="40" y="644" width="160" height="10" as="geometry" />
         </mxCell>
         <mxCell id="wifZ-9k00RwjJwxD-yln-85" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="201.5" y="731.5" as="sourcePoint" />
-            <mxPoint x="401.5" y="731.5" as="targetPoint" />
+            <mxPoint x="200" y="758.33" as="sourcePoint" />
+            <mxPoint x="400" y="758.33" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="wifZ-9k00RwjJwxD-yln-86" value="calcul du prix" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" parent="1" vertex="1">
-          <mxGeometry x="221.5" y="714" width="170" height="15" as="geometry" />
-        </mxCell>
-        <mxCell id="wifZ-9k00RwjJwxD-yln-87" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="401.5" y="764" as="sourcePoint" />
-            <mxPoint x="201.5" y="764" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="wifZ-9k00RwjJwxD-yln-88" value="affiche le résumé de la réservation" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" parent="1" vertex="1">
-          <mxGeometry x="220" y="744" width="170" height="15" as="geometry" />
-        </mxCell>
-        <mxCell id="wifZ-9k00RwjJwxD-yln-89" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="200" y="776.5" as="targetPoint" />
-            <mxPoint x="50" y="776.5" as="sourcePoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="wifZ-9k00RwjJwxD-yln-90" value="se connecte" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" parent="1" vertex="1">
-          <mxGeometry x="60" y="759" width="100" height="10" as="geometry" />
-        </mxCell>
-        <mxCell id="wifZ-9k00RwjJwxD-yln-94" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="200" y="796.5" as="targetPoint" />
-            <mxPoint x="50" y="796.5" as="sourcePoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="wifZ-9k00RwjJwxD-yln-95" value="valide la réservation" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" parent="1" vertex="1">
-          <mxGeometry x="60" y="784" width="100" height="10" as="geometry" />
-        </mxCell>
-        <mxCell id="wifZ-9k00RwjJwxD-yln-97" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="201.5" y="811.5" as="sourcePoint" />
-            <mxPoint x="401.5" y="811.5" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="wifZ-9k00RwjJwxD-yln-98" value="POST de la commande" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" parent="1" vertex="1">
-          <mxGeometry x="221.5" y="794" width="170" height="15" as="geometry" />
-        </mxCell>
-        <mxCell id="wifZ-9k00RwjJwxD-yln-99" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="399" y="824" as="sourcePoint" />
-            <mxPoint x="599" y="824" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="wifZ-9k00RwjJwxD-yln-100" value="enregistrement de la commande" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" parent="1" vertex="1">
-          <mxGeometry x="413" y="804" width="170" height="15" as="geometry" />
+        <mxCell id="wifZ-9k00RwjJwxD-yln-86" value="POST de la réservation" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" parent="1" vertex="1">
+          <mxGeometry x="220" y="740.83" width="170" height="15" as="geometry" />
         </mxCell>
         <mxCell id="wifZ-9k00RwjJwxD-yln-103" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="401.5" y="839" as="sourcePoint" />
-            <mxPoint x="201.5" y="839" as="targetPoint" />
+            <mxPoint x="200" y="810" as="sourcePoint" />
+            <mxPoint x="50" y="810" as="targetPoint" />
           </mxGeometry>
-        </mxCell>
-        <mxCell id="wifZ-9k00RwjJwxD-yln-104" value="envoi de mail de confirmation" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
-          <mxGeometry x="220" y="819" width="170" height="15" as="geometry" />
         </mxCell>
         <mxCell id="nucLkDcXrnHL7K70imRz-1" value="CRUD films et séances" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=4" parent="1" vertex="1">
           <mxGeometry y="864" width="140" height="30" as="geometry" />
@@ -660,6 +567,99 @@
             <mxPoint x="200" y="440" as="sourcePoint" />
             <mxPoint x="50" y="440" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="4GlCzzbNf7jcFsdkg0GC-15" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="200" y="634" as="sourcePoint" />
+            <mxPoint x="50" y="634" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4GlCzzbNf7jcFsdkg0GC-16" value="affichage des séances" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="60" y="619" width="130" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="4GlCzzbNf7jcFsdkg0GC-17" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="199.5" y="668.5" as="sourcePoint" />
+            <mxPoint x="399.5" y="668.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4GlCzzbNf7jcFsdkg0GC-18" value="GET de la séance" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="219.5" y="651" width="170" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="4GlCzzbNf7jcFsdkg0GC-19" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="399.5" y="678.33" as="sourcePoint" />
+            <mxPoint x="599.5" y="678.33" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4GlCzzbNf7jcFsdkg0GC-20" value="récupération des données" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="413.5" y="658.33" width="170" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="4GlCzzbNf7jcFsdkg0GC-21" value="envoi des données" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="419.5" y="688.33" width="170" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="4GlCzzbNf7jcFsdkg0GC-22" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="598.5" y="708.33" as="sourcePoint" />
+            <mxPoint x="398.5" y="708.33" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4GlCzzbNf7jcFsdkg0GC-23" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="720" as="sourcePoint" />
+            <mxPoint x="200" y="720" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4GlCzzbNf7jcFsdkg0GC-25" value="envoi des données de la séance" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="217.5" y="699" width="170" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="4GlCzzbNf7jcFsdkg0GC-26" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="200" y="729" as="sourcePoint" />
+            <mxPoint x="50" y="729" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4GlCzzbNf7jcFsdkg0GC-27" value="affichage de la séance et du plan de la salle" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="70" y="708" width="110" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="4GlCzzbNf7jcFsdkg0GC-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="200" y="749.33" as="targetPoint" />
+            <mxPoint x="50" y="749.33" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4GlCzzbNf7jcFsdkg0GC-29" value="choisit les sièges" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="734.83" width="160" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="4GlCzzbNf7jcFsdkg0GC-30" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="399" y="768.33" as="sourcePoint" />
+            <mxPoint x="599" y="768.33" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4GlCzzbNf7jcFsdkg0GC-31" value="récupération des données" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="413" y="748.33" width="170" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="4GlCzzbNf7jcFsdkg0GC-32" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="599" y="794" as="sourcePoint" />
+            <mxPoint x="399" y="794" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4GlCzzbNf7jcFsdkg0GC-33" value="enregistrement de la réservation" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="419.5" y="775" width="170" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="4GlCzzbNf7jcFsdkg0GC-34" value="confirmation de réservation" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="220.5" y="780.0000000000001" width="170" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="4GlCzzbNf7jcFsdkg0GC-35" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="399.5" y="800.0000000000001" as="sourcePoint" />
+            <mxPoint x="199.5" y="800.0000000000001" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4GlCzzbNf7jcFsdkg0GC-36" value="navigation vers compte" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="795" width="160" height="10" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
