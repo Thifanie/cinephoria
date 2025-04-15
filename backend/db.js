@@ -18,6 +18,17 @@ const pool = mariadb.createPool({
   cachingRsaPublicKey: false,
 });
 
+// Test immédiat de la connexion à la base
+pool
+  .getConnection()
+  .then((conn) => {
+    console.log("✅ Connexion MariaDB établie avec succès !");
+    conn.release(); // Libérer la connexion après test
+  })
+  .catch((err) => {
+    console.error("❌ Échec de connexion à MariaDB :", err.message);
+  });
+
 module.exports = Object.freeze({
   pool: pool,
 });
@@ -34,8 +45,8 @@ mongoose
       connectTimeoutMS: 10000, // Timeout de connexion
     }
   )
-  .then(() => console.log("MongoDB connecté"))
+  .then(() => console.log("✅ Connexion MongoDB établie avec succès !"))
   .catch((err) => {
-    console.error("Erreur de connexion à MongoDB", err);
+    console.error("❌ Échec de connexion à MongoDB", err);
     console.error("Stack trace:", err.stack);
   });
