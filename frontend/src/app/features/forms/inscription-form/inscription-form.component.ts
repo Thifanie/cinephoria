@@ -56,7 +56,6 @@ export class InscriptionFormComponent {
     this.subscription = this.dataService
       .postUser(this.userData)
       .subscribe((data: User) => {
-        console.log('Utilisateur ajouté : ', data);
         this.userData = data;
         // Redirection vers la page de connexion
         this.router.navigate(['/connexion']);
