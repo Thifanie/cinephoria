@@ -14,7 +14,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "sonar": "npx sonarqube-scanner",
-    "electron": "ng build cinephoria-web --configuration production && electron .",
+    "electron": "ng build cinephoria-web && electron .",
     "package": "electron-forge package",
     "make": "electron-forge make"
   },
