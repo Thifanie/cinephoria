@@ -19,8 +19,6 @@ export class DataService {
   private readonly apiUrl =
     (window as any)['API_URL'] || 'http://localhost:3000/api';
 
-  filmData: Film[] = [];
-
   getFilms(): Observable<Film[]> {
     return this.http.get<Film[]>(`${this.apiUrl}/films`, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -39,6 +37,8 @@ export class DataService {
   //   }
   //   return this.films$; // Renvoie un observable de la liste des films
   // }
+
+  filmData: Film[] = [];
 
   getType(): Observable<Type[]> {
     return this.http.get<Type[]>(`${this.apiUrl}/type`, {
