@@ -4,7 +4,7 @@ const mariadb = require("mariadb");
 require("dotenv").config();
 
 const pool = mariadb.createPool({
-  host: process.env.DB_HOST || "host.docker.internal",
+  host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
@@ -18,6 +18,17 @@ const pool = mariadb.createPool({
   cachingRsaPublicKey: false,
 });
 
+// Test immédiat de la connexion à la base
+pool
+  .getConnection()
+  .then((conn) => {
+    console.log("✅ Connexion MariaDB établie avec succès !");
+    conn.release(); // Libérer la connexion après test
+  })
+  .catch((err) => {
+    console.error("❌ Échec de connexion à MariaDB :", err.message);
+  });
+
 module.exports = Object.freeze({
   pool: pool,
 });
@@ -28,14 +39,14 @@ const mongoose = require("mongoose");
 
 mongoose
   .connect(
-    `mongodb://${process.env.MONGODB_USER}:${process.env.MONGODB_PWD}@127.0.0.1:${process.env.MONGODB_PORT}/cinephoria-mongodb?authSource=admin`,
+    `mongodb://${process.env.MONGODB_USER}:${process.env.MONGODB_PWD}@${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/cinephoria-mongodb?authSource=admin`,
     {
       serverSelectionTimeoutMS: 5000, // Timeout pour choisir un serveur
       connectTimeoutMS: 10000, // Timeout de connexion
     }
   )
-  .then(() => console.log("MongoDB connecté"))
+  .then(() => console.log("✅ Connexion MongoDB établie avec succès !"))
   .catch((err) => {
-    console.error("Erreur de connexion à MongoDB", err);
+    console.error("❌ Échec de connexion à MongoDB", err);
     console.error("Stack trace:", err.stack);
   });

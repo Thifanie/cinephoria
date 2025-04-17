@@ -18,11 +18,9 @@ export class ListFilmsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // Appel pour récupérer la liste des films lors de l'initialisation du composant
-    this.dataService.getFilms();
 
     this.subs.push(
-      // Souscription au BehaviorSubject pour récupérer la liste mise à jour
-      this.dataService.films$.subscribe((films: Film[]) => {
+      this.dataService.getFilms().subscribe((films: Film[]) => {
         this.listFilms = films;
         console.log(this.listFilms);
       })

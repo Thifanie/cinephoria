@@ -36,12 +36,9 @@ export class ListSessionsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.filmId = Number(this.route.snapshot.paramMap.get('id')); // Récupère l'ID du film
 
-    // Appel pour récupérer la liste des films lors de l'initialisation du composant
-    this.dataService.getFilms();
-
     this.subs = [
       // Souscription au BehaviorSubject pour récupérer la liste des films mise à jour
-      this.dataService.films$.subscribe((films: Film[]) => {
+      this.dataService.getFilms().subscribe((films: Film[]) => {
         this.listFilms = films;
         this.filmTitle = this.listFilms.find(
           (film) => film.id === this.filmId
