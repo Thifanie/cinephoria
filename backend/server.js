@@ -99,19 +99,21 @@ app.get("/api/session/:id", async (req, res) => {
     );
     res.send(result);
   } catch (err) {
+    console.error("Erreur lors de la récupération des séances :", err.message);
     res.status(500).send({ error: "Erreur serveur" });
   }
 });
 
 app.get("/api/session/booking/:id", async (req, res) => {
   try {
-    const sessionId = req.params.id; // Récupère l'id du film depuis l'URL
+    const sessionId = req.params.id; // Récupère l'id de la séance depuis l'URL
     const result = await db.pool.query(
       "SELECT date, startHour, endHour, idFilm, cinema.name AS cinemaName, room.name AS roomName, cinephoria.quality.quality AS quality, cinephoria.quality.price as price, cinephoria.films.moviePoster as moviePoster, cinephoria.films.title, reservedSeats FROM cinephoria.session JOIN cinephoria.cinema on session.idCinema = cinema.id JOIN cinephoria.room ON session.idRoom = room.id JOIN cinephoria.quality ON room.idQuality = quality.id JOIN cinephoria.films ON session.idFilm = films.id WHERE session.id = ?",
       [sessionId] // Paramètre sécurisé pour éviter l'injection SQL
     );
     res.send(result);
   } catch (err) {
+    console.error("Erreur lors de la récupération de la séance :", err.message);
     res.status(500).send({ error: "Erreur serveur" });
   }
 });
@@ -126,7 +128,7 @@ app.get("/api/session", async (req, res) => {
     );
     res.send(result);
   } catch (err) {
-    console.error("Erreur lors de la récupération des films :", err.message);
+    console.error("Erreur lors de la récupération des séances :", err.message);
   }
 });
 
