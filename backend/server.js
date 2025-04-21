@@ -11,12 +11,14 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 require("dotenv").config();
+const validator = require("validator");
 
 // Configuration plus sécurisée de CORS
 const cors = require("cors");
 const corsOptions = {
   origin: [
     "http://localhost:4200",
+    "http://localhost",
     "https://cinephoria-frontend-production.up.railway.app",
   ], // Autorise uniquement ces origines
   methods: ["GET", "POST", "PUT", "DELETE"], // Limite les méthodes autorisées
@@ -97,19 +99,21 @@ app.get("/api/session/:id", async (req, res) => {
     );
     res.send(result);
   } catch (err) {
+    console.error("Erreur lors de la récupération des séances :", err.message);
     res.status(500).send({ error: "Erreur serveur" });
   }
 });
 
 app.get("/api/session/booking/:id", async (req, res) => {
   try {
-    const sessionId = req.params.id; // Récupère l'id du film depuis l'URL
+    const sessionId = req.params.id; // Récupère l'id de la séance depuis l'URL
     const result = await db.pool.query(
       "SELECT date, startHour, endHour, idFilm, cinema.name AS cinemaName, room.name AS roomName, cinephoria.quality.quality AS quality, cinephoria.quality.price as price, cinephoria.films.moviePoster as moviePoster, cinephoria.films.title, reservedSeats FROM cinephoria.session JOIN cinephoria.cinema on session.idCinema = cinema.id JOIN cinephoria.room ON session.idRoom = room.id JOIN cinephoria.quality ON room.idQuality = quality.id JOIN cinephoria.films ON session.idFilm = films.id WHERE session.id = ?",
       [sessionId] // Paramètre sécurisé pour éviter l'injection SQL
     );
     res.send(result);
   } catch (err) {
+    console.error("Erreur lors de la récupération de la séance :", err.message);
     res.status(500).send({ error: "Erreur serveur" });
   }
 });
@@ -124,7 +128,7 @@ app.get("/api/session", async (req, res) => {
     );
     res.send(result);
   } catch (err) {
-    console.error("Erreur lors de la récupération des films :", err.message);
+    console.error("Erreur lors de la récupération des séances :", err.message);
   }
 });
 
@@ -256,6 +260,20 @@ app.post("/api/users", async (req, res) => {
   try {
     const { firstname, name, username, email, password, role } = req.body;
 
+    if (!firstname || !name || !username || !email || !password || !role) {
+      return res.status(400).json({ error: "Tous les champs sont requis" });
+    }
+
+    if (!validator.isEmail(email)) {
+      return res.status(400).json({ error: "Email invalide" });
+    }
+
+    if (password.length < 8) {
+      return res
+        .status(400)
+        .json({ error: "Le mot de passe doit faire au moins 8 caractères" });
+    }
+
     // Vérifier que l'utilisateur existe déjà avec le même email ou nom d'utilisateur
     const existingUser = await User.findOne({ $or: [{ username }, { email }] });
     if (existingUser) {
@@ -280,8 +298,6 @@ app.post("/api/users", async (req, res) => {
 
     // Sauvegarder l'utilisateur dans MongoDB
     await newUser.save();
-
-    res.status(201).json(newUser);
   } catch (err) {
     console.error("Error inserting user:", err);
     res.status(500).json({ error: "Internal server error" });

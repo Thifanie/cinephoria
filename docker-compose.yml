@@ -7,23 +7,42 @@ services:
         API_URL: http://backend:3000/api
       dockerfile: Dockerfile
     ports:
-      - "80:80" # Permet l'accès à Nginx via le port 80
-      # - "443:443" # Si tu utilises HTTPS
+      - "80:80"
     depends_on:
       - backend
     networks:
       - my_network
 
   mariadb:
-    image: mariadb:latest
+    image: mariadb:11.7.2
     restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_DATABASE: ${DB_NAME}
     ports:
       - "3307:3306"
+    env_file:
+      - backend/.env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
     volumes:
       - mariadb_data:/var/lib/mysql
+    networks:
+      - my_network
+
+  mongodb:
+    image: mongo:5.0
+    restart: always
+    ports:
+      - "27017:27017"
+    env_file:
+      - backend/.env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PWD}
+      MONGO_INITDB_DATABASE: admin
+    volumes:
+      - mongodb_data:/data/db
     networks:
       - my_network
 
@@ -36,11 +55,13 @@ services:
       - "3000:3000"
     depends_on:
       - mariadb
+      - mongodb
+    env_file:
+      - backend/.env
     environment:
-      DB_HOST: host.docker.internal
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
-      DB_NAME: ${DB_NAME}
+      MONGODB_HOST: host.docker.internal
+      MYSQL_HOST: host.docker.internal
+
     networks:
       - my_network
 
@@ -49,3 +70,4 @@ networks:
 
 volumes:
   mariadb_data:
+  mongodb_data:

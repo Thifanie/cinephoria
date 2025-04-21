@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { User } from './features/forms/models/user';
 import { Film, FilmData } from './features/films/models/film';
 import { Type } from './features/films/models/type';
@@ -15,32 +15,30 @@ import { Opinion } from './features/films/models/opinion';
   providedIn: 'root',
 })
 export class DataService {
-  private readonly filmsSubject = new BehaviorSubject<Film[]>([]);
-  public films$ = this.filmsSubject.asObservable();
   constructor(private readonly http: HttpClient) {}
   private readonly apiUrl =
     (window as any)['API_URL'] || 'http://localhost:3000/api';
 
-  filmData: Film[] = [];
-
-  // getFilms(): Observable<Film[]> {
-  //   return this.http.get<Film[]>('http://localhost:3000/api/films', {
-  //     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-  //   });
-  // }
   getFilms(): Observable<Film[]> {
-    if (this.filmsSubject.value.length === 0) {
-      // Si les films ne sont pas encore récupérés, faire la requête
-      this.http
-        .get<Film[]>(`${this.apiUrl}/films`, {
-          headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-        })
-        .subscribe((films: Film[]) => {
-          this.filmsSubject.next(films);
-        });
-    }
-    return this.films$; // Renvoie un observable de la liste des films
+    return this.http.get<Film[]>(`${this.apiUrl}/films`, {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    });
   }
+  // getFilms(): Observable<Film[]> {
+  //   if (this.filmsSubject.value.length === 0) {
+  //     // Si les films ne sont pas encore récupérés, faire la requête
+  //     this.http
+  //       .get<Film[]>(`${this.apiUrl}/films`, {
+  //         headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  //       })
+  //       .subscribe((films: Film[]) => {
+  //         this.filmsSubject.next(films);
+  //       });
+  //   }
+  //   return this.films$; // Renvoie un observable de la liste des films
+  // }
+
+  filmData: Film[] = [];
 
   getType(): Observable<Type[]> {
     return this.http.get<Type[]>(`${this.apiUrl}/type`, {

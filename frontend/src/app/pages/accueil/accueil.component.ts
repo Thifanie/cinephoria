@@ -12,21 +12,20 @@ import { RouterLink } from '@angular/router';
   styleUrl: './accueil.component.css',
 })
 export class AccueilComponent implements OnInit {
-  [x: string]: any;
   constructor(private readonly dataService: DataService) {}
 
   listFilms: Film[] = [];
   subscription: Subscription = new Subscription();
 
-  ngOnInit() {
-    this.dataService.getFilms();
-    this.subscription = this.dataService.films$.subscribe((films: Film[]) => {
-      this.listFilms = films;
-      console.log(this.listFilms);
-    });
+  ngOnInit(): void {
+    this.subscription = this.dataService
+      .getFilms()
+      .subscribe((films: Film[]) => {
+        this.listFilms = films;
+      });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }

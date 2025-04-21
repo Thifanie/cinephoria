@@ -11,7 +11,8 @@ WORKDIR /app
 # Copier les fichiers nécessaires
 COPY package.json package-lock.json ./
 
-# Donner les permissions à appuser sur /app et installer les dépendances (en tant que root)
+# Donner les permissions à appuser sur /app et installer les dépendances
+# (en tant que root)
 RUN chown -R appuser:appgroup /app && npm install
 
 # Copier le reste du projet dans le /app

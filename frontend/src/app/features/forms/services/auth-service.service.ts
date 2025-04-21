@@ -41,6 +41,7 @@ export class AuthServiceService {
 
         return true;
       } catch (error) {
+        console.log('Erreur de vérification du token : ', error);
         window.localStorage.removeItem('token'); // Supprime si le token est corrompu
         return false;
       }
@@ -94,6 +95,7 @@ export class AuthServiceService {
         const decodedToken: any = jwtDecode(token);
         return decodedToken.userId; // Suppose que le token contient `userId`
       } catch (e) {
+        console.log("Erreur de récupération de l'ID de l'utilisateur : ", e);
         return null;
       }
     }

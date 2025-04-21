@@ -38,15 +38,12 @@ export class ReservationComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    // Appel pour récupérer la liste des films lors de l'initialisation du composant
-    this.dataService.getFilms();
-
     this.subs = [
       this.dataService.getCinema().subscribe((data: Cinema[]) => {
         console.log('Cinémas récupérés : ', data);
         this.listCinemas = data;
       }),
-      this.dataService.films$.subscribe((films: Film[]) => {
+      this.dataService.getFilms().subscribe((films: Film[]) => {
         this.listFilms = films;
         console.log('Films récupérés', this.listFilms);
       }),
