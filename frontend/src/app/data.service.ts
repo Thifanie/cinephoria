@@ -24,22 +24,10 @@ export class DataService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     });
   }
-  // getFilms(): Observable<Film[]> {
-  //   if (this.filmsSubject.value.length === 0) {
-  //     // Si les films ne sont pas encore récupérés, faire la requête
-  //     this.http
-  //       .get<Film[]>(`${this.apiUrl}/films`, {
-  //         headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-  //       })
-  //       .subscribe((films: Film[]) => {
-  //         this.filmsSubject.next(films);
-  //       });
-  //   }
-  //   return this.films$; // Renvoie un observable de la liste des films
-  // }
 
   filmData: Film[] = [];
 
+  // Récupération de tous les genres de films
   getType(): Observable<Type[]> {
     return this.http.get<Type[]>(`${this.apiUrl}/type`, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
