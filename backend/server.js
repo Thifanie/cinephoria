@@ -86,7 +86,7 @@ app.get("/api/type", async (req, res) => {
     const result = await db.pool.query("select * from type");
     res.send(result);
   } catch (err) {
-    console.error("Erreur lors de la récupération des films :", err.message);
+    console.error("Erreur lors de la récupération des types :", err.message);
   }
 });
 
