@@ -63,25 +63,7 @@ export class ReservationComponent implements OnInit, OnDestroy {
         .subscribe((sessions: Session[]) => {
           console.log('Séances récupérées pour le cinéma : ', sessions);
           this.listSessions = sessions;
-          // Formatage des dates et heures
-          // this.dateTimeFormatting.dateFormatting(this.listSessions);
-          // this.dateTimeFormatting.startHourFormatting(this.listSessions);
-          // this.dateTimeFormatting.endHourFormatting(this.listSessions);
-
-          this.associateRoomQuality();
-        }),
-      // Appel pour récupérer la liste des salles de cinéma
-      this.dataService.getRoom().subscribe((data: Room[]) => {
-        console.log('Salles récupérées : ', data);
-        this.listRooms = data;
-        this.associateRoomQuality();
-      }),
-      // Appel pour récupérer la liste des qualités
-      this.dataService.getQuality().subscribe((data: Quality[]) => {
-        console.log('Qualités récupérées : ', data);
-        this.listQualities = data;
-        this.associateRoomQuality();
-      })
+        })
     );
   }
 
@@ -98,53 +80,8 @@ export class ReservationComponent implements OnInit, OnDestroy {
         .subscribe((sessions: Session[]) => {
           console.log('Séances récupérées pour le film : ', sessions);
           this.listSessions = sessions;
-          // Formatage des dates et heures
-          // this.dateTimeFormatting.dateFormatting(this.listSessions);
-          // this.dateTimeFormatting.startHourFormatting(this.listSessions);
-          // this.dateTimeFormatting.endHourFormatting(this.listSessions);
-
-          this.associateRoomQuality();
-        }),
-      // Appel pour récupérer la liste des salles de cinéma
-      this.dataService.getRoom().subscribe((data: Room[]) => {
-        console.log('Salles récupérées : ', data);
-        this.listRooms = data;
-        this.associateRoomQuality();
-      }),
-      // Appel pour récupérer la liste des qualités
-      this.dataService.getQuality().subscribe((data: Quality[]) => {
-        console.log('Qualités récupérées : ', data);
-        this.listQualities = data;
-        this.associateRoomQuality();
-      })
+        })
     );
-  }
-
-  associateRoomQuality() {
-    if (
-      !this.listSessions.length ||
-      !this.listRooms.length ||
-      !this.listQualities.length
-    ) {
-      return; // Attendre que toutes les données soient chargées
-    }
-
-    // Pour chaque session, on récupère l'id de la qualité de la salle correspondante
-    this.listSessions.forEach((session) => {
-      this.idQuality = this.listRooms.find(
-        (room) => room.name === session.roomName
-      )?.idQuality;
-
-      // On stocke la qualité de la séance dans listSessions
-      session.quality = this.listQualities.find(
-        (quality) => quality.id == this.idQuality
-      )?.quality;
-
-      // On stocke le prix de la séance dans listSessions
-      session.price = this.listQualities.find(
-        (quality) => quality.id == this.idQuality
-      )?.price;
-    });
   }
 
   ngOnDestroy() {

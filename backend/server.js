@@ -94,7 +94,7 @@ app.get("/api/session/:id", async (req, res) => {
   try {
     const filmId = req.params.id; // Récupère l'id du film depuis l'URL
     const result = await db.pool.query(
-      "SELECT session.id, date, startHour, endHour, idFilm, cinema.name AS cinemaName, room.name AS roomName FROM cinephoria.session JOIN cinephoria.cinema on session.idCinema = cinema.id JOIN cinephoria.room ON session.idRoom = room.id WHERE idFilm = ?",
+      "SELECT session.id, date, startHour, endHour, idFilm, cinema.name AS cinemaName, room.name AS roomName, quality.quality as quality, quality.price as price FROM cinephoria.session JOIN cinephoria.cinema on session.idCinema = cinema.id JOIN cinephoria.room ON session.idRoom = room.id JOIN cinephoria.quality ON room.idQuality = quality.id WHERE idFilm = ?",
       [filmId] // Paramètre sécurisé pour éviter l'injection SQL
     );
     res.send(result);
@@ -121,9 +121,8 @@ app.get("/api/session/booking/:id", async (req, res) => {
 app.get("/api/session", async (req, res) => {
   try {
     const cinemaId = req.query.cinemaId; // Utilisation de req.query pour accéder au paramètre de la query string
-    console.log(cinemaId);
     const result = await db.pool.query(
-      "SELECT session.id, date, startHour, endHour, room.name AS roomName, films.title as filmTitle FROM cinephoria.session JOIN cinephoria.room ON session.idRoom = room.id JOIN cinephoria.films ON session.idFilm = films.id WHERE session.idCinema = ?",
+      "SELECT session.id, date, startHour, endHour, room.name AS roomName, films.title as filmTitle, quality.quality as quality, quality.price as price FROM cinephoria.session JOIN cinephoria.room ON session.idRoom = room.id JOIN cinephoria.films ON session.idFilm = films.id JOIN cinephoria.quality ON room.idQuality = quality.id WHERE session.idCinema = ?",
       [cinemaId] // Paramètre sécurisé pour éviter l'injection SQL);
     );
     res.send(result);
