@@ -20,6 +20,7 @@ const corsOptions = {
     "http://localhost:4200",
     "http://localhost",
     "https://cinephoria-frontend-production.up.railway.app",
+    "http://localhost:8100",
   ], // Autorise uniquement ces origines
   methods: ["GET", "POST", "PUT", "DELETE"], // Limite les méthodes autorisées
   allowedHeaders: ["Content-Type", "Authorization"], // Limite les en-têtes autorisés
