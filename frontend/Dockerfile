@@ -1,7 +1,7 @@
 # Stage 1 : Compiler et construire l'application Angular
 
 # Téléchargement de l'image node pour installer les dépendances du projet
-FROM node:23-slim AS build
+FROM node:22-alpine AS build
 
 WORKDIR /app
 

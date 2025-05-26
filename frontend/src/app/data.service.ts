@@ -140,7 +140,7 @@ export class DataService {
   }
 
   updateFilm(filmTitle: string, filmData: FilmData) {
-    return this.http.post<FilmData>(
+    return this.http.put<FilmData>(
       `${this.apiUrl}/films/${filmTitle}`,
       filmData,
       {

@@ -494,7 +494,7 @@ app.post("/api/session", async (req, res) => {
   }
 });
 
-app.post("/api/films/:title", async (req, res) => {
+app.put("/api/films/:title", async (req, res) => {
   const connection = await db.pool.getConnection();
   try {
     const filmTitle = req.params.title; // Récupère le titre du film depuis l'URL
@@ -593,6 +593,26 @@ app.post("/api/films/delete/:title", async (req, res) => {
   } finally {
     // Libération de la connexion
     connection.release();
+  }
+});
+
+app.put("/users/:id", async (req, res) => {
+  try {
+    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    res.json(updatedUser);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+app.delete("/users/:id", async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.params.id);
+    res.json({ message: "Utilisateur supprimé" });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
   }
 });
 

@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   imports: [CommonModule, NgFor],
 })
 export class CardFilmsComponent {
-  @Input() items: Film[] = []; // Utilisation d'un tableau classique
+  @Input() items: Film[] = [];
 
   // Méthode pour calculer le pourcentage de la largeur des étoiles
   calculateRating(note: number): number {
