@@ -4,10 +4,11 @@ import {
   ElementRef,
   EventEmitter,
   Input,
-  input,
   OnInit,
   Output,
+  QueryList,
   Renderer2,
+  ViewChildren,
 } from '@angular/core';
 import { Order } from '../../../films/models/order';
 import { CinemaNamePipe } from '../../../../pipes/cinema-name.pipe';
@@ -15,22 +16,21 @@ import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Opinion } from '../../../films/models/opinion';
 import { DataService } from '../../../../data.service';
+import { StarsRatingComponent } from '../stars-rating/stars-rating.component';
 
 @Component({
   selector: 'app-card-orders',
-  imports: [NgFor, NgIf, CinemaNamePipe, FormsModule],
+  imports: [NgFor, NgIf, CinemaNamePipe, FormsModule, StarsRatingComponent],
   templateUrl: './card-orders.component.html',
   styleUrl: './card-orders.component.css',
 })
 export class CardOrdersComponent implements OnInit {
   @Input() listOrders: Order[] = [];
   rating: number = 0;
-  stars: {
-    element: HTMLImageElement;
-    isFilled: boolean;
-  }[] = []; // Tableau pour suivre l'état de chaque étoile
+
   opinionDescription: string = '';
   subs: Subscription[] = [];
+  allStars: HTMLImageElement[] = [];
 
   constructor(
     private readonly renderer: Renderer2,
@@ -40,13 +40,6 @@ export class CardOrdersComponent implements OnInit {
 
   ngOnInit(): void {
     setTimeout(() => {
-      const allStars: HTMLImageElement[] =
-        this.el.nativeElement.querySelectorAll('#stars-outer img');
-      this.stars = Array.from(allStars).map((star) => ({
-        element: star,
-        isFilled: false, // Initialiser isFilled à false pour chaque étoile
-      }));
-
       // Maj de la variable viewed en fonction de la date d'aujourd'hui
       this.listOrders.forEach((order) => {
         const today = new Date();
@@ -58,90 +51,9 @@ export class CardOrdersComponent implements OnInit {
     }, 500);
   }
 
-  fillStars(event: MouseEvent): void {
-    const star = event.target as HTMLImageElement;
-    const allStars = document
-      .getElementById('stars-outer')
-      ?.getElementsByTagName('img');
-    const isAnyStarFilled = this.stars.some((star) => star.isFilled === true);
-
-    if (allStars && !isAnyStarFilled) {
-      Array.from(allStars).forEach((img: HTMLImageElement, index: number) => {
-        if (index <= Array.from(allStars).indexOf(star)) {
-          this.renderer.setAttribute(img, 'src', 'assets/filledStar.png');
-          // Les étoiles situées avant l'étoile survolée sont également remplies
-        }
-      });
-    }
-  }
-
-  resetStars(event: MouseEvent): void {
-    const allStars = document
-      .getElementById('stars-outer')
-      ?.getElementsByTagName('img');
-    const isAnyStarFilled = this.stars.some((star) => star.isFilled === true);
-
-    if (allStars && !isAnyStarFilled) {
-      Array.from(allStars).forEach((img: HTMLImageElement, index: number) => {
-        this.renderer.setAttribute(img, 'src', 'assets/emptyStar.png');
-      });
-    }
-  }
-
-  setRating(event: MouseEvent, rating: number): number {
-    const star = event.target as HTMLImageElement;
-    const allStars: HTMLImageElement[] =
-      this.el.nativeElement.querySelectorAll('#stars-outer img');
-    const starSelected = this.stars.find(
-      (star) => star.element === (event.target as HTMLImageElement)
-    );
-    const isAnyStarFilled = this.stars.some((star) => star.isFilled === true);
-
-    if (
-      allStars &&
-      starSelected &&
-      !starSelected?.isFilled &&
-      !isAnyStarFilled
-    ) {
-      // Clic sur une étoile vide et aucune autre étoile remplie
-      Array.from(allStars).forEach((img: HTMLImageElement, index: number) => {
-        if (index <= Array.from(allStars).indexOf(star)) {
-          this.renderer.setAttribute(img, 'src', 'assets/filledStar.png');
-          // Les étoiles situées avant l'étoile survolée sont également remplies
-        }
-      });
-      starSelected.isFilled = true;
-      this.rating = rating;
-    } else if (allStars && starSelected?.isFilled) {
-      // Clic sur une étoile remplie
-      starSelected.isFilled = false;
-      Array.from(allStars).forEach((img: HTMLImageElement, index: number) => {
-        this.renderer.setAttribute(img, 'src', 'assets/emptyStar.png');
-      });
-      this.rating = 0;
-    } else if (
-      allStars &&
-      starSelected &&
-      !starSelected?.isFilled &&
-      isAnyStarFilled
-    ) {
-      const filledStar = this.stars.find((star) => star.isFilled === true);
-      if (filledStar) {
-        filledStar.isFilled = false;
-      }
-      starSelected.isFilled = true;
-      Array.from(allStars).forEach((img: HTMLImageElement, index: number) => {
-        if (index <= Array.from(allStars).indexOf(star)) {
-          this.renderer.setAttribute(img, 'src', 'assets/filledStar.png');
-          // Les étoiles situées avant l'étoile survolée sont également remplies
-        } else {
-          this.renderer.setAttribute(img, 'src', 'assets/emptyStar.png');
-        }
-      });
-      this.rating = rating;
-    }
-    // Clic sur une étoile vide et autre étoile remplie
-    return this.rating;
+  onRatingReceived(rating: number) {
+    console.log('Note reçue du composant enfant :', rating);
+    this.rating = rating;
   }
 
   @Output() opinionSubmitted = new EventEmitter<void>(); // Événement pour informer le parent
@@ -154,6 +66,7 @@ export class CardOrdersComponent implements OnInit {
       note: this.rating,
       description: this.opinionDescription,
     };
+    console.log(opinionData);
 
     this.subs.push(
       this.dataService.postOpinion(opinionData).subscribe((data: Opinion) => {

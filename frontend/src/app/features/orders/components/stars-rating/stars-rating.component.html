@@ -1,0 +1,53 @@
+<div class="rating">
+  <div>
+    <p class="m-0">Laisser un avis :</p>
+  </div>
+  <!-- Etoiles représentant la note du film -->
+  <div id="stars-outer">
+    <img
+      #starRef
+      src="assets/emptyStar.png"
+      alt="empty star"
+      id="star1"
+      (mouseenter)="fillStars($event)"
+      (mouseleave)="resetStars($event)"
+      (click)="setRating($event, 1)"
+    />
+    <img
+      #starRef
+      src="assets/emptyStar.png"
+      alt="empty star"
+      id="star2"
+      (mouseenter)="fillStars($event)"
+      (mouseleave)="resetStars($event)"
+      (click)="setRating($event, 2)"
+    />
+    <img
+      #starRef
+      src="assets/emptyStar.png"
+      alt="empty star"
+      id="star3"
+      (mouseenter)="fillStars($event)"
+      (mouseleave)="resetStars($event)"
+      (click)="setRating($event, 3)"
+    />
+    <img
+      #starRef
+      src="assets/emptyStar.png"
+      alt="empty star"
+      id="star4"
+      (mouseenter)="fillStars($event)"
+      (mouseleave)="resetStars($event)"
+      (click)="setRating($event, 4)"
+    />
+    <img
+      #starRef
+      src="assets/emptyStar.png"
+      alt="empty star"
+      id="star5"
+      (mouseenter)="fillStars($event)"
+      (mouseleave)="resetStars($event)"
+      (click)="setRating($event, 5)"
+    />
+  </div>
+</div>

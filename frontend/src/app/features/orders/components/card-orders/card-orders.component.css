@@ -46,29 +46,12 @@ p {
   justify-content: space-evenly;
 }
 
-.rating {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  margin-bottom: 5px;
-}
-
-.rating img {
-  width: 40px;
-  height: 40px;
-}
-
 #actors {
   font-size: small;
 }
 
 #title {
   text-align: center;
-}
-
-#stars-outer img {
-  cursor: pointer;
 }
 
 #opinion {
