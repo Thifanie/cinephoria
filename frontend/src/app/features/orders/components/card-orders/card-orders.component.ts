@@ -6,9 +6,7 @@ import {
   Input,
   OnInit,
   Output,
-  QueryList,
   Renderer2,
-  ViewChildren,
 } from '@angular/core';
 import { Order } from '../../../films/models/order';
 import { CinemaNamePipe } from '../../../../pipes/cinema-name.pipe';
@@ -17,10 +15,18 @@ import { Subscription } from 'rxjs';
 import { Opinion } from '../../../films/models/opinion';
 import { DataService } from '../../../../data.service';
 import { StarsRatingComponent } from '../stars-rating/stars-rating.component';
+import { QRCodeComponent } from 'angularx-qrcode';
 
 @Component({
   selector: 'app-card-orders',
-  imports: [NgFor, NgIf, CinemaNamePipe, FormsModule, StarsRatingComponent],
+  imports: [
+    NgFor,
+    NgIf,
+    CinemaNamePipe,
+    FormsModule,
+    StarsRatingComponent,
+    QRCodeComponent,
+  ],
   templateUrl: './card-orders.component.html',
   styleUrl: './card-orders.component.css',
 })

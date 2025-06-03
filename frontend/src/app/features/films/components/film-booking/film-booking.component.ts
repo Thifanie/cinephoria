@@ -88,6 +88,7 @@ export class FilmBookingComponent implements OnInit {
       new Date()
     );
     const totalNumberOfSeats = selectedSeatsString.split(', ').length;
+
     if (this.session[0].price) {
       const totalPrice = this.session[0].price * totalNumberOfSeats;
       this.orderData = {

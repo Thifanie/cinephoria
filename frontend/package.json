@@ -29,6 +29,7 @@
     "@angular/router": "^19.0.0",
     "@angular/ssr": "^19.0.0",
     "@babel/runtime": "^7.26.10",
+    "angularx-qrcode": "^19.0.0",
     "axios": "^1.8.2",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",

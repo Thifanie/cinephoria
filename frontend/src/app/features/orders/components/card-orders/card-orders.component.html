@@ -19,8 +19,9 @@
       </div>
     </div>
 
+    <!-- Détails de la réservation -->
     <div class="order-details">
-      <p style="margin-bottom: 5px">
+      <p>
         Réservation effectuée le {{ order.date }}<br />
         Pour la séance du
         {{ order.sessionDate }}<br />
@@ -30,6 +31,16 @@
         Place(s) réservée(s) : {{ order.placesNumber }} <br />
         Total payé : {{ order.price }} &euro;
       </p>
+
+      <!-- QR code -->
+      <qrcode
+        *ngIf="!order.viewed"
+        [qrdata]="`Séance pour ${order.title} au cinéma ${order.cinemaName} dans la salle ${order.roomName} le ${order.sessionDate} à ${order.startHour} - Places ${order.placesNumber}`"
+        [width]="128"
+        [errorCorrectionLevel]="'M'"
+      ></qrcode>
+
+      <!-- Etoiles pour noter -->
       <div class="rating" *ngIf="order.viewed && !order.opinionSent">
         <app-stars-rating
           (ratingSelected)="onRatingReceived($event)"
