@@ -5,7 +5,12 @@ nav {
 nav img {
   width: 40px;
   height: 40px;
-  margin: 5px;
+  margin: 0.4rem 1rem;
+  transition: transform 0.3s ease;
+}
+
+nav img:hover {
+  transform: scale(1.7); /* agrandissement à 110% */
 }
 
 a {
