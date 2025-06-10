@@ -1,8 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, input, OnDestroy, OnInit } from '@angular/core';
 import { Film } from '../../models/film';
 import { CardFilmsComponent } from '../card-films/card-films.component';
 import { Subscription } from 'rxjs';
 import { DataService } from '../../../../data.service';
+import { Type } from '../../models/type';
 
 @Component({
   selector: 'app-list-films',
@@ -13,6 +14,7 @@ import { DataService } from '../../../../data.service';
 export class ListFilmsComponent implements OnInit, OnDestroy {
   listFilms: Film[] = [];
   subs: Subscription[] = [];
+  selectedType = input<string>();
 
   constructor(private readonly dataService: DataService) {}
 
@@ -25,6 +27,7 @@ export class ListFilmsComponent implements OnInit, OnDestroy {
         console.log(this.listFilms);
       })
     );
+    console.log('selectedType de ListFilms : ', this.selectedType);
   }
 
   ngOnDestroy() {

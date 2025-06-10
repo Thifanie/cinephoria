@@ -1,0 +1,20 @@
+p {
+  color: #d4cdc9;
+  margin: 0;
+}
+
+select {
+  background-color: #d4cdc9;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-select {
+  width: fit-content;
+}

@@ -1,3 +1,11 @@
 <h1>Films</h1>
 
-<div class="container"><app-list-films></app-list-films></div>
+<button type="button" class="btn btn-sm" id="up" (click)="upScroll()">
+  <img src="assets/arrow-up.png" alt="arrow-up" height="30px" width="30px" />
+</button>
+
+<app-filter (selectedTypeEvent)="selectType($event)"></app-filter>
+
+<div class="container">
+  <app-list-films [selectedType]="selectedType"></app-list-films>
+</div>

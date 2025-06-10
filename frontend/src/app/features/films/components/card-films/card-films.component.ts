@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input, Input } from '@angular/core';
 import { Film } from '../../models/film';
 import { CommonModule, NgFor } from '@angular/common';
 import { Router } from '@angular/router';
@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class CardFilmsComponent {
   @Input() items: Film[] = [];
+  selectedType = input<string>();
 
   // Méthode pour calculer le pourcentage de la largeur des étoiles
   calculateRating(note: number): number {

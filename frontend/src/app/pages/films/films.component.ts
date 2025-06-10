@@ -3,15 +3,17 @@ import { ListFilmsComponent } from '../../features/films/components/list-films/l
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { FilterComponent } from '../../features/films/components/filter/filter.component';
 
 @Component({
   selector: 'app-films',
-  imports: [ListFilmsComponent, CommonModule],
+  imports: [ListFilmsComponent, CommonModule, FilterComponent],
   templateUrl: './films.component.html',
   styleUrl: './films.component.css',
 })
 export class FilmsComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
+  selectedType: string = '';
 
   constructor(private readonly route: ActivatedRoute) {}
 
@@ -31,6 +33,15 @@ export class FilmsComponent implements OnInit, OnDestroy {
         }
       })
     );
+  }
+
+  upScroll() {
+    window.scrollTo(0, 0);
+  }
+
+  selectType(type: string): void {
+    this.selectedType = type;
+    console.log('selectedType de Films : ', this.selectedType);
   }
 
   ngOnDestroy() {

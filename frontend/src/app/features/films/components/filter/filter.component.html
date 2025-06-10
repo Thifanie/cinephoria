@@ -1,0 +1,11 @@
+<div class="container">
+  <p>Filtrer par genre :</p>
+  <select class="form-select form-select-sm" (change)="selectType($event)">
+    <option selected value="">Tous</option>
+    @for (type of types; track type.id) {
+    <option value="{{ type.type }}">
+      {{ type.type }}
+    </option>
+    }
+  </select>
+</div>
